@@ -27,13 +27,11 @@
         select count(*) from db_connect_config
         where status = 1
         and db_type = #{dbType:VARCHAR}
-        and nick_name = #{nickName:VARCHAR}
         and db_ip = #{dbIp:VARCHAR}
         and db_port = #{dbPort:INTEGER}
         and default_connect_db = #{defaultConnectDb:VARCHAR}
         and driver_class_name = #{driverClassName:VARCHAR}
         and db_user = #{dbUser:VARCHAR}
---         and db_pwd = #{dbPwd:VARCHAR}
     </select>
 
     <insert id="saveconnect" parameterType="com.kimmy.learn.web.entity.db.DbConnectConfig">

@@ -36,7 +36,7 @@ public class DbConnectController {
 
         DynamicDbRunner runner = null;
         try {
-            runner = dynamicDbManager.getRunner(1, DbType.mysql, request.getDriverClassName(), "jdbc:mysql://" + request.getDbIp() + ":" + request.getDbPort() + "/test", request.getDbUser(), request.getDbPwd());
+            runner = dynamicDbManager.getRunner(1, DbType.mysql, request.getDriverClassName(), "jdbc:mysql://" + request.getDbIp() + ":" + request.getDbPort() + "/" + request.getDefaultConnectDb(), request.getDbUser(), request.getDbPwd());
             String sql = "select 1 from dual";
             Integer test = runner.queryOne(sql, Integer.class);
             if (test == 1)
