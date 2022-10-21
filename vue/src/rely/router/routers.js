@@ -19,6 +19,14 @@ const routes = [{
         component: () => import('@/components/menu/index')
     }]
 }, {
+    name: '表生成结构',
+    path: '/tabletojava',
+    children: [{
+        name: '菜单配置',
+        path: 'tabletojavaIndex',
+        component: () => import('@/components/tabletojava/index')
+    }]
+}, {
     name: '404',
     path: '/',
     component: () => import('@/components/db/index')
