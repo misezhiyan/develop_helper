@@ -1,14 +1,14 @@
 <template>
-  <el-sub-menu index="subMenuDetail.id" :key="subMenuDetail.id">
+  <el-sub-menu :key="subMenuDetail.id" :index="subMenuDetail.path">
     <template #title>
-        <span :key="subMenuDetail.id" :index="subMenuDetail.path">
-            {{ subMenuDetail.menuName }}{{ subMenuDetail.children.length }}
+        <span >
+            {{ subMenuDetail.menuName }}
         </span>
     </template>
-    <template v-for="menuDetail in subMenuDetail.children" :key="menuDetail.id">
-      <el-menu-item :index="menuDetail.path">
+    <template v-for="menuDetail in subMenuDetail.children" :key="menuDetail.id"  >
+      <el-menu-item  :index="menuDetail.path">
         <span>
-             {{ menuDetail.menuName }}
+             {{ menuDetail.menuName }}{{ menuDetail.id }}
         </span>
       </el-menu-item>
       <sub-menu v-if="menuDetail.children.length > 0" :subMenuDetail="menuDetail"/>
