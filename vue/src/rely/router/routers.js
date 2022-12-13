@@ -21,6 +21,14 @@ const routes = [{
         component: () => import('@/components/menu/index')
     }]
 }, {
+    name: '模板',
+    path: '/template',
+    children: [{
+        name: '模板配置',
+        path: 'index',
+        component: () => import('@/components/template/index')
+    }]
+}, {
     name: '数据库',
     path: '/db',
     children: [{

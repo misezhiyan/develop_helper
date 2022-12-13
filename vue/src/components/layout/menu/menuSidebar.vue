@@ -37,8 +37,6 @@ export default {
     getMenuList: function () {
       getMenuList().then(res => {
         if (res.resCode == '0000') {
-          console.log(JSON.stringify(res.menuList))
-          console.log(res.menuList.length)
           this.menuList = res.menuList
           // this.menuName = this.menuList[0].menuName
         }

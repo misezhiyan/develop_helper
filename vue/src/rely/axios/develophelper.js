@@ -42,3 +42,44 @@ export function delMenu(data = {}) {
     })
 }
 
+export function templateList(data = {}) {
+    return develophelperApi({
+        url: "/template/templateList",
+        data: data
+    })
+}
+
+export function addTemplate(data = {}) {
+    return develophelperApi({
+        url: "/template/add",
+        data: data
+    })
+}
+
+export function udpTemplate(data = {}) {
+    return develophelperApi({
+        url: "/template/update",
+        data: data
+    })
+}
+
+export function templateFieldsList(data = {}) {
+    return develophelperApi({
+        url: "/template/templateFieldsList",
+        data: data
+    })
+}
+
+export function templateFieldAdd(data = {}) {
+    return develophelperApi({
+        url: "/template/templateFieldAdd",
+        data: data
+    })
+}
+
+export function showTemplateResult(data = {}) {
+    return develophelperApi({
+        url: "/template/showTemplateResult",
+        data: data
+    })
+}
