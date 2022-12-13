@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.TemplateFieldMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.TemplateField">
+        <id column="id" property="templateId" jdbcType="INTEGER"/>
+        <id column="template_id" property="templateId" jdbcType="INTEGER"/>
+        <result column="field_name" property="fieldName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id, template_id, field_name
+    </sql>
+    <select id="templateFieldList" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumns"/>
+        from template_field
+        where template_id = #{templateId}
+    </select>
+
+    <insert id="add" >
+        INSERT INTO datadeal.template_field (id, template_id, field_name)
+        VALUES(#{id}, #{templateId}, #{fieldName:VARCHAR})
+    </insert>
+
+</mapper>

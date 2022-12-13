@@ -10,6 +10,7 @@
     <modules>
         <module>web</module>
         <module>helper</module>
+        <module>Template</module>
     </modules>
     <name>develop_helper</name>
     <description>开发者辅助工具</description>

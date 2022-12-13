@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.DbMapper">
+
+    <resultMap id="dbFieldResultMap" type="com.kimmy.learn.web.entity.domains.db.ColumnPack">
+        <result column="column_name" property="columnName" jdbcType="VARCHAR"/>
+        <result column="data_type" property="dataType" jdbcType="VARCHAR"/>
+        <result column="column_type" property="columnType" jdbcType="VARCHAR"/>
+        <result column="column_key" property="columnKey" jdbcType="VARCHAR"/>
+        <result column="extra" property="extra" jdbcType="VARCHAR"/>
+        <result column="column_comment" property="columnComment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="columnList" resultMap="dbFieldResultMap">
+        SELECT
+            column_name,
+            data_type,
+            column_type,
+            column_key,
+            extra,
+            column_comment
+        FROM
+            information_schema. COLUMNS
+        WHERE
+            table_name = #{tableName}
+        ORDER BY
+            ordinal_position
+    </select>
+
+    <resultMap id="tableDetailResultMap" type="com.kimmy.learn.web.entity.domains.db.TablePack">
+        <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR"/>
+        <result column="TABLE_COMMENT" property="tableComment" jdbcType="VARCHAR"/>
+        <collection column="TABLE_NAME" property="columnList" select="columnList"/>
+    </resultMap>
+    <select id="tableDetail" resultMap="tableDetailResultMap">
+        SELECT
+            `TABLE_NAME`,
+            TABLE_COMMENT
+        FROM
+            information_schema.TABLES t
+        WHERE
+            table_name = #{tableName}
+    </select>
+
+</mapper>

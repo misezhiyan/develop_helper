@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.TemplateMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.Template">
+        <id column="template_id" property="templateId" jdbcType="INTEGER"/>
+        <result column="template_name" property="templateName" jdbcType="VARCHAR"/>
+        <result column="template_content" property="templateContent" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        template_id, template_name, template_content, create_time
+    </sql>
+    <select id="templateList" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumns"/>
+        from template
+--         where status = 1
+--         order by sort
+    </select>
+
+    <insert id="add">
+        insert into template(template_name, template_content, create_time)
+        values (#{templateName:VARCHAR},#{templateContent},NOW())
+    </insert>
+
+    <update id="update">
+        update template
+        set template_name = #{templateName:VARCHAR}, template_content = #{templateContent}
+        where template_id = #{templateId}
+    </update>
+
+    <select id="detail" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumns"/>
+        from template
+        where template_id = #{templateId}
+    </select>
+
+</mapper>

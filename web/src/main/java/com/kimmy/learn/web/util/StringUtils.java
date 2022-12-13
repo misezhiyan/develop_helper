@@ -25,4 +25,9 @@ public class StringUtils extends org.springframework.util.StringUtils {
         return str;
     }
 
+    public static String toClassName(String _name) {
+        String className = toHumpCase(_name);
+        className = className.substring(0, 1).toUpperCase() + className.substring(1);
+        return className;
+    }
 }

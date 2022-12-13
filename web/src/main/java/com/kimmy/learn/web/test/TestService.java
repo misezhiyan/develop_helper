@@ -6,9 +6,18 @@ import com.kimmy.learn.web.controller.domain.response.ConnectResponse;
 import com.kimmy.learn.web.db.connect.DynamicDbManager;
 import com.kimmy.learn.web.db.connect.DynamicDbRunner;
 import com.kimmy.learn.web.entity.db.Test;
+import com.kimmy.learn.web.entity.domains.db.Column;
+import com.kimmy.learn.web.entity.domains.db.Table;
+import com.kimmy.learn.web.entity.domains.db.TablePack;
+import com.kimmy.learn.web.entity.domains.template.TemplateParams;
+import com.kimmy.learn.web.mapper.DbMapper;
+import com.kimmy.learn.web.template.TemplateMatcher;
+import com.kimmy.learn.web.template.freemarker.FreeMarkerMatcher;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,6 +25,8 @@ public class TestService {
 
     @Autowired
     DynamicDbManager dynamicDbManager;
+    @Autowired
+    DbMapper dbMapper;
 
     public ConnectResponse testDbConnect() {
 
@@ -57,5 +68,22 @@ public class TestService {
         System.out.println(JSON.toJSONString(list));
 
         return response;
+    }
+
+    public void testFreemarker() throws IOException, TemplateException {
+
+        TemplateMatcher templateMatcher = new FreeMarkerMatcher();
+
+        String tempname = "test";
+        String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" + "<!DOCTYPE mapper\n" + "        PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\n" + "        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n" + "<mapper namespace=\"${table.className}Mapper\">\n" + "\n" + "    <resultMap id=\"BaseResultMap\" type=\"${table.className}\">\n" + "\t\t<#list table.columnList as column>\n" + "\t\t\t<#if column.primary>\n" + "        <id column=\"${column.columnName}\" property=\"${column.className}\" jdbcType=\"${column.jdbcType}\"/>\n" + "\t\t\t<#else>\n" + "        <result column=\"${column.columnName}\" property=\"${column.className}\" jdbcType=\"${column.jdbcType}\"/>\n" + "\t\t\t</#if>\n" + "\t\t</#list>\n" + "    </resultMap>\n" + "\n" + "    <sql id=\"BaseColumns\">\n" + "\t\t<#list table.columnList as column>\n" + "        ${column.columnName}<#if column_has_next>,</#if>\n" + "\t\t</#list>\n" + "    </sql>\n" + "\n" + "</mapper>";
+        TemplateParams params = new TemplateParams();
+
+        TablePack table = dbMapper.tableDetail("template");
+        params.asParam("table", table);
+        System.out.println(JSON.toJSONString(params));
+
+        String result = templateMatcher.matchStrToStr(tempname, content, params);
+
+        System.out.println(result);
     }
 }

@@ -1,0 +1,18 @@
+package ${bean.package};
+
+import ${bean.name};
+import ${mapperImport};
+
+@Mapper
+public interface ${bean.name}Mapper {
+
+    /**
+     * @created
+     */
+   ${bean.name} selectByPrimarykey(${primarykey.type} ${primarykey.instancename});
+
+    /**
+     * @created
+     */
+    int updateByPrimarykey(${bean.name} ${bean.instancename});
+}
