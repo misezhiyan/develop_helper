@@ -53,7 +53,6 @@ export default {
       });
     },
     showDetail: function (detail) {
-      console.log(detail)
       alert(detail.dbPort)
     },
     testConnect: function (data) {
@@ -68,7 +67,6 @@ export default {
         }
       }).catch(error => {
         this.$message.error("请求异常");
-        console.log(error)
       })
     }
   }

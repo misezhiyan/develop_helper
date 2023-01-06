@@ -44,4 +44,24 @@
             table_name = #{tableName}
     </select>
 
+    <resultMap id="tableResultMap" type="com.kimmy.learn.web.entity.domains.db.Table">
+        <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR"/>
+        <result column="TABLE_COMMENT" property="tableComment" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="tableList" resultMap="tableResultMap">
+        SELECT
+            `TABLE_NAME`,
+            TABLE_COMMENT
+        FROM
+            information_schema.TABLES t
+        WHERE
+                TABLE_SCHEMA = (
+                SELECT
+                    default_connect_db
+                FROM
+                    datadeal.db_connect_config dcc
+                WHERE
+                    id = #{tableConnectId} )
+    </select>
+
 </mapper>

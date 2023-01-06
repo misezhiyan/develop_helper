@@ -9,22 +9,8 @@ public class ColumnPack extends Column {
 
     private Boolean isPrimary;
     private String jdbcType;
+    private String classType;
     private String className;
-
-    public void setColumnType(String columnType) {
-        this.columnType = columnType;
-        this.setPrimary("PRI".equals(columnType));
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
-        FieldType fieldType = FieldType.matchType(dataType);
-        if (null != fieldType) {
-            this.setJdbcType(fieldType.getJdbcTypeUpper());
-        } else {
-            this.setJdbcType(null);
-        }
-    }
 
     public Boolean getPrimary() {
         return isPrimary;
@@ -34,13 +20,20 @@ public class ColumnPack extends Column {
         isPrimary = primary;
     }
 
+    public String getJdbcType() {
+        return jdbcType;
+    }
+
     public void setJdbcType(String jdbcType) {
         this.jdbcType = jdbcType;
     }
 
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
-        this.className = StringUtils.toHumpCase(columnName);
+    public String getClassType() {
+        return classType;
+    }
+
+    public void setClassType(String classType) {
+        this.classType = classType;
     }
 
     public String getClassName() {
@@ -51,7 +44,18 @@ public class ColumnPack extends Column {
         this.className = className;
     }
 
-    public String getJdbcType() {
-        return jdbcType;
+    public void initForTemplateCreate() {
+        this.setPrimary("PRI".equals(columnKey));
+
+        FieldType fieldType = FieldType.matchType(dataType);
+        if (null != fieldType) {
+            this.setJdbcType(fieldType.getJdbcTypeUpper());
+            this.setClassType(fieldType.getJavaType().getTypeName());
+        } else {
+            this.setJdbcType(null);
+            this.setClassType(null);
+        }
+
+        this.className = StringUtils.toHumpCase(columnName);
     }
 }

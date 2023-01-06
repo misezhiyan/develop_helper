@@ -65,7 +65,6 @@ export default {
         }
       }).catch(error => {
         this.$message.error("请求异常");
-        console.log(error)
         this.useTag = '不可用'
         this.useTagType = 'danger'
       })

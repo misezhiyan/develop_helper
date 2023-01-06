@@ -7,19 +7,22 @@ import java.util.Date;
 
 public enum FieldType {
 
-    MYSQL_VARCHAR(DBType.MYSQL, "VARCHAR", String.class),
-    MYSQL_INT(DBType.MYSQL, "INT", Integer.class),
-    MYSQL_DATETIME(DBType.MYSQL, "DATETIME",Date.class),
-    MYSQL_LONGTEXT(DBType.MYSQL, "LONGTEXT", String.class),
+    MYSQL_VARCHAR(DBType.MYSQL, "VARCHAR","VARCHAR", String.class),
+    MYSQL_INT(DBType.MYSQL, "INT","INTEGER",  Integer.class),
+    MYSQL_TINYINT(DBType.MYSQL, "TINYINT","INTEGER",  Integer.class),
+    MYSQL_DATETIME(DBType.MYSQL, "DATETIME","TIMESTAMP", Date.class),
+    MYSQL_LONGTEXT(DBType.MYSQL, "LONGTEXT", "VARCHAR", String.class),
     ;
 
     private DBType dbType;
+    private String dbFiledTypeUpper;
     private String jdbcTypeUpper;
     private Class javaType;
 
-    FieldType(DBType dbType, String typeUpper, Class javaType) {
+    FieldType(DBType dbType, String dbFiledTypeUpper, String jdbcTypeUpper, Class javaType) {
         this.dbType = dbType;
-        this.jdbcTypeUpper = typeUpper;
+        this.dbFiledTypeUpper = dbFiledTypeUpper;
+        this.jdbcTypeUpper = jdbcTypeUpper;
         this.javaType = javaType;
     }
 
@@ -27,9 +30,13 @@ public enum FieldType {
         return jdbcTypeUpper;
     }
 
+    public Class getJavaType() {
+        return javaType;
+    }
+
     public static FieldType matchType(String fieldType) {
         if(StringUtils.isEmpty(fieldType))
             return null;
-        return Arrays.stream(FieldType.values()).filter(type -> type.jdbcTypeUpper.equals(fieldType.toUpperCase())).findAny().get();
+        return Arrays.stream(FieldType.values()).filter(type -> type.dbFiledTypeUpper.equals(fieldType.toUpperCase())).findAny().orElse(null);
     }
 }

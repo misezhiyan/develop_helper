@@ -1,5 +1,6 @@
 package com.kimmy.learn.web.template.freemarker;
 
+import com.alibaba.fastjson.JSON;
 import com.kimmy.learn.web.entity.domains.template.TemplateParams;
 import com.kimmy.learn.web.template.TemplateMatcher;
 import freemarker.cache.StringTemplateLoader;
@@ -20,6 +21,10 @@ public class FreeMarkerMatcher implements TemplateMatcher {
         // Configuration configuration = new Configuration();
         // configuration.setNumberFormat("#");
         // configuration.setTemplateLoader(stringLoader);
+
+        System.out.println(content);
+        System.out.println(JSON.toJSONString(dataMap));
+
 
         StringWriter stringWriter = new StringWriter();
         Template template = new Template(tempname, new StringReader(content));

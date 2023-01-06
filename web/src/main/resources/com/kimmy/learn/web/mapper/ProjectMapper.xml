@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.ProjectMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.Project">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+        <result column="base_url" property="baseUrl" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id,
+        project_name,
+        base_url,
+        create_time,
+        create_user
+    </sql>
+
+    <select id="list" resultMap="BaseResultMap">
+        select <include refid="BaseColumns"/>
+        from project
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select <include refid="BaseColumns"/>
+        from project
+        where id = #{id}
+    </select>
+
+    <insert id="insert">
+        insert into project(project_name, base_url, create_time, create_user)
+        values(#{projectName}, #{baseUrl:VARCHAR}, now(), #{createUser:VARCHAR})
+    </insert>
+
+    <update id="update">
+        update project
+        set project_name = #{projectName},
+                base_url = #{baseUrl:VARCHAR}
+        where id = #{id}
+    </update>
+
+    <resultMap id="DetailResultMap" extends="BaseResultMap" type="com.kimmy.learn.web.entity.domains.project.ProjectDetail">
+        <collection column="id" property="dbList" select="com.kimmy.learn.web.mapper.DbConnectConfigMapper.dbListByProjId"/>
+    </resultMap>
+    <select id="detailList" resultMap="DetailResultMap">
+        select <include refid="BaseColumns"/>
+        from project
+    </select>
+
+    <delete id="del">
+        delete from project
+        where id = #{id}
+    </delete>
+
+</mapper>

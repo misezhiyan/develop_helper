@@ -8,7 +8,7 @@
     <template v-for="menuDetail in subMenuDetail.children" :key="menuDetail.id"  >
       <el-menu-item  :index="menuDetail.path">
         <span>
-             {{ menuDetail.menuName }}{{ menuDetail.id }}
+             {{ menuDetail.menuName }}
         </span>
       </el-menu-item>
       <sub-menu v-if="menuDetail.children.length > 0" :subMenuDetail="menuDetail"/>

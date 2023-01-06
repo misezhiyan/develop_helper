@@ -35,7 +35,7 @@
     </select>
 
     <insert id="saveconnect" parameterType="com.kimmy.learn.web.entity.db.DbConnectConfig">
-        INSERT INTO datadeal.db_connect_config (db_type, nick_name, db_ip, db_port, default_connect_db, driver_class_name, db_user, db_pwd)
+        INSERT INTO db_connect_config (db_type, nick_name, db_ip, db_port, default_connect_db, driver_class_name, db_user, db_pwd)
         VALUES(#{dbType:VARCHAR}, #{nickName:VARCHAR}, #{dbIp:VARCHAR}, #{dbPort:INTEGER}, #{defaultConnectDb:VARCHAR}, #{driverClassName:VARCHAR}, #{dbUser:VARCHAR}, #{dbPwd:VARCHAR})
     </insert>
 
@@ -43,6 +43,23 @@
         select <include refid="BaseColumns"/>
         from db_connect_config
         where status = 1
+    </select>
+
+    <select id="dbListByProjId" resultMap="BaseResultMap">
+        select <include refid="BaseColumns"/>
+        from db_connect_config
+        where status = 1
+        and id in(
+            select db_id from proj_db_mapping
+            where proj_id = #{projId}
+        )
+    </select>
+
+    <select id="getDbConfig" resultMap="BaseResultMap">
+        select <include refid="BaseColumns"/>
+        from db_connect_config
+        where status = 1
+        and id = #{id}
     </select>
 
 </mapper>

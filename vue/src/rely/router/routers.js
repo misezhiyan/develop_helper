@@ -11,6 +11,14 @@ const routes = [{
         name: '项目配置',
         path: 'index',
         component: () => import('@/components/project/index')
+    },{
+        name: '数据库代码生成',
+        path: 'dbcreate',
+        component: () => import('@/components/project/create/dbcreate')
+    },{
+        name: '数据库代码生成策略',
+        path: 'dbcreatestrategy',
+        component: () => import('@/components/project/create/dbcreatestrategy')
     }]
 }, {
     name: '菜单',

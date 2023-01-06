@@ -61,6 +61,7 @@ public class DynamicDbRunner {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(sql);
+            System.out.println(preparedStatement.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             int num = 0;
@@ -70,27 +71,25 @@ public class DynamicDbRunner {
                     num++;
                     ResultSetMetaData metaData = resultSet.getMetaData();
                     for (int i = 1; i <= metaData.getColumnCount(); i++) {
-
-                        String columnName = metaData.getColumnName(i);
-
-                        System.out.println(columnName);
-
+                        // String columnName = metaData.getColumnName(i);
+                        String columnLabel = metaData.getColumnLabel(i);
                         int columnType = metaData.getColumnType(i);
-
                         DbColumMatch columMatch = new DbColumMatch();
-                        columMatch.setColumnName(columnName);
+                        // columMatch.setColumnName(columnName);
+                        columMatch.setColumnName(columnLabel);
                         columMatch.setColumnType(columnType);
-                        Method setMethod = t.getDeclaredMethod(columMatch.getSetMethodName(), columMatch.getJavaType());
+                        Method setMethod = t.getMethod(columMatch.getSetMethodName(), columMatch.getJavaType());
                         if (null == setMethod)
                             continue;
-
                         columMatch.setSetMethod(setMethod);
                         matchList.add(columMatch);
-
                         columMatch.matchRow(resultSet, result);
                     }
                 } else {
-
+                    for (int i = 0; i < matchList.size(); i++) {
+                        DbColumMatch dbColumMatch = matchList.get(i);
+                        dbColumMatch.matchRow(resultSet, result);
+                    }
                 }
 
                 resultList.add(result);
@@ -113,6 +112,7 @@ public class DynamicDbRunner {
 
         try {
             preparedStatement = connection.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            System.out.println(preparedStatement.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.last();
@@ -128,14 +128,15 @@ public class DynamicDbRunner {
 
             T result = (T) t.newInstance();
             resultSet.beforeFirst();
+            resultSet.next();
             ResultSetMetaData metaData = resultSet.getMetaData();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String columnName = metaData.getColumnName(i);
+                String columnLabel = metaData.getColumnLabel(i);
                 int columnType = metaData.getColumnType(i);
                 DbColumMatch columMatch = new DbColumMatch();
-                columMatch.setColumnName(columnName);
+                columMatch.setColumnName(columnLabel);
                 columMatch.setColumnType(columnType);
-                Method setMethod = t.getDeclaredMethod(columMatch.getSetMethodName(), columMatch.getJavaType());
+                Method setMethod = t.getMethod(columMatch.getSetMethodName(), columMatch.getJavaType());
                 if (null == setMethod)
                     continue;
                 columMatch.setSetMethod(setMethod);

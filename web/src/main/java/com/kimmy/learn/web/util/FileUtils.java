@@ -4,6 +4,8 @@ import java.io.*;
 
 public class FileUtils {
 
+    public static final String POINT = ".";
+
     public static void main(String[] args) throws IOException {
         String filePath = "D:\\workspaces\\workspace_spring\\develop_helper\\Template\\src\\main\\resources\\mapperXml.template";
         String fileContent = readFileAsString(filePath);
@@ -15,7 +17,7 @@ public class FileUtils {
         byte[] bytes = new byte[inputStream.available()];
         inputStream.read(bytes);
 
-        String result = new String (bytes);
+        String result = new String(bytes);
         System.out.println(result);
         return result;
     }
@@ -46,5 +48,9 @@ public class FileUtils {
         fileWriter.append(content);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public static boolean isJavaFile(String fileSuffix) {
+        return "JAVA".equals(fileSuffix.toUpperCase());
     }
 }

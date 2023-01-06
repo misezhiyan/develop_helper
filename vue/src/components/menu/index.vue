@@ -112,7 +112,6 @@ export default {
         }
       }).catch(err => {
         alert("error");
-        console.log(err)
       })
     },
     cancelMenu: function () {

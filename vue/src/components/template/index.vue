@@ -3,8 +3,8 @@
   <el-button @click="createTemplate">创建模板</el-button>
   <el-table :data="templateList">
     <!--    <el-table-column prop="templateId" label="ID" width="60"/>-->
-    <el-table-column prop="templateName" label="templateName" width="180"/>
-    <el-table-column prop="templateContent" label="templateContent"/>
+    <el-table-column prop="templateName" label="模板名称" width="180"/>
+    <el-table-column prop="templateContent" label="模板内容"/>
     <el-table-column prop="createTime" label="createTime" width="300"/>
     <el-table-column label="操作" width="300">
       <template #default="scope">
@@ -167,7 +167,6 @@ export default {
     },
     showTemplateResult: function () {
       showTemplateResult({templateId: this.templateTestId, fieldList: this.templateFieldsList}).then(response => {
-        console.log(response)
         if (response.resCode == '0000') {
           this.templateMatchResultDialogModel = true;
           this.templateMatchResult = response.result
@@ -178,7 +177,6 @@ export default {
       })
     },
     delTemplateField: function (row) {
-      console.log(row)
     },
     closeTemplateTestDialog: function () {
       this.templateTestId = undefined

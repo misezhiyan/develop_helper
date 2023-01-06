@@ -3,6 +3,8 @@ package com.kimmy.learn.web.db.connect;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
+import com.kimmy.learn.web.entity.db.DbConnectConfig;
+import com.kimmy.learn.web.enums.DbTypeEnums;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -37,4 +39,7 @@ public class DynamicDbManager {
         return dynamicDbRunner;
     }
 
+    public DynamicDbRunner getRunner(DbConnectConfig dbConfig) {
+        return getRunner(dbConfig.getId(), DbTypeEnums.matchDbType(dbConfig.getDbType()), dbConfig.getDriverClassName(), "jdbc:mysql://" + dbConfig.getDbIp() + ":" + dbConfig.getDbPort() + "/" + dbConfig.getDefaultConnectDb(), dbConfig.getDbUser(), dbConfig.getDbPwd());
+    }
 }

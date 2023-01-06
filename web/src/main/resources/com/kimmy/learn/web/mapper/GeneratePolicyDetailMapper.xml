@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.GeneratePolicyDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.GeneratePolicyDetail">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="policy_id" property="policyId" jdbcType="INTEGER"/>
+        <result column="generate_name" property="generateName" jdbcType="VARCHAR"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+        <result column="generate_src_path" property="generateSrcPath" jdbcType="VARCHAR"/>
+        <result column="generate_relative_path" property="generateRelativePath" jdbcType="VARCHAR"/>
+        <result column="generate_filesuffix" property="generateFilesuffix" jdbcType="VARCHAR"/>
+        <result column="import_rule" property="importRule" jdbcType="VARCHAR"/>
+        <result column="template_id" property="templateId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id, policy_id, generate_name, nick_name, generate_src_path, generate_relative_path, generate_filesuffix, import_rule, template_id, create_time
+    </sql>
+
+    <resultMap id="DetailResultMap" type="com.kimmy.learn.web.entity.domains.template.GeneratePolicyDetailExtend" extends="BaseResultMap">
+            <result column="template_id" property="templateName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="listByPolicyId" resultMap="DetailResultMap">
+        select <include refid="BaseColumns"/>
+        from generate_policy_detail
+        where policy_id = #{policyId}
+    </select>
+
+    <insert id="add">
+        insert into generate_policy_detail(policy_id, generate_name, nick_name, generate_src_path, generate_relative_path, generate_filesuffix, import_rule, template_id, create_time)
+        values(#{policyId}, #{generateName}, #{nickName}, #{generateSrcPath}, #{generateRelativePath}, #{generateFilesuffix}, #{importRule}, #{templateId}, now())
+    </insert>
+
+    <delete id="del">
+        delete from generate_policy_detail
+        where policy_id = #{policyId}
+        and id = #{id}
+    </delete>
+
+    <update id="upd">
+        update generate_policy_detail
+        set generate_name = #{generateName},
+            nick_name = #{nickName},
+            generate_src_path = #{generateSrcPath},
+            generate_relative_path = #{generateRelativePath},
+            generate_filesuffix = #{generateFilesuffix},
+            import_rule = #{importRule},
+            template_id = #{templateId}
+        where id = #{id}
+          and policy_id = #{policyId}
+    </update>
+
+</mapper>

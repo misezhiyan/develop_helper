@@ -21,6 +21,13 @@ export function getDbList(data = {}) {
     })
 }
 
+export function getTableList(data = {}) {
+    return develophelperApi({
+        url: "/dbconnect/getTableList",
+        data: data
+    })
+}
+
 export function getMenuList(data = {}) {
     return develophelperApi({
         url: "/menu/getMenuList",
@@ -80,6 +87,90 @@ export function templateFieldAdd(data = {}) {
 export function showTemplateResult(data = {}) {
     return develophelperApi({
         url: "/template/showTemplateResult",
+        data: data
+    })
+}
+
+export function addProject(data = {}) {
+    return develophelperApi({
+        url: "/project/add",
+        data: data
+    })
+}
+
+export function updateProject(data = {}) {
+    return develophelperApi({
+        url: "/project/update",
+        data: data
+    })
+}
+
+export function delProject(data = {}) {
+    return develophelperApi({
+        url: "/project/del",
+        data: data
+    })
+}
+
+export function projectList(data = {}) {
+    return develophelperApi({
+        url: "/project/list",
+        data: data
+    })
+}
+
+export function generatePolicyList(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/list",
+        data: data
+    })
+}
+
+export function addGeneratePolicy(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/add",
+        data: data
+    })
+}
+
+export function delGeneratePolicy(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/del",
+        data: data
+    })
+}
+
+export function generatePolicyDetailList(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/detailList",
+        data: data
+    })
+}
+
+export function addGeneratePolicyDetail(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/addDetail",
+        data: data
+    })
+}
+
+export function delGeneratePolicyDetail(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/delDetail",
+        data: data
+    })
+}
+
+export function updGeneratePolicyDetail(data = {}) {
+    return develophelperApi({
+        url: "/generatePolicy/updDetail",
+        data: data
+    })
+}
+
+export function generateFiles(data = {}) {
+    return develophelperApi({
+        url: "/project/generateFiles",
         data: data
     })
 }

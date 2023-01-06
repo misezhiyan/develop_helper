@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.ProjDbMappingMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.ProjDbMapping">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="proj_id" property="projId" jdbcType="INTEGER"/>
+        <result column="db_id" property="dbId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id,
+        proj_id,
+        db_id,
+        create_time
+    </sql>
+
+    <insert id="insertBatch" parameterType="com.kimmy.learn.web.entity.db.ProjDbMapping">
+        insert into proj_db_mapping(proj_id, db_id, create_time)
+        values
+            <foreach collection="list" item="map" separator=",">
+               (#{map.projId}, #{map.dbId}, now())
+            </foreach>
+    </insert>
+
+    <delete id="delByProj">
+        delete from proj_db_mapping
+        where proj_id = #{projId}
+    </delete>
+
+</mapper>

@@ -3,8 +3,10 @@ package com.kimmy.learn.web.controller;
 import com.alibaba.druid.DbType;
 import com.kimmy.learn.web.controller.domain.request.ConnectRequest;
 import com.kimmy.learn.web.controller.domain.request.DbListRequest;
+import com.kimmy.learn.web.controller.domain.request.TableListRequest;
 import com.kimmy.learn.web.controller.domain.response.ConnectResponse;
 import com.kimmy.learn.web.controller.domain.response.DbListResponse;
+import com.kimmy.learn.web.controller.domain.response.TableListResponse;
 import com.kimmy.learn.web.db.connect.DynamicDbManager;
 import com.kimmy.learn.web.db.connect.DynamicDbRunner;
 import com.kimmy.learn.web.entity.db.DbConnectConfig;
@@ -76,5 +78,9 @@ public class DbConnectController {
         return dbConnectService.getDbList(request);
     }
 
+    @RequestMapping("/getTableList")
+    public TableListResponse getTableList(@RequestBody TableListRequest request) {
+        return dbConnectService.getTableList(request);
+    }
 
 }

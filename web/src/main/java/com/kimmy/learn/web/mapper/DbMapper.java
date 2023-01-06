@@ -14,4 +14,5 @@ public interface DbMapper {
 
     List<Column> columnList(String tableName);
 
+    List<Table> tableList(Integer tableConnectId);
 }
