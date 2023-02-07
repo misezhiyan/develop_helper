@@ -17,4 +17,8 @@ public interface ProjectService {
     GenerateFilesResponse generateFiles(GenerateFilesRequest request);
 
     void generateProjTemplate(Integer projectId, GenerateFiles generateFiles);
+
+    ProjectModuleAddResponse addModule(ProjectModuleAddRequest request);
+
+    ProjectDetailListResponse projModulesList(ProjModulesListRequest request);
 }

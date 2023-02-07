@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.ProjectModuleMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.ProjectModule">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_code" property="projectCode" jdbcType="VARCHAR"/>
+        <result column="module_name" property="moduleName" jdbcType="VARCHAR"/>
+        <result column="module_code" property="moduleCode" jdbcType="VARCHAR"/>
+        <result column="module_path" property="modulePath" jdbcType="VARCHAR"/>
+        <result column="java_package" property="javaPackage" jdbcType="VARCHAR"/>
+        <result column="resource_package" property="resourcePackage" jdbcType="VARCHAR"/>
+        <result column="front_package" property="frontPackage" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id,
+        project_code,
+        module_name,
+        module_code,
+        module_path,
+        java_package,
+        resource_package,
+        front_package,
+        create_time
+    </sql>
+
+    <insert id="add">
+        insert into project_module(project_code, module_name, module_code, module_path, java_package, resource_package, front_package)
+        values (#{projectCode}, #{moduleName}, #{moduleCode}, #{modulePath:VARCHAR}, #{javaPackage:VARCHAR}, #{resourcePackage:VARCHAR}, #{frontPackage:VARCHAR})
+    </insert>
+
+    <select id="moduleListByProjectCode" resultMap="BaseResultMap">
+        select <include refid="BaseColumns"/>
+        from project_module
+        where project_code = #{projectCode}
+    </select>
+
+    <select id="maxProjCode" resultType="java.lang.String">
+        select max(module_code)
+        from project_module
+    </select>
+
+</mapper>

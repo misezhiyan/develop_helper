@@ -6,6 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.Project">
         <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_code" property="projectCode" jdbcType="VARCHAR"/>
         <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
         <result column="base_url" property="baseUrl" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -14,16 +15,48 @@
 
     <sql id="BaseColumns">
         id,
+        project_code,
         project_name,
         base_url,
         create_time,
         create_user
     </sql>
 
+    <select id="maxProjectCode" resultType="java.lang.String">
+        select max(project_code) from project
+    </select>
+
+    <insert id="insert">
+        insert into project(project_code, project_name, base_url, create_time, create_user)
+        values(#{projectCode}, #{projectName}, #{baseUrl:VARCHAR}, now(), #{createUser:VARCHAR})
+    </insert>
+
     <select id="list" resultMap="BaseResultMap">
         select <include refid="BaseColumns"/>
         from project
     </select>
+
+    <update id="update">
+        update project
+        set project_name = #{projectName},
+            base_url = #{baseUrl:VARCHAR}
+        where id = #{id}
+    </update>
+
+    <resultMap id="ProjectModulesResultMap" extends="BaseResultMap" type="com.kimmy.learn.web.entity.domains.project.ProjectModules">
+        <collection column="project_code" property="moduleList" select="com.kimmy.learn.web.mapper.ProjectModuleMapper.moduleListByProjectCode"/>
+    </resultMap>
+    <select id="projModulesList" resultMap="ProjectModulesResultMap">
+        select <include refid="BaseColumns"/>
+        from project
+    </select>
+
+
+
+
+
+
+
 
     <select id="selectById" resultMap="BaseResultMap">
         select <include refid="BaseColumns"/>
@@ -31,25 +64,14 @@
         where id = #{id}
     </select>
 
-    <insert id="insert">
-        insert into project(project_name, base_url, create_time, create_user)
-        values(#{projectName}, #{baseUrl:VARCHAR}, now(), #{createUser:VARCHAR})
-    </insert>
-
-    <update id="update">
-        update project
-        set project_name = #{projectName},
-                base_url = #{baseUrl:VARCHAR}
-        where id = #{id}
-    </update>
-
-    <resultMap id="DetailResultMap" extends="BaseResultMap" type="com.kimmy.learn.web.entity.domains.project.ProjectDetail">
+    <resultMap id="DetailDbResultMap" extends="BaseResultMap" type="com.kimmy.learn.web.entity.domains.project.ProjectDbs">
         <collection column="id" property="dbList" select="com.kimmy.learn.web.mapper.DbConnectConfigMapper.dbListByProjId"/>
     </resultMap>
-    <select id="detailList" resultMap="DetailResultMap">
+    <select id="detailDbList" resultMap="DetailDbResultMap">
         select <include refid="BaseColumns"/>
         from project
     </select>
+
 
     <delete id="del">
         delete from project

@@ -17,6 +17,31 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
+    // @RequestMapping("/list")
+    // public ProjectListResponse list(@RequestBody ProjectListRequest request) {
+    //     return projectService.list(request);
+    // }
+    //
+    // @RequestMapping("/add")
+    // public ProjectAddResponse add(@RequestBody ProjectAddRequest request) {
+    //     return projectService.add(request);
+    // }
+    //
+    // @RequestMapping("/update")
+    // public ProjectUpdateResponse update(@RequestBody ProjectUpdateRequest request) {
+    //     return projectService.update(request);
+    // }
+    //
+    // @RequestMapping("/del")
+    // public ProjectDelResponse del(@RequestBody ProjectDelRequest request) {
+    //     return projectService.del(request);
+    // }
+    //
+    // @RequestMapping("/generateFiles")
+    // public GenerateFilesResponse generateFiles(@RequestBody GenerateFilesRequest request) {
+    //     return projectService.generateFiles(request);
+    // }
+
     @RequestMapping("/list")
     public ProjectListResponse list(@RequestBody ProjectListRequest request) {
         return projectService.list(request);
@@ -32,14 +57,15 @@ public class ProjectController {
         return projectService.update(request);
     }
 
-    @RequestMapping("/del")
-    public ProjectDelResponse del(@RequestBody ProjectDelRequest request) {
-        return projectService.del(request);
+
+    @RequestMapping("/projModulesList")
+    public ProjectDetailListResponse projModulesList(@RequestBody ProjModulesListRequest request) {
+        return projectService.projModulesList(request);
     }
 
-    @RequestMapping("/generateFiles")
-    public GenerateFilesResponse generateFiles(@RequestBody GenerateFilesRequest request) {
-        return projectService.generateFiles(request);
+    @RequestMapping("/addModule")
+    public ProjectModuleAddResponse addModule(@RequestBody ProjectModuleAddRequest request) {
+        return projectService.addModule(request);
     }
 
 }

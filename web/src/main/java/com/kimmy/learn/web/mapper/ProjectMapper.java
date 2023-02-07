@@ -1,14 +1,9 @@
 package com.kimmy.learn.web.mapper;
 
-import com.kimmy.learn.web.controller.domain.request.project.ProjectAddRequest;
-import com.kimmy.learn.web.controller.domain.request.project.ProjectDelRequest;
-import com.kimmy.learn.web.controller.domain.request.project.ProjectUpdateRequest;
-import com.kimmy.learn.web.controller.domain.response.project.ProjectAddResponse;
-import com.kimmy.learn.web.controller.domain.response.project.ProjectListResponse;
-import com.kimmy.learn.web.entity.db.Menu;
+import com.kimmy.learn.web.controller.domain.request.project.ProjModulesListRequest;
 import com.kimmy.learn.web.entity.db.Project;
-import com.kimmy.learn.web.entity.domains.MenuTree;
-import com.kimmy.learn.web.entity.domains.project.ProjectDetail;
+import com.kimmy.learn.web.entity.domains.project.ProjectDbs;
+import com.kimmy.learn.web.entity.domains.project.ProjectModules;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,15 +11,21 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
 
-    List<Project> list();
-
+    String maxProjectCode();
     int insert(Project project);
-
+    List<Project> list();
     int update(Project project);
 
-    List<ProjectDetail> detailList();
+
+    List<ProjectModules> projModulesList(ProjModulesListRequest request);
+
+
+
+
+    List<ProjectDbs> detailDbList();
 
     int del(Project project);
 
     Project selectById(Integer id);
+
 }

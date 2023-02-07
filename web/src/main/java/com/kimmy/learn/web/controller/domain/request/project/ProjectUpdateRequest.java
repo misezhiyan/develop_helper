@@ -10,13 +10,4 @@ import java.util.List;
 @Component
 public class ProjectUpdateRequest extends Project {
 
-    private List<ProjDbMapping> dbList;
-
-    public List<ProjDbMapping> getDbList() {
-        return dbList;
-    }
-
-    public void setDbList(List<ProjDbMapping> dbList) {
-        this.dbList = dbList;
-    }
 }
