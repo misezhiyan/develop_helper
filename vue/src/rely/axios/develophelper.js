@@ -119,6 +119,20 @@ export function projectList(data = {}) {
     })
 }
 
+export function addProjectModule(data = {}) {
+    return develophelperApi({
+        url: "/project/addModule",
+        data: data
+    })
+}
+
+export function projModulesList(data = {}) {
+    return develophelperApi({
+        url: "/project/projModulesList",
+        data: data
+    })
+}
+
 export function generatePolicyList(data = {}) {
     return develophelperApi({
         url: "/generatePolicy/list",

@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public class ProjectDetail extends Project {
+public class ProjectWithDb extends Project {
 
     private List<DbConnectConfig> dbList;
 

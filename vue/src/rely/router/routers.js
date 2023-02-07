@@ -3,10 +3,8 @@ const routes = [{
     path: '/tabletojava/index',
     component: () => import('@/components/tabletojava/index')
 }, {
+    name:'项目管理',
     path: '/project',
-    meta: {
-        title: '项目管理'
-    },
     children: [{
         name: '项目配置',
         path: 'index',

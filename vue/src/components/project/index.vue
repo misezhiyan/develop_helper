@@ -3,15 +3,36 @@
     项目管理
     <el-button @click="createProj">新增项目</el-button>
     <el-table :data="projectList">
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-table :data="props.row.moduleList">
+            <el-table-column prop="id" label="id"/>
+            <el-table-column prop="projectCode" label="项目编码"/>
+            <el-table-column prop="moduleName" label="模块名称"/>
+            <el-table-column prop="moduleCode" label="模块编码"/>
+            <el-table-column prop="modulePath" label="模块地址"/>
+            <el-table-column prop="javaPackage" label="java代码地址"/>
+            <el-table-column prop="resourcePackage" label="配置文件代码地址"/>
+            <el-table-column prop="frontPackage" label="前端代码地址"/>
+            <el-table-column prop="createTime" label="创建时间"/>
+            <el-table-column prop="id" label="操作">
+              <template #default="scope">
+                <el-button @click="editProjectModule(scope.row)">编辑</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </template>
+      </el-table-column>
       <el-table-column prop="id" label="id"/>
+      <el-table-column prop="projectCode" label="项目编码"/>
       <el-table-column prop="projectName" label="项目名称"/>
       <el-table-column prop="baseUrl" label="项目基本路径"/>
       <el-table-column prop="createTime" label="创建时间"/>
       <el-table-column prop="id" label="操作">
         <template #default="scope">
           <el-button @click="editProject(scope.row)">编辑</el-button>
-          <el-button @click="showProject(scope.row)">详情</el-button>
-          <el-button @click="delProject(scope.row)">删除</el-button>
+          <el-button @click="delProject(scope.row)">删除项目</el-button>
+          <el-button @click="addProjectModules(scope.row)">新增模块</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -19,26 +40,13 @@
     <el-dialog v-model="projFormDialogModel" v-on:open="openProjFormDialog" v-on:close="closeProjFormDialog" title="项目编辑" width="60%" align-center append-to-body>
       <el-form :model="projectForm" label-width="120px">
         <el-form-item label="项目名称">
-          <el-input v-model="projectForm.projectName"></el-input>
+          <el-input v-model="projectForm.projectName"/>
+        </el-form-item>
+        <el-form-item v-if="projectForm.id" label="项目编码">
+          <el-input v-model="projectForm.projectCode" disabled/>
         </el-form-item>
         <el-form-item label="项目基本地址">
-          <el-input v-model="projectForm.baseUrl"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="showDbList">添加数据库</el-button>
-          <el-table :data="projectForm.dbList">
-            <el-table-column prop="id" label="ID"/>
-            <el-table-column prop="nickName" label="昵称"/>
-            <el-table-column prop="dbIp" label="IP地址"/>
-            <el-table-column prop="dbPort" label="端口"/>
-            <el-table-column prop="dbType" label="数据库类型"/>
-            <el-table-column prop="defaultConnectDb" label="默认链接库"/>
-            <el-table-column prop="driverClassName" label="驱动类"/>
-            <el-table-column prop="dbUser" label="账号"/>
-            <el-table-column prop="dbPwd" label="密码"/>
-            <el-table-column prop="status" label="状态"/>
-            <el-table-column prop="createTime" label="创建时间"/>
-          </el-table>
+          <el-input v-model="projectForm.baseUrl"/>
         </el-form-item>
         <el-form-item>
           <el-button @click="submitProj">提交</el-button>
@@ -47,71 +55,75 @@
       </el-form>
     </el-dialog>
 
-    <el-drawer v-model="dbDrawer" title="数据库链接">
-      <template #default>
-        <div>
-          <el-select v-model="dbId" placeholder="选择数据库1" @change="dbChange">
-            <el-option v-for="dbItem in dbList"
-                       :key="dbItem.id"
-                       :label="dbItem.nickName"
-                       :value="dbItem.id"/>
-          </el-select>
-        </div>
-      </template>
-    </el-drawer>
+    <el-dialog v-model="projectModuleFormDialogModel " title="项目模块" width="60%" align-center append-to-body>
+      <el-form :model="projectModuleForm" label-width="120px">
+        <el-form-item label="项目编码">
+          <el-input v-model="projectModuleForm.projectCode" disabled/>
+        </el-form-item>
+        <el-form-item label="项目名称">
+          <el-input v-model="projectModuleForm.projectName" disabled/>
+        </el-form-item>
+        <el-form-item label="模块名称">
+          <el-input v-model="projectModuleForm.moduleName"/>
+        </el-form-item>
+        <el-form-item v-if="projectModuleForm.id" label="模块编码">
+          <el-input v-model="projectModuleForm.moduleCode" disabled/>
+        </el-form-item>
+        <el-form-item label="模块地址">
+          <el-input v-model="projectModuleForm.mudulePath"/>
+        </el-form-item>
+        <el-form-item label="java代码地址">
+          <el-input v-model="projectModuleForm.javaPackage"/>
+        </el-form-item>
+        <el-form-item label="配置文件代码地址">
+          <el-input v-model="projectModuleForm.resourcePackage"/>
+        </el-form-item>
+        <el-form-item label="前端代码地址">
+          <el-input v-model="projectModuleForm.frontPackage"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="submitProjModule">提交</el-button>
+          <el-button @click="cancelProjModule">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-import {getDbList, addProject, updateProject, delProject, projectList} from "@/rely/axios/develophelper";
+import {getDbList, projModulesList, addProject, updateProject, delProject, projectList, addProjectModule} from "@/rely/axios/develophelper";
 
 export default {
   name: "menuIndex",
   data() {
     return {
-      dbId: '',
       projFormDialogModel: false,
-      dbDrawer: false,
-      dbList: [],
+      projectList: [],
       projectForm: {
         projectName: '',
+        projectCode: '',
         baseUrl: '',
-        dbList: []
       },
-      projectList: [],
+      projectModuleFormDialogModel: false,
+      projectModuleForm: {
+        projectCode: '',
+        projectName: '',
+        moduleCode: '',
+        moduleName: '',
+        mudulePath: '',
+        javaPackage: '',
+        resourcePackage: '',
+        frontPackage: ''
+      }
     }
   },
   created() {
     this.getProjectList();
   },
   methods: {
-    showDbList: function () {
-      this.dbDrawer = true
-    },
-    getDbList: function () {
-      getDbList({}).then(response => {
-        if (response.resCode == '0000') {
-          this.dbList = response.list
-        } else {
-          this.$message.error(response.resMsg);
-        }
-      });
-    },
-    createProj: function () {
-      this.projFormDialogModel = true
-      if (!this.dbList || this.dbList.length < 1)
-        this.getDbList();
-    },
     submitProj: function () {
-
       let projData = JSON.parse(JSON.stringify(this.projectForm))
-      if (projData.dbList) {
-        projData.dbList.forEach(db => {
-          db.dbId = db.id;
-          db.id = '';
-        })
-      }
-
       if (!projData.id) {
         addProject(projData).then(response => {
           if (response.resCode == '0000') {
@@ -136,6 +148,58 @@ export default {
       this.projFormDialogModel = false
     },
     openProjFormDialog: function () {
+    },
+    getProjectList: function () {
+      projModulesList().then(response => {
+        if (response.resCode == '0000') {
+          this.projectList = response.projectList
+        } else {
+          this.$message.error(response.resMsg);
+        }
+      });
+    },
+    editProject: function (row) {
+      this.projectForm = row;
+      this.projFormDialogModel = true
+    },
+    addProjectModules: function (row) {
+      this.projectModuleForm.projectCode = row.projectCode;
+      this.projectModuleForm.projectName = row.projectName;
+      this.projectModuleFormDialogModel = true
+    },
+    submitProjModule: function () {
+      if (!this.projectModuleForm.id) {
+        addProjectModule(this.projectModuleForm).then(response => {
+          if (response.resCode == '0000') {
+            this.projectModuleFormDialogModel = false;
+            this.getProjectList();
+          } else {
+            this.$message.error(response.resMsg);
+          }
+        })
+      } else {
+        alert('update')
+      }
+    },
+    cancelProjModule: function (row) {
+      this.projectModuleFormDialogModel = false
+    },
+    editProjectModule: function (row) {
+      this.projectModuleForm.projectCode = row.projectCode;
+      this.projectModuleForm.moduleName = row.moduleName;
+      this.projectModuleForm.moduleCode = row.moduleCode;
+      this.projectModuleForm.modulePath = row.modulePath;
+      this.projectModuleForm.javaPackage = row.javaPackage;
+      this.projectModuleForm.resourcePackage = row.resourcePackage;
+      this.projectModuleForm.frontPackage = row.frontPackage;
+      this.projectModuleForm.createTime = row.createTime;
+
+      this.projectModuleFormDialogModel = true
+    },
+
+    // todo
+    createProj: function () {
+      this.projFormDialogModel = true
       if (!this.dbList || this.dbList.length < 1)
         this.getDbList();
     },
@@ -162,19 +226,7 @@ export default {
       }
       return false;
     },
-    getProjectList: function () {
-      projectList().then(response => {
-        if (response.resCode == '0000') {
-          this.projectList = response.projectList
-        } else {
-          this.$message.error(response.resMsg);
-        }
-      });
-    },
-    editProject: function (row) {
-      this.projectForm = row;
-      this.projFormDialogModel = true
-    },
+
     showProject: function (row) {
     },
     delProject: function (row) {

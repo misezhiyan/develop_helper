@@ -2,13 +2,13 @@
   <div>
     菜单维护
     <el-button @click="addMenu({menuName:'根菜单',id:-1})">新增根菜单</el-button>
-    <el-tree width="100%" :data="menuTree" node-key="id" :default-expand-all="true" :props="menuProps">
+    <el-tree background-color="#000" width="100%" :data="menuTree" node-key="id" :default-expand-all="true" :props="menuProps">
       <template #default="{node, data}">
         <span>{{ node.label }}</span>
         <span style="margin-right: 0px">
           <el-button @click="addMenu(data)">新增子项</el-button>
           <el-button @click="delMenu(data)">删除</el-button>
-        </span>
+      </span>
       </template>
     </el-tree>
 
@@ -36,11 +36,14 @@
 </template>
 
 <script>
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import {getMenuList, addMenu, delMenu} from "@/rely/axios/develophelper";
+import ElTable from "element-plus/dist/index.full.mjs";
+import ElTableColumn from "element-plus/dist/index.full.mjs";
 
 export default {
   name: "menuIndex",
+  components: {ElTableColumn, ElTable},
   data() {
     return {
       menuTree: [],
@@ -85,13 +88,13 @@ export default {
           }
       ).then(() => {
 
-        delMenu(delMenuNeed).then(res =>{
+        delMenu(delMenuNeed).then(res => {
           this.getMenuList();
           ElMessage({
             type: 'success',
             message: 'DELETE SUCCESS',
           })
-        }).catch(err =>{
+        }).catch(err => {
           ElMessage({
             type: 'error',
             message: 'DELETE FAIL',
