@@ -1,3 +1,5 @@
+package media;
+
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
@@ -27,11 +29,13 @@ public class Mp4ToMp3 {
             recorder.start();
 
             int index = 0;
-            while (true) {
+            boolean circle = true;
+            while (circle) {
                 // frameGrabber1.
                 frame = frameGrabber1.grab();
                 if (frame == null) {
                     System.out.println("结束");
+                    circle = false;
                     break;
                 }
                 if (frame.samples != null && index > 300) {

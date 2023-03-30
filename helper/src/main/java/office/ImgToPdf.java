@@ -1,3 +1,5 @@
+package office;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;

@@ -1,0 +1,17 @@
+1.图片中确认车牌位置, 并抠出车牌
+2.车牌图片校正
+3.字符切割, 图片识别
+
+
+
+
+1、加载图片
+2、把图片转化为灰度
+3、利用高斯模糊、中值滤波进行消除噪音点（可以理解成tensorflow中的卷积和池化）
+4、边缘检测
+5、二值化：只显示黑白效果
+6、进行膨胀和腐蚀，对边缘放大效果
+7、查找轮廓（计算轮廓面积、找到轮廓的矩阵的坐标计算长宽比例，找到现实中物体合理的比例）--https://blog.csdn.net/qq_43409114/article/details/104673115?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-3-104673115.nonecase&utm_term=%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E6%89%BE%E8%BD%AE%E5%BB%93%E7%AE%97%E6%B3%95
+8、找到矩阵坐标，并根据原图进行剪切
+
+

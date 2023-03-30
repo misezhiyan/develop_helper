@@ -1,10 +1,8 @@
+package printer;
+
 import javax.print.*;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.MediaSize;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.print.attribute.standard.Sides;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

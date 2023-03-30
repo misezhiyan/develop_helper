@@ -126,9 +126,51 @@ export function addProjectModule(data = {}) {
     })
 }
 
+export function updProjectModule(data = {}) {
+    return develophelperApi({
+        url: "/project/updModule",
+        data: data
+    })
+}
+
+export function delProjectModule(data = {}) {
+    return develophelperApi({
+        url: "/project/delModule",
+        data: data
+    })
+}
+
 export function projModulesList(data = {}) {
     return develophelperApi({
         url: "/project/projModulesList",
+        data: data
+    })
+}
+
+export function projectComponentList(data = {}) {
+    return develophelperApi({
+        url: "/project/projComponentList",
+        data: data
+    })
+}
+
+export function addProjectComponent(data = {}) {
+    return develophelperApi({
+        url: "/project/addComponent",
+        data: data
+    })
+}
+
+export function updProjectComponent(data = {}) {
+    return develophelperApi({
+        url: "/project/updComponent",
+        data: data
+    })
+}
+
+export function delProjectComponent(data = {}) {
+    return develophelperApi({
+        url: "/project/delComponent",
         data: data
     })
 }
