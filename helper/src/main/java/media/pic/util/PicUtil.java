@@ -1,9 +1,12 @@
 package media.pic.util;
 
+import util.ArrayUtil;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * @description: TODO
@@ -115,4 +118,44 @@ public class PicUtil {
     public static int[][] perspectiveToRectangle(int[][] square) {
         return square;
     }
+
+    /**
+     * @description: X轴切割
+     * @author: liyq
+     * @createtime: 2023-04-03 11:45:28
+     * @param: square
+     * @param: end
+     * @param: startXPoint
+     * @return int[][]
+     */
+    public static int[][] cutX(int[][] square, int start, int end) {
+
+        return ArrayUtil.cutX(square, start, end);
+    }
+
+    /**
+     * @description: 图片缩放
+     * @author: liyq
+     * @createtime: 2023-04-03 13:46:43
+     * @param: squareZoom
+     * @param: i
+     * @param: i1
+     * @return int[][]
+     */
+    public static int[][] zoom(int[][] square, int width, int height) {
+
+        int[][] dst = new int[width][height];
+
+        BigDecimal rateX = new BigDecimal(square.length).divide(new BigDecimal(width), 10, BigDecimal.ROUND_HALF_UP);
+        BigDecimal rateY = new BigDecimal(square[0].length).divide(new BigDecimal(height), 10, BigDecimal.ROUND_HALF_UP);
+
+        for (int i = 0; i < dst.length; i++) {
+            for (int j = 0; j < dst[i].length; j++) {
+                dst[i][j] = square[new BigDecimal(i).multiply(rateX).intValue()][new BigDecimal(j).multiply(rateY).intValue()];
+            }
+        }
+
+        return dst;
+    }
+
 }

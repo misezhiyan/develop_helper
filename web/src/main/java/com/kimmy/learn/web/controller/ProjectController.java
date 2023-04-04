@@ -57,15 +57,49 @@ public class ProjectController {
         return projectService.update(request);
     }
 
-
     @RequestMapping("/projModulesList")
-    public ProjectDetailListResponse projModulesList(@RequestBody ProjModulesListRequest request) {
+    public ProjModulesListResponse projModulesList(@RequestBody ProjModulesListRequest request) {
         return projectService.projModulesList(request);
     }
 
     @RequestMapping("/addModule")
     public ProjectModuleAddResponse addModule(@RequestBody ProjectModuleAddRequest request) {
         return projectService.addModule(request);
+    }
+
+    @RequestMapping("/updModule")
+    public ProjectModuleUpdResponse updModule(@RequestBody ProjectModuleUpdRequest request) {
+        return projectService.updModule(request);
+    }
+
+    @RequestMapping("/delModule")
+    public ProjectModuleDelResponse delModule(@RequestBody ProjectModuleDelRequest request) {
+        return projectService.delModule(request);
+    }
+
+    @RequestMapping("/projComponentList")
+    public ProjectModuleComponentListResponse projComponentList(@RequestBody ProjectComponentListRequest request) {
+        return projectService.projComponentList(request);
+    }
+
+    @RequestMapping("/projComponentRelyTreeList")
+    public ProjectModuleComponentRelyTreeListResponse projComponentRelyTreeList(@RequestBody ProjectComponentListRequest request) {
+        return projectService.projComponentRelyTreeList(request);
+    }
+
+    @RequestMapping("/addComponent")
+    public ProjectModuleComponentAddResponse addComponent(@RequestBody ProjectComponentAddRequest request) {
+        return projectService.addComponent(request);
+    }
+
+    @RequestMapping("/updComponent")
+    public ProjectModuleComponentUpdResponse updComponent(@RequestBody ProjectComponentUpdRequest request) {
+        return projectService.updComponent(request);
+    }
+
+    @RequestMapping("/delComponent")
+    public ProjectModuleComponentDelResponse delComponent(@RequestBody ProjectComponentDelRequest request) {
+        return projectService.delComponent(request);
     }
 
 }

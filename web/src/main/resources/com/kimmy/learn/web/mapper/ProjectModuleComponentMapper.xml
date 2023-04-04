@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.learn.web.mapper.ProjectModuleComponentMapper">
+
+    <resultMap id="BaseResultMap" type="com.kimmy.learn.web.entity.db.ProjectModuleComponent">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="module_code" property="moduleCode" jdbcType="VARCHAR"/>
+        <result column="component_name" property="componentName" jdbcType="VARCHAR"/>
+        <result column="component_code" property="componentCode" jdbcType="VARCHAR"/>
+        <result column="component_flag" property="componentFlag" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id,
+        module_code,
+        component_name,
+        component_code,
+        component_flag,
+        create_time
+    </sql>
+
+    <insert id="add">
+        insert into project_module_component(module_code, component_name, component_code, component_flag)
+        values (#{moduleCode}, #{componentName:VARCHAR}, #{componentCode}, #{componentFlag:VARCHAR})
+    </insert>
+
+    <update id="update">
+        update project_module_component
+        set module_code = #{moduleCode}, component_name = #{componentName:VARCHAR}, component_code = #{componentCode}, component_flag = #{componentFlag:VARCHAR}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from project_module_component
+        where id = #{id}
+    </delete>
+
+    <resultMap id="ResultMapList" type="com.kimmy.learn.web.entity.domains.project.ProjectComponent" extends="BaseResultMap">
+        <association column="rely_component" property="relyComponentName" select="nameByModuleCode"/>
+    </resultMap>
+    <select id="listByModuleCode" resultMap="ResultMapList">
+        select <include refid="BaseColumns"/>
+        from project_module_component
+        where module_code = #{moduleCode}
+    </select>
+
+    <select id="maxCode" resultType="java.lang.String">
+        select max(component_code)
+        from project_module_component
+    </select>
+
+    <select id="nameByModuleCode" resultType="string">
+        select component_name
+        from project_module_component
+        where component_code = #{componentCode}
+    </select>
+
+</mapper>

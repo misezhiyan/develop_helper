@@ -1,14 +1,18 @@
 package media.pic.recognize;
 
 import media.pic.recognize.service.*;
+import media.pic.recognize.service.impl.cut.CutGrid;
+import media.pic.recognize.service.impl.dealarea.DealAreaCarCard;
 import media.pic.recognize.service.impl.grayscal.GrayScalAVG;
 import media.pic.recognize.service.impl.removenoise.RmoveNoiseMedian;
+import media.pic.recognize.service.impl.zoom.ZoomSquare;
 import media.pic.util.PicUtil;
 import media.pic.recognize.service.impl.polarization.BinaryzationBW;
 import media.pic.recognize.service.impl.rectify.PerspectiveRectify;
-import media.pic.recognize.service.impl.removenoise.RmoveNoiseGaosi;
 import util.StringUtil;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,7 +24,7 @@ import java.util.Calendar;
  */
 public class PicRecognize {
 
-    static String fileName = "C:\\Users\\kimmy\\Desktop\\图像识别\\识别.jpg";
+    static String fileName = "C:\\Users\\kimmy\\Desktop\\图像识别\\切割.jpg";
     // String outFileName = "C:\\Users\\kimmy\\Desktop\\图像识别\\识别\\" + new SimpleDateFormat("yyyyMMddHHmmsss").format(Calendar.getInstance().getTime()) + ".jpg";
     static String outFileBaseDir = "C:\\Users\\kimmy\\Desktop\\图像识别\\识别\\";
 
@@ -36,31 +40,49 @@ public class PicRecognize {
         Binaryzation binaryzation = new BinaryzationBW();
         // 纠偏
         Rectify rectify = new PerspectiveRectify();
+        // 特征匹配，提取操作区域
+        DealArea dealArea = new DealAreaCarCard();
+        // 切割字符
+        Cut cut = new CutGrid();
+        // 缩放
+        Zoom zoom = new ZoomSquare();
+        // 根据特征点匹配结果
+        // FeatureResult zoom = new ZoomSquare();
 
         // rgb矩阵
         int[][] sourceRgbSquare = PicUtil.toRgbSquare(fileName);
-        PicUtil.saveRgbToFile(sourceRgbSquare, coverFile("原图"));
 
         // 灰度处理
         int[][] grayScalSquare = grayScal.grayScal(sourceRgbSquare);
-        PicUtil.saveRgbToFile(grayScalSquare, coverFile("灰度"));
 
         // 去噪
         int[][] disnoizeSquare = removeNoise.removeNoise(grayScalSquare);
-        PicUtil.saveRgbToFile(disnoizeSquare, coverFile("去噪"));
-        System.exit(1);
 
         // 二值化
-        int threshold = 255 / 2;
+        // int threshold = 255 / 2;
+        int threshold = 100;
         int[][] colorToBWSquare = binaryzation.binaryzation(disnoizeSquare, threshold);
+        // saveAndOpen(colorToBWSquare, "二值化");
 
         // 取盘
-        // int[][] dealAreaSquare = PicUtil.getDealArea(disnoizeSquare);
-        // PicUtil.saveRgbToFile(dealAreaSquare, outFileName);
+        int[][] dealAreaSquare = dealArea.dealAreaByFreature(colorToBWSquare);
+        // saveAndOpen(dealAreaSquare, "取盘");
 
         // 纠偏
-        int[][] perspectiveBSquare = rectify.rectify(disnoizeSquare);
+        // int[][] perspectiveBSquare = rectify.rectify(disnoizeSquare);
         // PicUtil.saveRgbToFile(perspectiveBSquare, outFileName);
+
+        // 切割
+        int[][] cutSquare = cut.cut(dealAreaSquare);
+        // saveAndOpen(cutSquare, "切割");
+
+        // 缩放
+        int[][] zoomSquare = zoom.zoom(cutSquare);
+        saveAndOpen(zoomSquare, "缩放");
+
+        // // 特征点提取入库，并训练
+        // int[][] zoomSquare = zoom.zoom(zoomSquare);
+        // saveAndOpen(zoomSquare, "缩放");
 
         // 图像边缘检测算法例举
         // 图像纠偏算法例举
@@ -73,7 +95,18 @@ public class PicRecognize {
 
     }
 
-    private static String coverFile(String name) {
+    public static void exit(int[][] square, String name) throws IOException {
+        saveAndOpen(square, name);
+        // Runtime.getRuntime().exec("explorer /select, \"" + coverFile(name) + "\"");
+        System.exit(1);
+    }
+
+    public static void saveAndOpen(int[][] square, String name) throws IOException {
+        PicUtil.saveRgbToFile(square, coverFile(name));
+        Desktop.getDesktop().open(new File(coverFile(name)));
+    }
+
+    public static String coverFile(String name) {
         return StringUtil.combine(outFileBaseDir, name, ".jpg");
     }
 

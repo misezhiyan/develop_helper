@@ -25,7 +25,7 @@ public class GrayScalAVG implements GrayScal {
                 // int b = pixel & 0xff;
                 // int rgb_average = (r + g + b) / 3;
 
-                int rgb_average = (pixel >> 16 & 0xff + pixel >> 8 & 0xff + pixel & 0xff) / 3;
+                int rgb_average = ((pixel >> 16 & 0xff) + (pixel >> 8 & 0xff) + (pixel & 0xff)) / 3;
 
                 graySquare[x][y] = a << 24 | rgb_average << 16 | rgb_average << 8 | rgb_average;
             }

@@ -20,5 +20,19 @@ public interface ProjectService {
 
     ProjectModuleAddResponse addModule(ProjectModuleAddRequest request);
 
-    ProjectDetailListResponse projModulesList(ProjModulesListRequest request);
+    ProjModulesListResponse projModulesList(ProjModulesListRequest request);
+
+    ProjectModuleUpdResponse updModule(ProjectModuleUpdRequest request);
+
+    ProjectModuleDelResponse delModule(ProjectModuleDelRequest request);
+
+    ProjectModuleComponentAddResponse addComponent(ProjectComponentAddRequest request);
+
+    ProjectModuleComponentUpdResponse updComponent(ProjectComponentUpdRequest request);
+
+    ProjectModuleComponentDelResponse delComponent(ProjectComponentDelRequest request);
+
+    ProjectModuleComponentListResponse projComponentList(ProjectComponentListRequest request);
+
+    ProjectModuleComponentRelyTreeListResponse projComponentRelyTreeList(ProjectComponentListRequest request);
 }

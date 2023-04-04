@@ -5,10 +5,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class EncodingUtil {
-	
-	public static String getFileEncodingType(String file_real_path) throws IOException {
+
+	/**
+	 * @description: 获取文件编码
+	 * @author: liyq
+	 * @createtime: 2023-04-03 16:34:41
+	 * @param: file_real_path
+	 * @return String
+	 */
+	public static String getFileEncodingType(String fileFullPath) throws IOException {
 		
-		BufferedInputStream bin = new BufferedInputStream(new FileInputStream(file_real_path));  
+		BufferedInputStream bin = new BufferedInputStream(new FileInputStream(fileFullPath));
 		int p = (bin.read() << 8) + bin.read();  
 		String code = null;  
 		

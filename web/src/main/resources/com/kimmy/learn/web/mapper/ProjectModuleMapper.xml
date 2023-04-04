@@ -33,6 +33,17 @@
         values (#{projectCode}, #{moduleName}, #{moduleCode}, #{modulePath:VARCHAR}, #{javaPackage:VARCHAR}, #{resourcePackage:VARCHAR}, #{frontPackage:VARCHAR})
     </insert>
 
+    <update id="update">
+        update project_module
+        set project_code = #{projectCode}, module_name = #{moduleName}, module_code = #{moduleCode}, module_path = #{modulePath:VARCHAR}, java_package = #{javaPackage:VARCHAR}, resource_package = #{resourcePackage:VARCHAR}, front_package = #{frontPackage:VARCHAR}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from  project_module
+        where id = #{id}
+    </delete>
+
     <select id="moduleListByProjectCode" resultMap="BaseResultMap">
         select <include refid="BaseColumns"/>
         from project_module

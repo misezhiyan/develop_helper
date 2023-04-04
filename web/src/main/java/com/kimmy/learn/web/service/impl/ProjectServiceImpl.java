@@ -11,6 +11,8 @@ import com.kimmy.learn.web.entity.db.*;
 import com.kimmy.learn.web.entity.domains.db.ColumnPack;
 import com.kimmy.learn.web.entity.domains.db.TablePack;
 import com.kimmy.learn.web.entity.domains.generate.PolicyDetail;
+import com.kimmy.learn.web.entity.domains.project.ProjectComponent;
+import com.kimmy.learn.web.entity.domains.project.ProjectComponentRelyTree;
 import com.kimmy.learn.web.entity.domains.template.TemplateParams;
 import com.kimmy.learn.web.mapper.*;
 import com.kimmy.learn.web.service.ProjectService;
@@ -30,6 +32,8 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectMapper projectMapper;
     @Autowired
     ProjectModuleMapper projectModuleMapper;
+    @Autowired
+    ProjectModuleComponentMapper projectModuleComponentMapper;
     @Autowired
     ProjDbMappingMapper projDbMappingMapper;
     @Autowired
@@ -184,7 +188,59 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDetailListResponse projModulesList(ProjModulesListRequest request) {
-        return ProjectDetailListResponse.success(projectMapper.projModulesList(request));
+    public ProjModulesListResponse projModulesList(ProjModulesListRequest request) {
+        List<ProjectModule> projectModules = projectModuleMapper.moduleListByProjectCode(request.getProjectCode());
+        return ProjModulesListResponse.success(projectModules);
+    }
+
+    @Override
+    public ProjectModuleUpdResponse updModule(ProjectModuleUpdRequest request) {
+        projectModuleMapper.update(request);
+        return ProjectModuleUpdResponse.success();
+    }
+
+    @Override
+    public ProjectModuleDelResponse delModule(ProjectModuleDelRequest request) {
+        projectModuleMapper.delete(request);
+        return ProjectModuleDelResponse.success();
+    }
+
+    @Override
+    public ProjectModuleComponentAddResponse addComponent(ProjectComponentAddRequest request) {
+        String maxCode = projectModuleComponentMapper.maxCode();
+        if (StringUtils.isEmpty(maxCode)) {
+            request.setComponentCode(IdUtils.combineSeriaNo("COMPONENT", 1, 10));
+        } else {
+            request.setComponentCode(IdUtils.combineSeriaNo("COMPONENT", Integer.parseInt(maxCode.substring("COMPONENT".length())) + 1, 10));
+        }
+        projectModuleComponentMapper.add(request);
+        return ProjectModuleComponentAddResponse.success();
+    }
+
+    @Override
+    public ProjectModuleComponentUpdResponse updComponent(ProjectComponentUpdRequest request) {
+        projectModuleComponentMapper.update(request);
+        return ProjectModuleComponentUpdResponse.success();
+    }
+
+    @Override
+    public ProjectModuleComponentDelResponse delComponent(ProjectComponentDelRequest request) {
+        projectModuleComponentMapper.delete(request);
+        return ProjectModuleComponentDelResponse.success();
+    }
+
+    @Override
+    public ProjectModuleComponentListResponse projComponentList(ProjectComponentListRequest request) {
+        List<ProjectComponent> projectModuleComponents = projectModuleComponentMapper.listByModuleCode(request.getModuleCode());
+        return ProjectModuleComponentListResponse.success(projectModuleComponents);
+    }
+
+    @Override
+    public ProjectModuleComponentRelyTreeListResponse projComponentRelyTreeList(ProjectComponentListRequest request) {
+        List<ProjectComponent> projectModuleComponents = projectModuleComponentMapper.listByModuleCode(request.getModuleCode());
+
+        List<ProjectComponentRelyTree> treeList = ProjectComponentRelyTree.treeList(projectModuleComponents);
+
+        return ProjectModuleComponentRelyTreeListResponse.success(treeList);
     }
 }

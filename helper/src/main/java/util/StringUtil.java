@@ -22,7 +22,21 @@ public class StringUtil {
      * @createtime: 2023-03-30 09:09:02
      * @return String
      */
-    public static String combine(String ... arr) {
+    public static String combine(String... arr) {
         return Arrays.stream(arr).collect(Collectors.joining());
+    }
+
+    public static String leftPad(String src, int toLength, String pad) {
+
+        if (src.length() > toLength) {
+            throw new RuntimeException("原长度大于目标长度");
+        }
+
+        String dst = src;
+        while (dst.length() < toLength) {
+            dst = pad + dst;
+        }
+
+        return dst;
     }
 }
