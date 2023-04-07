@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lowcode.mapper.TableMapper">
+
+	<resultMap id="ResMap_tableConstruct" type="lowcode.entity.table.Table">
+		<result property="TABLE_NAME" column="TABLE_NAME" />
+		<result property="TABLE_COMMENT" column="TABLE_COMMENT" />
+		<association property="fieldList" column="TABLE_NAME" select="lowcode.mapper.TableMapper.tableFields" />
+	</resultMap>
+	<!-- 表创建 sql -->
+	<select id="tableConstruct" resultMap="ResMap_tableConstruct">
+		SELECT
+		TABLE_NAME,
+		TABLE_COMMENT
+		FROM
+		information_schema.TABLES
+		WHERE
+		TABLE_NAME in (
+			#{tableName}
+		)
+		AND TABLE_SCHEMA = (SELECT DATABASE())
+	</select>
+
+	<!-- 获取表字段结构 -->
+	<resultMap id="ResMap_field" type="lowcode.entity.table.Field">
+		<result property="COLUMN_NAME" column="COLUMN_NAME" />
+		<result property="DATA_TYPE" column="DATA_TYPE" />
+		<result property="CHARACTER_MAXIMUM_LENGTH" column="CHARACTER_MAXIMUM_LENGTH" />
+		<result property="NUMERIC_PRECISION" column="NUMERIC_PRECISION" />
+		<result property="NUMERIC_SCALE" column="NUMERIC_SCALE" />
+		<result property="COLUMN_KEY" column="COLUMN_KEY" />
+		<result property="EXTRA" column="EXTRA" />
+		<result property="COLUMN_COMMENT" column="COLUMN_COMMENT" />
+	</resultMap>
+	<select id="tableFields" resultMap="ResMap_field">
+		SELECT
+			COLUMN_NAME,
+			DATA_TYPE,
+			CHARACTER_MAXIMUM_LENGTH,
+			NUMERIC_PRECISION,
+			NUMERIC_SCALE,
+			COLUMN_KEY,
+			EXTRA,
+			COLUMN_COMMENT
+		FROM
+			information_schema.`COLUMNS`
+		WHERE
+			TABLE_NAME = #{tableName}
+		  AND TABLE_SCHEMA = (SELECT DATABASE())
+		ORDER BY ORDINAL_POSITION
+	</select>
+
+</mapper>

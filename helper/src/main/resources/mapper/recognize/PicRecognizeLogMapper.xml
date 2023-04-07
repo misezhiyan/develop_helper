@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="media.pic.recognize.train.mapper.PicRecognizeLogMapper">
+
+    <resultMap id="RESULTMAP_BASE" type="media.pic.recognize.train.entity.PicRecognizeLog">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="pic_url" property="picUrl" jdbcType="VARCHAR"/>
+        <result column="pic_name" property="picName" jdbcType="VARCHAR"/>
+        <result column="pic_recog" property="picRecog" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="COLUMNS_BASE">id,pic_url,pic_name,pic_recog,create_time,update_time</sql>
+
+    <select id="list" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from pic_recognize_log
+        <where>
+            <if test="null != id">
+            and id = #{id,INTEGER}
+            </if>
+            <if test="null != picUrl and '' != picUrl">
+            and pic_url = #{picUrl,VARCHAR}
+            </if>
+            <if test="null != picName and '' != picName">
+            and pic_name = #{picName,VARCHAR}
+            </if>
+            <if test="null != picRecog">
+            and pic_recog = #{picRecog,TINYINT}
+            </if>
+            <if test="null != createTime">
+            and create_time = #{createTime,TIMESTAMP}
+            </if>
+            <if test="null != updateTime">
+            and update_time = #{updateTime,TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        insert into pic_recognize_log (
+        <trim suffixOverrides=",">
+            <if test="null != id">
+            id,
+            </if>
+            <if test="null != picUrl and '' != picUrl">
+            pic_url,
+            </if>
+            <if test="null != picName and '' != picName">
+            pic_name,
+            </if>
+            <if test="null != picRecog">
+            pic_recog,
+            </if>
+            <if test="null != createTime">
+            create_time,
+            </if>
+            <if test="null != updateTime">
+            update_time
+            </if>
+        </trim>
+        )values (
+        <trim suffixOverrides=",">
+            <if test="null != id">
+            #{id,INTEGER},
+            </if>
+            <if test="null != picUrl and '' != picUrl">
+            #{picUrl,VARCHAR},
+            </if>
+            <if test="null != picName and '' != picName">
+            #{picName,VARCHAR},
+            </if>
+            <if test="null != picRecog">
+            #{picRecog,TINYINT},
+            </if>
+            <if test="null != createTime">
+            #{createTime,TIMESTAMP},
+            </if>
+            <if test="null != updateTime">
+            #{updateTime,TIMESTAMP}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        update pic_recognize_log
+        set
+        <trim suffixOverrides=",">
+            id = #{id, INTEGER},
+        </trim>
+        <trim suffixOverrides=",">
+            pic_url = #{picUrl, VARCHAR},
+        </trim>
+        <trim suffixOverrides=",">
+            pic_name = #{picName, VARCHAR},
+        </trim>
+        <trim suffixOverrides=",">
+            pic_recog = #{picRecog, TINYINT},
+        </trim>
+        <trim suffixOverrides=",">
+            create_time = #{createTime, TIMESTAMP},
+        </trim>
+        <trim suffixOverrides=",">
+            update_time = #{updateTime, TIMESTAMP},
+        </trim>
+        <where>
+            <if test="null != id">
+            and id = #{id,INTEGER}
+            </if>
+            <if test="null != picUrl and '' != picUrl">
+            and pic_url = #{picUrl,VARCHAR}
+            </if>
+            <if test="null != picName and '' != picName">
+            and pic_name = #{picName,VARCHAR}
+            </if>
+            <if test="null != picRecog">
+            and pic_recog = #{picRecog,TINYINT}
+            </if>
+            <if test="null != createTime">
+            and create_time = #{createTime,TIMESTAMP}
+            </if>
+            <if test="null != updateTime">
+            and update_time = #{updateTime,TIMESTAMP}
+            </if>
+        </where>
+    </update>
+
+</mapper>

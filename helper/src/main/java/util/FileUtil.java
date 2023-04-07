@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class FileUtil {
@@ -89,6 +90,28 @@ public class FileUtil {
         if (!file_package.exists())
             file_package.mkdirs();
         writeIntoFileByPath(fileRealPath, content);
+    }
+
+    /**
+     * @description: 创建文件，不覆盖
+     * @author: liyq
+     * @createtime: 2023-04-07 18:37:18
+     * @param: fileRealPath
+     * @param: content
+     */
+    public static void writeIntoFileWithDirNoCover(String fileRealPath, String content) throws Exception {
+        String savePath = fileRealPath;
+        File file = new File(fileRealPath);
+        File file_package = file.getParentFile();
+        if (!file_package.exists())
+            file_package.mkdirs();
+
+        while (file.exists()) {
+            savePath = fileRealPath + "." + Calendar.getInstance().getTime().getTime();
+            file = new File(savePath);
+        }
+
+        writeIntoFileByPath(savePath, content);
     }
 
     /**

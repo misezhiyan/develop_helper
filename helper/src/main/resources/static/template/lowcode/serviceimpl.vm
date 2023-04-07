@@ -1,0 +1,19 @@
+package ${proj.serviceimplDir};
+
+import ${proj.mapperDir}.${table.className}Mapper;
+import ${proj.serviceDir}.${table.className}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * @discription ${table.TABLE_COMMENT}
+ * @author ${proj.author}
+ * @date ${date}
+ */
+@Service
+public class ${table.className}ServiceImpl implements ${table.className}Service {
+
+    @Autowired
+    ${table.className}Mapper ${table.className.substring(0,1).toLowerCase()}${table.className.substring(1)}Mapper;
+
+}

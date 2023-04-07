@@ -1,0 +1,21 @@
+package ${proj.mapperDir};
+
+import java.util.List;
+import ${proj.entityDir}.${table.className};
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @description: ${table.TABLE_COMMENT}
+ * @author ${proj.author}
+ * @date ${date}
+ */
+@Mapper
+public interface ${table.className}Mapper {
+
+	List<${table.className}> list(${table.className} ${table.paramName});
+
+	int insert(${table.className} ${table.paramName});
+
+	int update(${table.className} ${table.paramName});
+
+}

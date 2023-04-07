@@ -1,0 +1,31 @@
+package ${proj.entityDir};
+
+#foreach ( $import in  $table.entityImportList)
+#if($import.startsWith("java.lang"))
+#else
+import ${import};
+#end
+#end
+
+/**
+ * @discription ${table.TABLE_COMMENT}
+ * @author ${proj.author}
+ * @date ${date}
+ */
+public class ${table.className} {
+
+#foreach ( $field in  $table.fieldList)
+    private ${field.javaTypeShort} ${field.fieldName};
+#end
+#foreach ( $field in  $table.fieldList)
+
+    public ${field.javaTypeShort} get${field.methodName}() {
+        return ${field.fieldName};
+    }
+
+    public void set${field.methodName}(${field.javaTypeShort} ${field.fieldName}) {
+        this.${field.fieldName} = ${field.fieldName};
+    }
+#end
+
+}

@@ -1,0 +1,20 @@
+package ${proj.controllerDir};
+
+import media.pic.recognize.train.service.PicRecognizeLogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @discription ${table.TABLE_COMMENT}
+ * @author ${proj.author}
+ * @date ${date}
+ */
+@RequestMapping("/${table.className.toLowerCase()}")
+@RestController
+public class ${table.className}Controller {
+
+    @Autowired
+    ${table.className}Service ${table.className.substring(0,1).toLowerCase()}${table.className.substring(1)}Service;
+
+}

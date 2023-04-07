@@ -1,0 +1,85 @@
+#set($math = $tool.math)
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${proj.mapperDir}.${table.className}Mapper">
+
+    <resultMap id="RESULTMAP_BASE" type="${proj.entityDir}.${table.className}">
+#foreach($field in $table.fieldList)
+#if($field.COLUMN_KEY == "PRI")
+        <id column="$field.COLUMN_NAME" property="$field.fieldName" jdbcType="$field.jdbcType.toUpperCase()"/>
+#else
+        <result column="$field.COLUMN_NAME" property="$field.fieldName" jdbcType="$field.jdbcType.toUpperCase()"/>
+#end
+#end
+    </resultMap>
+#set($COLUMNS="")
+#foreach($field in $table.fieldList)#set($COLUMNS=$COLUMNS+$field.COLUMN_NAME+",")#end
+#set($COLUMNS=$COLUMNS.substring(0, $COLUMNS.length()- 1))
+    <sql id="COLUMNS_BASE">$COLUMNS</sql>
+
+    <select id="list" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from $table.TABLE_NAME
+        <where>
+#foreach($field in $table.fieldList)
+#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
+            <if test="null != $field.fieldName and '' != $field.fieldName">
+#else
+            <if test="null != $field.fieldName">
+#end
+            and $field.COLUMN_NAME = #{$field.fieldName,$field.jdbcType.toUpperCase()}
+            </if>
+#end
+        </where>
+    </select>
+
+    <insert id="insert">
+        insert into $table.TABLE_NAME (
+        <trim suffixOverrides=",">
+#foreach($field in $table.fieldList)
+#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
+            <if test="null != $field.fieldName and '' != $field.fieldName">
+#else
+            <if test="null != $field.fieldName">
+#end
+            $field.COLUMN_NAME#if($foreach.index != $table.fieldList.size()- 1),#end
+            </if>
+#end
+        </trim>
+        )values (
+        <trim suffixOverrides=",">
+#foreach($field in $table.fieldList)
+#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
+            <if test="null != $field.fieldName and '' != $field.fieldName">
+#else
+            <if test="null != $field.fieldName">
+#end
+            #{$field.fieldName,$field.jdbcType.toUpperCase()}#if($foreach.index != $table.fieldList.size()- 1),#end
+            </if>
+#end
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        update $table.TABLE_NAME
+        set
+    #foreach($field in $table.fieldList)
+        <trim suffixOverrides=",">
+            $field.COLUMN_NAME = #{$field.fieldName, $field.jdbcType.toUpperCase()},
+        </trim>
+    #end
+        <where>
+#foreach($field in $table.fieldList)
+#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
+            <if test="null != $field.fieldName and '' != $field.fieldName">
+#else
+            <if test="null != $field.fieldName">
+#end
+            and $field.COLUMN_NAME = #{$field.fieldName,$field.jdbcType.toUpperCase()}
+            </if>
+#end
+        </where>
+    </update>
+
+</mapper>

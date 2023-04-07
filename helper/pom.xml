@@ -54,47 +54,6 @@
             <version>4.1.0</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.aspose</groupId>-->
-<!--            <artifactId>aspose-pdf</artifactId>-->
-<!--            <version>22.3</version>-->
-<!--            <systemPath>${basedir}/libs/aspose-pdf-22.3.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash;pptx&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.aspose</groupId>-->
-<!--            <artifactId>aspose-slides</artifactId>-->
-<!--            <version>16.9</version>-->
-<!--            <systemPath>${basedir}/libs/aspose-slides-16.9.0.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>aspose</groupId>-->
-<!--            <artifactId>aspose-word</artifactId>-->
-<!--            <version>18.10</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/libs/aspose-word-18.10.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>aspose</groupId>-->
-<!--            <artifactId>aspose-cells</artifactId>-->
-<!--            <version>18.9</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/libs/aspose-cells-18.9.jar</systemPath>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.aspose</groupId>-->
-<!--            <artifactId>aspose-slides</artifactId>-->
-<!--            <version>22.3</version>-->
-<!--            <classifier>jdk16</classifier>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.aspose</groupId>-->
-<!--            <artifactId>aspose-slides</artifactId>-->
-<!--            <version>22.3</version>-->
-<!--            <classifier>javadoc</classifier>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-pdf</artifactId>
@@ -115,10 +74,30 @@
         </dependency>
 
         <!-- vm模板 -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.velocity</groupId>-->
+<!--            <artifactId>velocity</artifactId>-->
+<!--            <version>1.7</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.velocity</groupId>-->
+<!--            <artifactId>velocity-tools</artifactId>-->
+<!--            <version>2.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>antlr</groupId>-->
+<!--            <artifactId>antlr</artifactId>-->
+<!--            <version>2.7.7</version>-->
+<!--        </dependency>-->
         <dependency>
-            <artifactId>velocity</artifactId>
             <groupId>org.apache.velocity</groupId>
-            <version>1.7</version>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity.tools</groupId>
+            <artifactId>velocity-tools-generic</artifactId>
+            <version>3.1</version>
         </dependency>
 
     </dependencies>

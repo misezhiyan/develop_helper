@@ -1,0 +1,10 @@
+package ${proj.serviceDir};
+
+/**
+ * @discription ${table.TABLE_COMMENT}
+ * @author ${proj.author}
+ * @date ${date}
+ */
+public interface ${table.className}Service {
+
+}
