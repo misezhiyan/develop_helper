@@ -1,8 +1,7 @@
 package lowcode;
 
-import lowcode.entity.table.Table;
-import lowcode.service.TableStruct;
-import lowcode.service.impl.TableStructImpl;
+import lowcode.service.TableTransferService;
+import lowcode.service.impl.TableTransferServiceImpl;
 import mybatis.sqlutil.SqlSessionFactoryUtil;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.session.SqlSession;
@@ -10,11 +9,11 @@ import org.apache.ibatis.session.SqlSession;
 import javax.sql.DataSource;
 
 /**
- * @description: 低代码生成
+ * @description: TODO
  * @author: liyq
- * @createtime: 2023-04-03 15:08
+ * @createtime: 2023-04-08 18:49
  */
-public class LowCode {
+public class TableTransfer {
 
     static String url = "jdbc:mysql://localhost:3306/lowcode?serverTimezone=GMT%2B8";
     static String driver = "com.mysql.cj.jdbc.Driver";
@@ -33,14 +32,15 @@ public class LowCode {
             return;
         }
 
-        // 抽取表结构
-        TableStruct tableStruct = new TableStructImpl();
-        Table table = tableStruct.tableStruct(sqlSession, "pic_recognize_log");
+        TableTransferService transferService = new TableTransferServiceImpl();
+
+        // 抽取数据库到文件
+        // transferService.transferDbToFile("lowcode", sqlSession, username, password);
+
+        // 从文件创建数据库
+        // transferService.transferTableToDb("lowcodenew", sqlSession, username, password);
 
         sqlSession.close();
-
-        // 生成对应文件
-        tableStruct.projCreate(table);
-
     }
+
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lowcode.mapper.TableCreateMapper">
+
+	<!-- 当前链接schema -->
+	<select id="schema" resultType="java.lang.String">
+		select database()
+	</select>
+
+	<!-- 查看所有表 -->
+	<select id="allTables" resultType="java.lang.String">
+		SHOW TABLES
+	</select>
+
+	<!-- 表创建 sql -->
+	<select id="createSql" resultType="Map">
+		SHOW CREATE TABLE ${tableName}
+	</select>
+
+	<!-- 创建表 -->
+	<insert id="createOneTable">
+		${createOneTableSql}
+	</insert>
+
+	<!-- 查询数据库是否存在 -->
+	<select id="searchDatabase" resultType="java.lang.String">
+		show databases like #{database}
+	</select>
+
+	<!-- 删库 -->
+	<delete id="dropDatabase">
+		drop database ${database}
+	</delete>
+
+	<!-- 建库 -->
+	<insert id="createDatabase">
+		create database ${database}
+	</insert>
+
+</mapper>
