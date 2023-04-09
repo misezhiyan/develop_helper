@@ -47,6 +47,14 @@ const routes = [{
         component: () => import('@/components/db/dbConfig')
     }]
 }, {
+    name: '图像识别',
+    path: '/picrecognize',
+    children: [{
+        name: '图像识别记录',
+        path: 'index',
+        component: () => import('@/components/picrecognize/index')
+    }]
+}, {
     name: '404',
     path: '/',
     redirect: '/project/index',

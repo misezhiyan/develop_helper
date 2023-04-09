@@ -16,6 +16,13 @@ module.exports = defineConfig({
                     '^/api/': ''
                 }
             },
+            '/apipicrecognize/': {
+                target: 'http://localhost:108',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/apipicrecognize/': '/train/'
+                }
+            },
             // [process.env.VUE_APP_BASE_API]: {
             //     target: 'http://localhost:8071',
             //     changeOrigin: true,
