@@ -15,7 +15,8 @@ import javax.sql.DataSource;
  */
 public class TableTransfer {
 
-    static String url = "jdbc:mysql://localhost:3306/lowcode?serverTimezone=GMT%2B8";
+    // static String url = "jdbc:mysql://localhost:3306/lowcode?serverTimezone=GMT%2B8";
+    static String url = "jdbc:mysql://localhost:3306/";
     static String driver = "com.mysql.cj.jdbc.Driver";
     static String username = "root";
     static String password = "root";
@@ -35,10 +36,10 @@ public class TableTransfer {
         TableTransferService transferService = new TableTransferServiceImpl();
 
         // 抽取数据库到文件
-        transferService.transferDbToFile("lowcode", sqlSession, username, password);
+        // transferService.transferDbToFile("lowcode", sqlSession, username, password);
 
         // 从文件创建数据库
-        // transferService.transferTableToDb("lowcodenew", sqlSession, username, password);
+        transferService.transferTableToDb("lowcode", sqlSession, username, password);
 
         sqlSession.close();
     }

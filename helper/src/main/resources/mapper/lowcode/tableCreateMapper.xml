@@ -37,4 +37,9 @@
 		create database ${database}
 	</insert>
 
+	<!-- 默认库 -->
+	<insert id="useDatabase">
+		use ${database}
+	</insert>
+
 </mapper>

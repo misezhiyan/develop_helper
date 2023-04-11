@@ -68,4 +68,13 @@ public interface TableCreateMapper {
      * @return int
      */
     int createDatabase(String database);
+
+    /**
+     * 切库
+     * @author: liyq
+     * @createtime: 2023-04-08 22:58:02
+     * @param: database
+     * @return int
+     */
+    int useDatabase(String database);
 }

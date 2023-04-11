@@ -30,9 +30,7 @@ public class TableTransferServiceImpl implements TableTransferService {
             Arrays.stream(sqlPackage.listFiles()).forEach(subFile -> subFile.delete());
         }
 
-        String tableTransferSqlCommand = "mysqldump --compact --extended-insert=false -u" + username + " -p" + password + " " + schema + ">" + PathUtil.matchLinePath(sqlPackage.getAbsolutePath()) + "/" + schema + ".sql";
-
-        System.out.println(tableTransferSqlCommand);
+        String tableTransferSqlCommand = "mysqldump ---add-drop-table --compact --extended-insert=false --default-character-set=utf8 -u" + username + " -p" + password + " " + schema + ">" + PathUtil.matchLinePath(sqlPackage.getAbsolutePath()) + "/" + schema + ".sql";
 
         WinRunner.runCmd(tableTransferSqlCommand);
     }
@@ -49,7 +47,8 @@ public class TableTransferServiceImpl implements TableTransferService {
         if (!StringUtils.isEmpty(database)) {
             createMapper.dropDatabase(database);
         }
-        createMapper.createDatabase(database);
+        createMapper.createDatabase(schema);
+        createMapper.useDatabase(schema);
 
         File sqlPackage = new File("helper/src/main/java/lowcode/service/impl/tabletransfer/createsql");
         File[] files = sqlPackage.listFiles();
@@ -58,7 +57,7 @@ public class TableTransferServiceImpl implements TableTransferService {
             System.err.println("导入文件不存在");
             return;
         }
-        String command = "mysql -u" + username + " -p" + password + " " + schema + " <" + scemaFile.getAbsolutePath();
+        String command = "mysql --default-character-set=utf8 -u" + username + " -p" + password + " " + schema + " <" + scemaFile.getAbsolutePath();
         WinRunner.runCmd(command);
     }
 }
