@@ -15,9 +15,7 @@ public class Table {
     private String TABLE_NAME;
     private String TABLE_COMMENT;
     private List<Field> fieldList;
-
-    private List<String> entityImportList;
-    private List<String> mapperImportList;
+    private Field prikey;
 
     public void setTABLE_NAME(String tABLE_NAME) {
         TABLE_NAME = tABLE_NAME;
@@ -37,15 +35,24 @@ public class Table {
 
     public void setFieldList(List<Field> fieldList) {
         this.fieldList = fieldList;
-        this.entityImportList = fieldList.stream().map(field -> field.getJavaType()).distinct().collect(Collectors.toList());
-    }
 
-    public List<String> getEntityImportList() {
-        return entityImportList;
+        for (Field field : fieldList) {
+            String COLUMN_KEY = field.getCOLUMN_KEY();
+            if (COLUMN_KEY.equals("PRI"))
+                this.prikey = field;
+        }
     }
 
     public String getTABLE_NAME() {
         return TABLE_NAME;
+    }
+
+    public Field getPrikey() {
+        return prikey;
+    }
+
+    public void setPrikey(Field prikey) {
+        this.prikey = prikey;
     }
 
     public String getParamName() {
@@ -70,12 +77,4 @@ public class Table {
         return StringUtil.headUppercase(className);
     }
 
-    public Field priKey() {
-        for (Field field : fieldList) {
-            String COLUMN_KEY = field.getCOLUMN_KEY();
-            if (COLUMN_KEY.equals("PRI"))
-                return field;
-        }
-        return null;
-    }
 }

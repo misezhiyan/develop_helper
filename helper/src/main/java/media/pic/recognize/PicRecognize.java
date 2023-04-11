@@ -15,6 +15,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -73,25 +74,27 @@ public class PicRecognize {
         // PicUtil.saveRgbToFile(perspectiveBSquare, outFileName);
 
         // 切割
-        int[][] cutSquare = cut.cut(dealAreaSquare);
+        int[][][] cutSquares = cut.cut(dealAreaSquare);
         // saveAndOpen(cutSquare, "切割");
 
         // 缩放
-        int[][] zoomSquare = zoom.zoom(cutSquare);
-        saveAndOpen(zoomSquare, "缩放");
+        Arrays.stream(cutSquares).forEach(cutSquare -> {
+            int[][] zoomSquare = zoom.zoom(cutSquare);
+            // saveAndOpen(zoomSquare, "缩放");
 
-        // // 特征点提取入库，并训练
-        // int[][] zoomSquare = zoom.zoom(zoomSquare);
-        // saveAndOpen(zoomSquare, "缩放");
+            // // 特征点提取入库，并训练
+            // int[][] zoomSquare = zoom.zoom(zoomSquare);
+            // saveAndOpen(zoomSquare, "缩放");
 
-        // 图像边缘检测算法例举
-        // 图像纠偏算法例举
-        // 图像噪点处理例举
-        // 图像分割算法例举
+            // 图像边缘检测算法例举
+            // 图像纠偏算法例举
+            // 图像噪点处理例举
+            // 图像分割算法例举
 
-        // Hough 变换
-        BorderCheck borderCheck = new BorderCheck();
-        borderCheck.houghChange(colorToBWSquare);
+            // // Hough 变换
+            // BorderCheck borderCheck = new BorderCheck();
+            // borderCheck.houghChange(colorToBWSquare);
+        });
 
     }
 

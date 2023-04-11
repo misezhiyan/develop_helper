@@ -14,5 +14,5 @@ public interface Cut {
      * @param: square
      * @return int[][]
      */
-    int[][] cut(int[][] square);
+    int[][][] cut(int[][] square);
 }

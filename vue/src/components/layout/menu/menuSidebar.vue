@@ -1,5 +1,5 @@
 <template>
-  <el-menu router bg-color="#FEE" v-for="menuDetail in menuList" :key="menuDetail.id">
+  <el-menu style="background-color: #4cd213" router  v-for="menuDetail in menuList" :key="menuDetail.id">
     <!--    <template v-for="menuDetail in menuList" :key="menuDetail.id" >-->
     <el-menu-item :index="menuDetail.path" v-if="menuDetail.children.length < 1">
       <span> {{ menuDetail.menuName }} </span>

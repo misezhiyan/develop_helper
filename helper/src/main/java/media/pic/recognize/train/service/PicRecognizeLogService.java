@@ -1,6 +1,9 @@
 package media.pic.recognize.train.service;
 
+import media.pic.recognize.train.controller.domain.response.LogDelResponse;
+import media.pic.recognize.train.controller.domain.response.RecognizeResponse;
 import media.pic.recognize.train.entity.PicRecognizeLog;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,4 +15,8 @@ import java.util.List;
 public interface PicRecognizeLogService {
 
     List<PicRecognizeLog> list();
+
+    RecognizeResponse recognize(MultipartFile file);
+
+    LogDelResponse delLog(Integer id);
 }

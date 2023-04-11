@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="media.pic.recognize.train.mapper.PicRecognizeLogMapper">
+<mapper namespace="media.pic.recognize.train.mapper.PicRecognizeFeatureLogMapper">
 
-    <resultMap id="RESULTMAP_BASE" type="media.pic.recognize.train.entity.PicRecognizeLog">
+    <resultMap id="RESULTMAP_BASE" type="media.pic.recognize.train.entity.PicRecognizeFeatureLog">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="pic_url" property="picUrl" jdbcType="VARCHAR"/>
-        <result column="pic_name" property="picName" jdbcType="VARCHAR"/>
-        <result column="pic_recog" property="picRecog" jdbcType="BOOLEAN"/>
+        <result column="feature" property="feature" jdbcType="VARCHAR"/>
+        <result column="feature_size" property="featureSize" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <sql id="COLUMNS_BASE">id,pic_url,pic_name,pic_recog,create_time,update_time</sql>
+    <sql id="COLUMNS_BASE">id,feature,feature_size,create_time,update_time</sql>
 
     <select id="list" resultMap="RESULTMAP_BASE">
         select <include refid="COLUMNS_BASE"/>
-        from pic_recognize_log
+        from pic_recognize_feature_log
         <where>
             <if test="null != id">
             and id = #{id: INTEGER}
             </if>
-            <if test="null != picUrl and '' != picUrl">
-            and pic_url = #{picUrl: VARCHAR}
+            <if test="null != feature and '' != feature">
+            and feature = #{feature: VARCHAR}
             </if>
-            <if test="null != picName and '' != picName">
-            and pic_name = #{picName: VARCHAR}
-            </if>
-            <if test="null != picRecog">
-            and pic_recog = #{picRecog: BOOLEAN}
+            <if test="null != featureSize">
+            and feature_size = #{featureSize: INTEGER}
             </if>
             <if test="null != createTime">
             and create_time = #{createTime: TIMESTAMP}
@@ -38,16 +34,13 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into pic_recognize_log (
+        insert into pic_recognize_feature_log (
         <trim suffixOverrides=",">
-            <if test="null != picUrl and '' != picUrl">
-                pic_url,
+            <if test="null != feature and '' != feature">
+                feature,
             </if>
-            <if test="null != picName and '' != picName">
-                pic_name,
-            </if>
-            <if test="null != picRecog">
-                pic_recog,
+            <if test="null != featureSize">
+                feature_size,
             </if>
             <if test="null != createTime">
                 create_time,
@@ -58,14 +51,11 @@
         </trim>
         )values (
         <trim suffixOverrides=",">
-            <if test="null != picUrl and '' != picUrl">
-                #{picUrl: VARCHAR},
+            <if test="null != feature and '' != feature">
+                #{feature: VARCHAR},
             </if>
-            <if test="null != picName and '' != picName">
-                #{picName: VARCHAR},
-            </if>
-            <if test="null != picRecog">
-                #{picRecog: BOOLEAN},
+            <if test="null != featureSize">
+                #{featureSize: INTEGER},
             </if>
             <if test="null != createTime">
                 #{createTime: TIMESTAMP},
@@ -78,35 +68,38 @@
     </insert>
 
     <update id="updateById">
-        update pic_recognize_log
+        update pic_recognize_feature_log
         set
-        <if test="null != picUrl and '' != picUrl">
-            pic_url = #{picUrl}: VARCHAR},
+        <if test="null != feature and '' != feature">
+            feature = #{feature: VARCHAR},
         </if>
-        <if test="null != picName and '' != picName">
-            pic_name = #{picName}: VARCHAR},
-        </if>
-        <if test="null != picRecog">
-            pic_recog = #{picRecog}: BOOLEAN},
+        <if test="null != featureSize">
+            feature_size = #{featureSize: INTEGER},
         </if>
         <if test="null != createTime">
-            create_time = #{createTime}: TIMESTAMP},
+            create_time = #{createTime: TIMESTAMP},
         </if>
         <if test="null != updateTime">
-            update_time = #{updateTime}: TIMESTAMP},
+            update_time = #{updateTime: TIMESTAMP},
         </if>
         where id = #{id: INTEGER}
     </update>
 
     <select id="selectById" resultMap="RESULTMAP_BASE">
         select <include refid="COLUMNS_BASE"/>
-        from pic_recognize_log
+        from pic_recognize_feature_log
         where id = #{id: INTEGER}
     </select>
 
     <delete id="delById">
-        delete from pic_recognize_log
+        delete from pic_recognize_feature_log
         where id = #{id: INTEGER}
     </delete>
+
+    <select id="selectByFeature" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from pic_recognize_feature_log
+        where feature = #{feature: VARCHAR}
+    </select>
 
 </mapper>

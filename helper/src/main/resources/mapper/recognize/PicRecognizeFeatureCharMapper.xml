@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="media.pic.recognize.train.mapper.PicRecognizeFeatureCharMapper">
+
+    <resultMap id="RESULTMAP_BASE" type="media.pic.recognize.train.entity.PicRecognizeFeatureChar">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="feature" property="feature" jdbcType="VARCHAR"/>
+        <result column="charac" property="charac" jdbcType="VARCHAR"/>
+        <result column="feature_size" property="featureSize" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="COLUMNS_BASE">id,feature,charac,feature_size,create_time,update_time</sql>
+
+    <select id="list" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from pic_recognize_feature_char
+        <where>
+            <if test="null != id">
+            and id = #{id: INTEGER}
+            </if>
+            <if test="null != feature and '' != feature">
+            and feature = #{feature: VARCHAR}
+            </if>
+            <if test="null != charac and '' != charac">
+            and charac = #{charac: VARCHAR}
+            </if>
+            <if test="null != featureSize">
+            and feature_size = #{featureSize: INTEGER}
+            </if>
+            <if test="null != createTime">
+            and create_time = #{createTime: TIMESTAMP}
+            </if>
+            <if test="null != updateTime">
+            and update_time = #{updateTime: TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into pic_recognize_feature_char (
+        <trim suffixOverrides=",">
+            <if test="null != feature and '' != feature">
+                feature,
+            </if>
+            <if test="null != charac and '' != charac">
+                charac,
+            </if>
+            <if test="null != featureSize">
+                feature_size,
+            </if>
+            <if test="null != createTime">
+                create_time,
+            </if>
+            <if test="null != updateTime">
+                update_time
+            </if>
+        </trim>
+        )values (
+        <trim suffixOverrides=",">
+            <if test="null != feature and '' != feature">
+                #{feature: VARCHAR},
+            </if>
+            <if test="null != charac and '' != charac">
+                #{charac: VARCHAR},
+            </if>
+            <if test="null != featureSize">
+                #{featureSize: INTEGER},
+            </if>
+            <if test="null != createTime">
+                #{createTime: TIMESTAMP},
+            </if>
+            <if test="null != updateTime">
+                #{updateTime: TIMESTAMP}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateById">
+        update pic_recognize_feature_char
+        set
+        <if test="null != feature and '' != feature">
+            feature = #{feature: VARCHAR},
+        </if>
+        <if test="null != charac and '' != charac">
+            charac = #{charac: VARCHAR},
+        </if>
+        <if test="null != featureSize">
+            feature_size = #{featureSize: INTEGER},
+        </if>
+        <if test="null != createTime">
+            create_time = #{createTime: TIMESTAMP},
+        </if>
+        <if test="null != updateTime">
+            update_time = #{updateTime: TIMESTAMP},
+        </if>
+        where id = #{id: INTEGER}
+    </update>
+
+    <select id="selectById" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from pic_recognize_feature_char
+        where id = #{id: INTEGER}
+    </select>
+
+    <delete id="delById">
+        delete from pic_recognize_feature_char
+        where id = #{id: INTEGER}
+    </delete>
+
+    <select id="selectByFeature" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from pic_recognize_feature_char
+        where feature = #{feature: VARCHAR}
+    </select>
+
+</mapper>

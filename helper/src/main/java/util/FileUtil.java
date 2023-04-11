@@ -218,6 +218,18 @@ public class FileUtil {
         return writeIntoFileByPath(fileRealPath, content);
     }
 
+    /**
+     * @description: 写入文件
+     * @author: liyq
+     * @createtime: 2023-04-10 17:10:37
+     * @param: fileRealPath
+     * @param: content
+     * @return boolean
+     */
+    public static boolean writeIntoFileByPath(String fileRealPath, byte[] bytes) throws Exception {
+        return writeIntoFileByPath(fileRealPath, new String(bytes));
+    }
+
     /*
      * @description: 写入文件
      * @author: liyq
@@ -263,4 +275,38 @@ public class FileUtil {
         return true;
     }
 
+    /**
+     * @description: 无后缀文件名称
+     * @author: liyq
+     * @createtime: 2023-04-11 16:49:05
+     * @param: picName
+     * @return String
+     */
+    public static String fileNameNoSuffix(String fileName) {
+        String path = null;
+        int index = fileName.lastIndexOf(".");
+        if (index > 0) {
+            path = fileName.substring(0, index);
+        }
+        String linePath = PathUtil.linePath(path);
+        int indexLine = linePath.indexOf(PathUtil.PATH_LINE_SPLIT);
+        if (indexLine > 0)
+            return linePath.substring(indexLine);
+        return linePath;
+    }
+
+    /**
+     * @description: 文件后缀名
+     * @author: liyq
+     * @createtime: 2023-04-11 16:56:02
+     * @param: picName
+     * @return String
+     */
+    public static String fileSuffix(String fileName) {
+        int index = fileName.lastIndexOf(".");
+        if (index > 0) {
+            return fileName.substring(index + 1);
+        }
+        return fileName;
+    }
 }

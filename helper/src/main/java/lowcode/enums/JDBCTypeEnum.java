@@ -14,7 +14,7 @@ public enum JDBCTypeEnum {
     MYSQL_INTEGER("MYSQL", "INTEGER", "INTEGER","Integer","java.lang.Integer"),
     MYSQL_DATETIME("MYSQL", "DATETIME", "TIMESTAMP","Date","java.util.Date"),
     MYSQL_VARCHAR("MYSQL", "VARCHAR", "VARCHAR","String","java.lang.String"),
-    MYSQL_TINYINT("MYSQL", "TINYINT", "TINYINT","boolean","java.lang.Boolean"),
+    MYSQL_TINYINT("MYSQL", "TINYINT", "BOOLEAN","Boolean","java.lang.Boolean"),
     ;
 
     JDBCTypeEnum(String databaseType, String dbType, String jdbcType, String javaTypeShort, String javaType) {

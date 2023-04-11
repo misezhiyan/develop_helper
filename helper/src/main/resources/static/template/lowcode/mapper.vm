@@ -16,6 +16,11 @@ public interface ${table.className}Mapper {
 
 	int insert(${table.className} ${table.paramName});
 
-	int update(${table.className} ${table.paramName});
+#if($table.prikey)
+	int updateBy${table.prikey.methodName}(${table.className} ${table.paramName});
 
+	${table.className} selectBy${table.prikey.methodName}($table.prikey.javaTypeShort $table.prikey.fieldName);
+
+	int delBy${table.prikey.methodName}($table.prikey.javaTypeShort $table.prikey.fieldName);
+#end
 }

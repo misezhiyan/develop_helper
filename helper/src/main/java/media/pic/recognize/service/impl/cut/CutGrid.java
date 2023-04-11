@@ -25,7 +25,7 @@ public class CutGrid implements Cut {
      * @return int[][]
      */
     @Override
-    public int[][] cut(int[][] square) {
+    public int[][][] cut(int[][] square) {
 
         // 1、边缘切割
         int[][] outCircleSquare = outCircleCut(square);
@@ -34,7 +34,9 @@ public class CutGrid implements Cut {
         return charCut(outCircleSquare);
     }
 
-    private int[][] charCut(int[][] square) {
+    private int[][][] charCut(int[][] square) {
+
+        int[][][] result = new int[1][][];
 
         // 从右侧切第一个字符，字符宽度 +-5 作为下全局字符宽度设置判断
 
@@ -50,15 +52,17 @@ public class CutGrid implements Cut {
         CutGridCheck checkY = CutGridCheck.checkX(xToY);
 
         // y轴切割
-        int dst[][] = ArrayUtil.rowToColumn(PicUtil.cutX(xToY, checkY.startX, checkY.endX));
+        int[][] dst = ArrayUtil.rowToColumn(PicUtil.cutX(xToY, checkY.startX, checkY.endX));
 
-        try {
-            PicRecognize.saveAndOpen(dst, "first");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     PicRecognize.saveAndOpen(dst, "first");
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
-        return dst;
+        result[0] = dst;
+
+        return result;
     }
 
     /**

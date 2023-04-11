@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="media.pic.recognize.train.mapper.PicRecognizeLogMapper">
+<mapper namespace="media.pic.recognize.train.mapper.PicRecognizeStepPicMapper">
 
-    <resultMap id="RESULTMAP_BASE" type="media.pic.recognize.train.entity.PicRecognizeLog">
+    <resultMap id="RESULTMAP_BASE" type="media.pic.recognize.train.entity.PicRecognizeStepPic">
         <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="pic_recognize_step_id" property="picRecognizeStepId" jdbcType="INTEGER"/>
         <result column="pic_url" property="picUrl" jdbcType="VARCHAR"/>
-        <result column="pic_name" property="picName" jdbcType="VARCHAR"/>
         <result column="pic_recog" property="picRecog" jdbcType="BOOLEAN"/>
+        <result column="recognize_result" property="recognizeResult" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <sql id="COLUMNS_BASE">id,pic_url,pic_name,pic_recog,create_time,update_time</sql>
+    <sql id="COLUMNS_BASE">id,pic_recognize_step_id,pic_url,pic_recog,recognize_result,create_time,update_time</sql>
 
     <select id="list" resultMap="RESULTMAP_BASE">
         select <include refid="COLUMNS_BASE"/>
-        from pic_recognize_log
+        from pic_recognize_step_pic
         <where>
             <if test="null != id">
             and id = #{id: INTEGER}
             </if>
+            <if test="null != picRecognizeStepId">
+            and pic_recognize_step_id = #{picRecognizeStepId: INTEGER}
+            </if>
             <if test="null != picUrl and '' != picUrl">
             and pic_url = #{picUrl: VARCHAR}
             </if>
-            <if test="null != picName and '' != picName">
-            and pic_name = #{picName: VARCHAR}
-            </if>
             <if test="null != picRecog">
             and pic_recog = #{picRecog: BOOLEAN}
+            </if>
+            <if test="null != recognizeResult and '' != recognizeResult">
+            and recognize_result = #{recognizeResult: VARCHAR}
             </if>
             <if test="null != createTime">
             and create_time = #{createTime: TIMESTAMP}
@@ -38,16 +42,19 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into pic_recognize_log (
+        insert into pic_recognize_step_pic (
         <trim suffixOverrides=",">
+            <if test="null != picRecognizeStepId">
+                pic_recognize_step_id,
+            </if>
             <if test="null != picUrl and '' != picUrl">
                 pic_url,
             </if>
-            <if test="null != picName and '' != picName">
-                pic_name,
-            </if>
             <if test="null != picRecog">
                 pic_recog,
+            </if>
+            <if test="null != recognizeResult and '' != recognizeResult">
+                recognize_result,
             </if>
             <if test="null != createTime">
                 create_time,
@@ -58,14 +65,17 @@
         </trim>
         )values (
         <trim suffixOverrides=",">
+            <if test="null != picRecognizeStepId">
+                #{picRecognizeStepId: INTEGER},
+            </if>
             <if test="null != picUrl and '' != picUrl">
                 #{picUrl: VARCHAR},
             </if>
-            <if test="null != picName and '' != picName">
-                #{picName: VARCHAR},
-            </if>
             <if test="null != picRecog">
                 #{picRecog: BOOLEAN},
+            </if>
+            <if test="null != recognizeResult and '' != recognizeResult">
+                #{recognizeResult: VARCHAR},
             </if>
             <if test="null != createTime">
                 #{createTime: TIMESTAMP},
@@ -78,35 +88,43 @@
     </insert>
 
     <update id="updateById">
-        update pic_recognize_log
+        update pic_recognize_step_pic
         set
-        <if test="null != picUrl and '' != picUrl">
-            pic_url = #{picUrl}: VARCHAR},
+        <if test="null != picRecognizeStepId">
+            pic_recognize_step_id = #{picRecognizeStepId: INTEGER},
         </if>
-        <if test="null != picName and '' != picName">
-            pic_name = #{picName}: VARCHAR},
+        <if test="null != picUrl and '' != picUrl">
+            pic_url = #{picUrl: VARCHAR},
         </if>
         <if test="null != picRecog">
-            pic_recog = #{picRecog}: BOOLEAN},
+            pic_recog = #{picRecog: BOOLEAN},
+        </if>
+        <if test="null != recognizeResult and '' != recognizeResult">
+            recognize_result = #{recognizeResult: VARCHAR},
         </if>
         <if test="null != createTime">
-            create_time = #{createTime}: TIMESTAMP},
+            create_time = #{createTime: TIMESTAMP},
         </if>
         <if test="null != updateTime">
-            update_time = #{updateTime}: TIMESTAMP},
+            update_time = #{updateTime: TIMESTAMP},
         </if>
         where id = #{id: INTEGER}
     </update>
 
     <select id="selectById" resultMap="RESULTMAP_BASE">
         select <include refid="COLUMNS_BASE"/>
-        from pic_recognize_log
+        from pic_recognize_step_pic
         where id = #{id: INTEGER}
     </select>
 
     <delete id="delById">
-        delete from pic_recognize_log
+        delete from pic_recognize_step_pic
         where id = #{id: INTEGER}
+    </delete>
+    
+    <delete id="delByStepId">
+        delete from pic_recognize_step_pic
+        where pic_recognize_step_id = #{picRecognizeStepId: INTEGER}
     </delete>
 
 </mapper>

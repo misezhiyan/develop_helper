@@ -3,16 +3,17 @@ package media.pic.recognize.train.entity;
 import java.util.Date;
 
 /**
- * @discription 图片识别记录
+ * @discription 
  * @author kimmy
  * @date ${date}
  */
-public class PicRecognizeLog {
+public class PicRecognizeStepPic {
 
     private Integer id;
+    private Integer picRecognizeStepId;
     private String picUrl;
-    private String picName;
     private Boolean picRecog;
+    private String recognizeResult;
     private Date createTime;
     private Date updateTime;
 
@@ -24,6 +25,14 @@ public class PicRecognizeLog {
         this.id = id;
     }
 
+    public Integer getPicRecognizeStepId() {
+        return picRecognizeStepId;
+    }
+
+    public void setPicRecognizeStepId(Integer picRecognizeStepId) {
+        this.picRecognizeStepId = picRecognizeStepId;
+    }
+
     public String getPicUrl() {
         return picUrl;
     }
@@ -32,20 +41,20 @@ public class PicRecognizeLog {
         this.picUrl = picUrl;
     }
 
-    public String getPicName() {
-        return picName;
-    }
-
-    public void setPicName(String picName) {
-        this.picName = picName;
-    }
-
     public Boolean getPicRecog() {
         return picRecog;
     }
 
     public void setPicRecog(Boolean picRecog) {
         this.picRecog = picRecog;
+    }
+
+    public String getRecognizeResult() {
+        return recognizeResult;
+    }
+
+    public void setRecognizeResult(String recognizeResult) {
+        this.recognizeResult = recognizeResult;
     }
 
     public Date getCreateTime() {

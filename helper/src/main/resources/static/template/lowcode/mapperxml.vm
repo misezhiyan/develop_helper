@@ -27,59 +27,75 @@
 #else
             <if test="null != $field.fieldName">
 #end
-            and $field.COLUMN_NAME = #{$field.fieldName,$field.jdbcType.toUpperCase()}
+            and $field.COLUMN_NAME = #{$field.fieldName: $field.jdbcType.toUpperCase()}
             </if>
 #end
         </where>
     </select>
 
-    <insert id="insert">
+    <insert id="insert" #if($table.prikey && $table.prikey.EXTRA=="auto_increment")useGeneratedKeys="true" keyProperty="$table.prikey.fieldName"#end>
         insert into $table.TABLE_NAME (
         <trim suffixOverrides=",">
 #foreach($field in $table.fieldList)
-#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
+#if($table.prikey && $table.prikey.fieldName == $field.fieldName && $table.prikey.EXTRA=="auto_increment")
+#elseif($field.DATA_TYPE.toUpperCase() == "VARCHAR")
             <if test="null != $field.fieldName and '' != $field.fieldName">
+                $field.COLUMN_NAME#if($foreach.index != $table.fieldList.size()- 1),#end
+            </if>
 #else
             <if test="null != $field.fieldName">
-#end
-            $field.COLUMN_NAME#if($foreach.index != $table.fieldList.size()- 1),#end
+                $field.COLUMN_NAME#if($foreach.index != $table.fieldList.size()- 1),#end
             </if>
+#end
 #end
         </trim>
         )values (
         <trim suffixOverrides=",">
 #foreach($field in $table.fieldList)
-#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
+#if($table.prikey && $table.prikey.fieldName == $field.fieldName && $table.prikey.EXTRA == "auto_increment")
+#elseif($field.DATA_TYPE.toUpperCase() == "VARCHAR")
             <if test="null != $field.fieldName and '' != $field.fieldName">
+                #{$field.fieldName: $field.jdbcType.toUpperCase()}#if($foreach.index != $table.fieldList.size()- 1),#end
+            </if>
 #else
             <if test="null != $field.fieldName">
-#end
-            #{$field.fieldName,$field.jdbcType.toUpperCase()}#if($foreach.index != $table.fieldList.size()- 1),#end
+                #{$field.fieldName: $field.jdbcType.toUpperCase()}#if($foreach.index != $table.fieldList.size()- 1),#end
             </if>
+#end
 #end
         </trim>
         )
     </insert>
 
-    <update id="update">
-        update $table.TABLE_NAME
+#if(${table.prikey})
+    <update id="updateBy${table.prikey.methodName}">
+        update ${table.TABLE_NAME}
         set
-    #foreach($field in $table.fieldList)
-        <trim suffixOverrides=",">
-            $field.COLUMN_NAME = #{$field.fieldName, $field.jdbcType.toUpperCase()},
-        </trim>
-    #end
-        <where>
-#foreach($field in $table.fieldList)
-#if($field.DATA_TYPE.toUpperCase() == "VARCHAR")
-            <if test="null != $field.fieldName and '' != $field.fieldName">
+#foreach(${field} in ${table.fieldList})
+#if(${table.prikey} && ${table.prikey.fieldName} == ${field.fieldName})
 #else
-            <if test="null != $field.fieldName">
+#if(${field.DATA_TYPE.toUpperCase()} == "VARCHAR")
+        <if test="null != ${field.fieldName} and '' != ${field.fieldName}">
+#else
+        <if test="null != ${field.fieldName}">
 #end
-            and $field.COLUMN_NAME = #{$field.fieldName,$field.jdbcType.toUpperCase()}
-            </if>
+            ${field.COLUMN_NAME} = #{${field.fieldName}: ${field.jdbcType.toUpperCase()}},
+        </if>
 #end
-        </where>
+#end
+        where ${table.prikey.COLUMN_NAME} = #{${table.prikey.fieldName}: ${table.prikey.jdbcType.toUpperCase()}}
     </update>
+
+    <select id="selectBy$table.prikey.methodName" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from $table.TABLE_NAME
+        where $table.prikey.COLUMN_NAME = #{$table.prikey.fieldName: $table.prikey.jdbcType.toUpperCase()}
+    </select>
+
+    <delete id="delBy$table.prikey.methodName">
+        delete from $table.TABLE_NAME
+        where $table.prikey.COLUMN_NAME = #{$table.prikey.fieldName: $table.prikey.jdbcType.toUpperCase()}
+    </delete>
+#end
 
 </mapper>

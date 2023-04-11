@@ -16,6 +16,9 @@ public interface PicRecognizeLogMapper {
 
 	int insert(PicRecognizeLog picRecognizeLog);
 
-	int update(PicRecognizeLog picRecognizeLog);
+	int updateById(PicRecognizeLog picRecognizeLog);
 
+	PicRecognizeLog selectById(Integer id);
+
+	int delById(Integer id);
 }

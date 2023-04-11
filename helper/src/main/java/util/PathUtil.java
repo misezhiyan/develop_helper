@@ -29,7 +29,6 @@ public class PathUtil {
 
     // 拼接路径
     public static String combineLinePath(String... pathArr) {
-
         return Arrays.stream(pathArr).map(path -> {
             path = matchLinePath(path);
             while (path.startsWith(PATH_LINE_SPLIT)) {
@@ -74,6 +73,24 @@ public class PathUtil {
             path = path.replace("//", PATH_LINE_SPLIT);
 
         path = path.replace(PATH_LINE_SPLIT, PATH_POINT_SPLIT);
+
+        return path;
+    }
+
+    public static String linePath(String path) {
+
+        if(StringUtil.isEmpty(path))
+            return path;
+
+        path = path.replace(PATH_POINT_SPLIT, PATH_LINE_SPLIT);
+
+        path = path.replace(PATH_WIN_SPLIT, PATH_LINE_SPLIT);
+        while (path.startsWith(PATH_LINE_SPLIT))
+            path = path.substring(1);
+        while (path.endsWith(PATH_LINE_SPLIT))
+            path = path.substring(0, path.length() - 1);
+        while (path.contains(doubleLinePath()))
+            path = path.replace(doubleLinePath(), PATH_LINE_SPLIT);
 
         return path;
     }

@@ -35,7 +35,7 @@ public class TableTransfer {
         TableTransferService transferService = new TableTransferServiceImpl();
 
         // 抽取数据库到文件
-        // transferService.transferDbToFile("lowcode", sqlSession, username, password);
+        transferService.transferDbToFile("lowcode", sqlSession, username, password);
 
         // 从文件创建数据库
         // transferService.transferTableToDb("lowcodenew", sqlSession, username, password);

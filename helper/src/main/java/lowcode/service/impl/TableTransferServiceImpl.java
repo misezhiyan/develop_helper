@@ -32,6 +32,8 @@ public class TableTransferServiceImpl implements TableTransferService {
 
         String tableTransferSqlCommand = "mysqldump --compact --extended-insert=false -u" + username + " -p" + password + " " + schema + ">" + PathUtil.matchLinePath(sqlPackage.getAbsolutePath()) + "/" + schema + ".sql";
 
+        System.out.println(tableTransferSqlCommand);
+
         WinRunner.runCmd(tableTransferSqlCommand);
     }
 

@@ -4,6 +4,7 @@ import util.ArrayUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -58,6 +59,25 @@ public class PicUtil {
      */
     public static int[][] toRgbSquare(String fileName) throws IOException {
         BufferedImage bufferedImage = ImageIO.read(new File(fileName));
+        int[][] square = new int[bufferedImage.getWidth()][bufferedImage.getHeight()];
+        for (int i = 0; i < square.length; i++) {
+            for (int j = 0; j < square[i].length; j++) {
+                // System.out.println(bufferedImage.getRGB(i, j));
+                square[i][j] = bufferedImage.getRGB(i, j);
+            }
+        }
+        return square;
+    }
+
+    /**
+     * @description: 图片转二维RGB数组
+     * @author: liyq
+     * @createtime: 2023-04-11 16:01:02
+     * @param: bytes
+     * @return int[][]
+     */
+    public static int[][] toRgbSquare(byte[] bytes) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(bytes));
         int[][] square = new int[bufferedImage.getWidth()][bufferedImage.getHeight()];
         for (int i = 0; i < square.length; i++) {
             for (int j = 0; j < square[i].length; j++) {

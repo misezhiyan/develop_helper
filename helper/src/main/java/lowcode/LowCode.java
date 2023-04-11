@@ -8,6 +8,8 @@ import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.session.SqlSession;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @description: 低代码生成
@@ -33,14 +35,27 @@ public class LowCode {
             return;
         }
 
+        List<String> tableNameList = new ArrayList<>();
+        tableNameList.add("pic_recognize_feature_log");
+        // tableNameList.add("pic_recognize_feature_char");
+
         // 抽取表结构
         TableStruct tableStruct = new TableStructImpl();
-        Table table = tableStruct.tableStruct(sqlSession, "pic_recognize_log");
+
+        List<Table> tableList = new ArrayList<>();
+        SqlSession finalSqlSession = sqlSession;
+        tableNameList.stream().forEach(tableName -> tableList.add(tableStruct.tableStruct(finalSqlSession, tableName)));
 
         sqlSession.close();
 
         // 生成对应文件
-        tableStruct.projCreate(table);
+        tableList.stream().forEach(table -> {
+            try {
+                tableStruct.projCreate(table);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 }

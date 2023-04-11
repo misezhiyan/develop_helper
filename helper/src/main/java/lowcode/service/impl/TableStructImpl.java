@@ -42,7 +42,7 @@ public class TableStructImpl implements TableStruct {
         EntityCreateManager.createFile(table);
         MapperCreateManager.createFile(table);
         MapperXmlCreateManager.createFile(table);
-        ServiceCreateManager.createFile(table);
-        ControllerCreateManager.createFile(table);
+        // ServiceCreateManager.createFile(table);
+        // ControllerCreateManager.createFile(table);
     }
 }

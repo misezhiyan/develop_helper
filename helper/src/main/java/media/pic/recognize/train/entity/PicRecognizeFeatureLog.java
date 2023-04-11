@@ -3,16 +3,15 @@ package media.pic.recognize.train.entity;
 import java.util.Date;
 
 /**
- * @discription 图片识别记录
+ * @discription 图片识别，特征点与字符对应
  * @author kimmy
  * @date ${date}
  */
-public class PicRecognizeLog {
+public class PicRecognizeFeatureLog {
 
     private Integer id;
-    private String picUrl;
-    private String picName;
-    private Boolean picRecog;
+    private String feature;
+    private Integer featureSize;
     private Date createTime;
     private Date updateTime;
 
@@ -24,28 +23,20 @@ public class PicRecognizeLog {
         this.id = id;
     }
 
-    public String getPicUrl() {
-        return picUrl;
+    public String getFeature() {
+        return feature;
     }
 
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+    public void setFeature(String feature) {
+        this.feature = feature;
     }
 
-    public String getPicName() {
-        return picName;
+    public Integer getFeatureSize() {
+        return featureSize;
     }
 
-    public void setPicName(String picName) {
-        this.picName = picName;
-    }
-
-    public Boolean getPicRecog() {
-        return picRecog;
-    }
-
-    public void setPicRecog(Boolean picRecog) {
-        this.picRecog = picRecog;
+    public void setFeatureSize(Integer featureSize) {
+        this.featureSize = featureSize;
     }
 
     public Date getCreateTime() {
