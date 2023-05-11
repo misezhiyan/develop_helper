@@ -1,20 +1,41 @@
 package media.pic.util;
 
 import util.ArrayUtil;
+import util.FileUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 
 /**
- * @description: TODO
+ * @description: 图片工具
  * @author: liyq
  * @createtime: 2023-03-27 20:08
  */
 public class PicUtil {
+
+    /**
+     * @description: rgb写入输出流
+     * @author: liyq
+     * @createtime: 2023-04-12 10:08:31
+     * @param: square
+     * @param: fileName
+     */
+    public static void saveRgbToOutPutStream(int[][] square, String fileName, OutputStream outputStream) throws IOException {
+        String fileType = FileUtil.fileSuffix(fileName);
+        BufferedImage image = new BufferedImage(square.length, square[0].length, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < image.getWidth(); i++) {
+            for (int j = 0; j < image.getHeight(); j++) {
+                image.setRGB(i, j, square[i][j]);
+            }
+        }
+        ImageIO.write(image, fileType, outputStream);
+        outputStream.flush();
+    }
 
     /**
      * @description: 保存图片

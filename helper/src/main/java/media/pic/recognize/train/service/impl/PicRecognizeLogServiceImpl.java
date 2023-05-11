@@ -198,6 +198,7 @@ public class PicRecognizeLogServiceImpl implements PicRecognizeLogService {
 
         for (int i = 0; i < squares.length; i++) {
             String picPath = PathUtil.filePath(fileName + i + PathUtil.PATH_POINT_SPLIT + fileSuffix, packagePath);
+            System.out.println(picPath);
             try {
                 PicUtil.saveRgbToFile(squares[i], picPath);
             } catch (IOException e) {

@@ -51,4 +51,6 @@ public class PicRecognizeLogController {
     public LogDelResponse delLog(@RequestBody LogDelRequest request) {
         return picRecognizeLogService.delLog(request.getId());
     }
+
+
 }

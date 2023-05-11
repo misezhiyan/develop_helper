@@ -18,7 +18,7 @@ public interface PicRecognizeFeatureLogMapper {
 
 	int updateById(PicRecognizeFeatureLog picRecognizeFeatureLog);
 
-	int selectById(PicRecognizeFeatureLog picRecognizeFeatureLog);
+	PicRecognizeFeatureLog selectById(Integer id);
 
 	int delById(Integer id);
 

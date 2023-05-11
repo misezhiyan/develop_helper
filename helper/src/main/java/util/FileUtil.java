@@ -1,9 +1,7 @@
 package util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,7 +9,32 @@ import java.util.List;
 public class FileUtil {
 
     public static void main(String[] args) throws Exception {
-        fileListInDir("C:\\Users\\misez\\Desktop\\翻译\\文件");
+
+        URL url = new URL("https://dcredittest.qdch.com/electronicseal/seal_268208957368176640_1056214f902b4036a58277c7ad424d2e_%E4%B8%AA%E4%BA%BA%E6%8E%88%E6%9D%83%E4%B9%A6%E7%AD%BE%E7%BD%B2.pdf");
+        InputStream inputStream = url.openStream();
+        String filePath  = "C:\\Users\\kimmy\\Desktop\\保存文件流\\abc.pdf";
+        inputStreamToFile(inputStream, filePath);
+    }
+
+    /**
+     * @description: 保存流到文件
+     * @author: liyq
+     * @createtime: 2023-04-27 11:51:43
+     * @param: inputStream
+     */
+    private static void inputStreamToFile(InputStream inputStream, String filePath) throws IOException {
+        File file = new File(filePath);
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        OutputStream outputStream = new FileOutputStream(file);
+        int len;
+        byte[] bs = new byte[1024];
+        while ((len = inputStream.read(bs)) != -1) {
+            outputStream.write(bs, 0, len);
+        }
+        outputStream.flush();
+        outputStream.close();
     }
 
     /**
