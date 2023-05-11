@@ -53,6 +53,10 @@ const routes = [{
         name: '图像识别记录',
         path: 'index',
         component: () => import('@/components/picrecognize/index')
+    }, {
+        name: '图像特征匹配',
+        path: 'feature',
+        component: () => import('@/components/picrecognize/feature')
     }]
 }, {
     name: '404',

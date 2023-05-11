@@ -13,3 +13,31 @@ export function picrecognizelogDel(data) {
         data: data
     })
 }
+
+export function unmatchFeatureList(data) {
+    return picrecognizeApi({
+        url: "/picrecognizefeature/unmatchFeatureList",
+        data: data
+    })
+}
+
+export function tranFeatureToPic(data) {
+    return picrecognizeApi({
+        url: "/picrecognizefeature/featureToPic",
+        data: data
+    })
+}
+
+export function matchFeature(data) {
+    return picrecognizeApi({
+        url: "/picrecognizefeature/matchFeature",
+        data: data
+    })
+}
+
+export function delFeatureLog(data) {
+    return picrecognizeApi({
+        url: "/picrecognizefeature/delLog",
+        data: data
+    })
+}
