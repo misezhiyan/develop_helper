@@ -30,7 +30,7 @@ public class TableTransferServiceImpl implements TableTransferService {
             Arrays.stream(sqlPackage.listFiles()).forEach(subFile -> subFile.delete());
         }
 
-        String tableTransferSqlCommand = "mysqldump ---add-drop-table --compact --extended-insert=false --default-character-set=utf8 -u" + username + " -p" + password + " " + schema + ">" + PathUtil.matchLinePath(sqlPackage.getAbsolutePath()) + "/" + schema + ".sql";
+        String tableTransferSqlCommand = "mysqldump --add-drop-table --compact --extended-insert=false --default-character-set=utf8 -u" + username + " -p" + password + " " + schema + ">" + PathUtil.matchLinePath(sqlPackage.getAbsolutePath()) + "/" + schema + ".sql";
 
         WinRunner.runCmd(tableTransferSqlCommand);
     }
