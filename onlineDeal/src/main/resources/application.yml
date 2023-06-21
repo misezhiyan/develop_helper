@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@10.138.232.78:1521:wlxyora
+    username: app
+    password: cde3rfv_app123
+    driver-class-name: oracle.jdbc.OracleDriver
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

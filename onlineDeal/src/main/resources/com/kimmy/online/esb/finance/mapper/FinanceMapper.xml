@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimmy.online.esb.finance.mapper.FinanceMapper">
+
+    <resultMap id="resultMap_XINSHU" type="com.kimmy.online.esb.finance.entity.XinShuLog">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="urlname" column="URLNAME" jdbcType="VARCHAR"/>
+        <result property="urlcomm" column="URLCOMM" jdbcType="VARCHAR"/>
+        <result property="param" column="PARAM" jdbcType="VARCHAR"/>
+        <result property="data" column="DATA" jdbcType="VARCHAR"/>
+        <result property="rc" column="RC" jdbcType="VARCHAR"/>
+        <result property="servicename" column="SERVICENAME" jdbcType="VARCHAR"/>
+<!--        <result property="batchNo" column="BATCH_NO" jdbcType="VARCHAR"/>-->
+<!--        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>-->
+        <result property="custName" column="CUST_NAME" jdbcType="VARCHAR"/>
+        <result property="year" column="YEAR" jdbcType="VARCHAR"/>
+        <result property="source" column="SOURCE" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="tableName_XINSHU">
+        APP.T_XINSHU_LOG
+    </sql>
+    <sql id="columns_XINSHU">
+        "ID", "URLNAME", "URLCOMM", "PARAM", "DATA", "RC", "CREATE_TIME" createTime, "SERVICENAME", "BATCH_NO" batchNo, "CUST_NAME" custName, "YEAR", "SOURCE"
+    </sql>
+
+    <select id="logCount" resultType="java.lang.Integer">
+        select count(*) from <include refid="tableName_XINSHU"/>
+    </select>
+
+    <select id="logList" resultType="com.kimmy.online.esb.finance.entity.XinShuLog">
+        SELECT <include refid="columns_XINSHU"/>
+        from <include refid="tableName_XINSHU"/>
+--         where rownum &lt;= 1
+    </select>
+
+    <update id="updateCustName">
+        update <include refid="tableName_XINSHU"/>
+        set CUST_NAME = #{custName, jdbcType=VARCHAR}, "YEAR" = #{year, jdbcType=VARCHAR}, "SOURCE" = #{source, jdbcType=VARCHAR}
+        where ID = #{id, jdbcType=VARCHAR}
+          and URLNAME = #{urlname, jdbcType=VARCHAR}
+          and PARAM = #{param, jdbcType=VARCHAR}
+          and BATCH_NO = #{batchNo, jdbcType=VARCHAR}
+    </update>
+
+    <update id="failFinance">
+        update <include refid="tableName_XINSHU"/>
+        set RC = #{rc, jdbcType=VARCHAR}
+        where ID = #{id, jdbcType=VARCHAR}
+        and URLNAME = #{urlname, jdbcType=VARCHAR}
+        and PARAM = #{param, jdbcType=VARCHAR}
+        and BATCH_NO = #{batchNo, jdbcType=VARCHAR}
+        and "YEAR" = #{year, jdbcType=VARCHAR}
+        and "SOURCE" = #{source, jdbcType=VARCHAR}
+    </update>
+
+    <resultMap id="resultMap_ASSET" type="com.kimmy.online.esb.finance.entity.XinShuAsset">
+        <result property="rowkey" column="ROWKEY" jdbcType="VARCHAR"/>
+        <result property="ancheyear" column="ANCHEYEAR" jdbcType="VARCHAR"/>
+        <result property="ispublic" column="ISPUBLIC" jdbcType="VARCHAR"/>
+        <result property="busst" column="BUSST" jdbcType="VARCHAR"/>
+        <result property="dom" column="DOM" jdbcType="VARCHAR"/>
+        <result property="email" column="EMAIL" jdbcType="VARCHAR"/>
+        <result property="postalcode" column="POSTALCODE" jdbcType="VARCHAR"/>
+        <result property="tel" column="TEL" jdbcType="VARCHAR"/>
+        <result property="assgro" column="ASSGRO" jdbcType="VARCHAR"/>
+        <result property="liagro" column="LIAGRO" jdbcType="VARCHAR"/>
+        <result property="maibusinc" column="MAIBUSINC" jdbcType="VARCHAR"/>
+        <result property="netinc" column="NETINC" jdbcType="VARCHAR"/>
+        <result property="progro" column="PROGRO" jdbcType="VARCHAR"/>
+        <result property="ratgro" column="RATGRO" jdbcType="VARCHAR"/>
+        <result property="totequ" column="TOTEQU" jdbcType="VARCHAR"/>
+        <result property="vendinc" column="VENDINC" jdbcType="VARCHAR"/>
+        <result property="notAssgro" column="NOT_ASSGRO" jdbcType="VARCHAR"/>
+        <result property="notLiagro" column="NOT_LIAGRO" jdbcType="VARCHAR"/>
+        <result property="notMaibusinc" column="NOT_MAIBUSINC" jdbcType="VARCHAR"/>
+        <result property="notNetinc" column="NOT_NETINC" jdbcType="VARCHAR"/>
+        <result property="notProgro" column="NOT_PROGRO" jdbcType="VARCHAR"/>
+        <result property="notRatgro" column="NOT_RATGRO" jdbcType="VARCHAR"/>
+        <result property="notTotequ" column="NOT_TOTEQU" jdbcType="VARCHAR"/>
+        <result property="notVendinc" column="NOT_VENDINC" jdbcType="VARCHAR"/>
+        <result property="notVendinc" column="EMPNUM" jdbcType="VARCHAR"/>
+        <result property="createDate" column="CREATE_DATE" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="tableName_ASSET">
+        APP.ODS_WLPT_XS_REPORT_ASSET
+    </sql>
+    <sql id="columns_ASSET">
+        ROWKEY, ANCHEYEAR, ispublic, BUSST, DOM, EMAIL, POSTALCODE, TEL, ASSGRO, LIAGRO, MAIBUSINC, NETINC, PROGRO, RATGRO, TOTEQU, VENDINC, NOT_ASSGRO, NOT_LIAGRO, NOT_MAIBUSINC, NOT_NETINC, NOT_PROGRO, NOT_RATGRO, NOT_TOTEQU, NOT_VENDINC, CREATE_DATE, EMPNUM
+    </sql>
+
+    <select id="assetList" resultMap="resultMap_ASSET">
+        SELECT <include refid="columns_ASSET"/>
+        from <include refid="tableName_ASSET"/>
+        --         where rownum &lt;= 1
+    </select>
+
+    <delete id="delAsset">
+        delete from <include refid="tableName_ASSET"/>
+        where ROWKEY = #{rowkey,jdbcType=VARCHAR}
+        and ANCHEYEAR = #{ancheyear,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

@@ -23,7 +23,63 @@
         </dependency>
     </dependencies>
 
-<!--    <build>-->
+    <build>
+        <finalName>web</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+<!--        <plugins>-->
+<!--            &lt;!&ndash;设置应用 Main 参数启动依赖查找的地址指向外部 lib 文件夹&ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <addClasspath>true</addClasspath>-->
+<!--                            &lt;!&ndash; 项目所依赖的jar位于同一级的lib目录下&ndash;&gt;-->
+<!--                            <classpathPrefix>webRely/</classpathPrefix>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            &lt;!&ndash;设置 SpringBoot 打包插件不包含任何 Jar 依赖包&ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <includes>-->
+<!--                        <include>-->
+<!--                            <groupId>nothing</groupId>-->
+<!--                            <artifactId>nothing</artifactId>-->
+<!--                        </include>-->
+<!--                    </includes>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            &lt;!&ndash;设置将 lib 拷贝到应用 Jar 外面&ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>copy-dependencies</id>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-dependencies</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.build.directory}/webRely</outputDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+    </build>
+
+    <!--    <build>-->
 <!--        <plugins>-->
 <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->

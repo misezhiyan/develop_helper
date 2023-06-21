@@ -39,7 +39,7 @@ public class TableTransfer {
         transferService.transferDbToFile("lowcode", sqlSession, username, password);
 
         // 从文件创建数据库
-        // transferService.transferTableToDb("lowcode", sqlSession, username, password);
+        transferService.transferTableToDb("lowcode", sqlSession, username, password);
 
         sqlSession.close();
     }
