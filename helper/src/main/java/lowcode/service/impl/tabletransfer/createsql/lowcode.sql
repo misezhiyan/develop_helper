@@ -44,7 +44,7 @@ CREATE TABLE `menu` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `menu` VALUES (1,'菜单','01','',1,-1,1,'2022-10-13 17:11:35','2022-10-25 16:07:40');
 INSERT INTO `menu` VALUES (2,'数据库','02','',2,-1,1,'2022-10-14 17:57:27','2022-10-20 16:47:41');
@@ -60,6 +60,7 @@ INSERT INTO `menu` VALUES (18,'数据库代码生成','dbcreate','/project/dbcre
 INSERT INTO `menu` VALUES (19,'数据库代码生成策略','dbcreatestrategy','/project/dbcreatestrategy',0,13,1,'2022-12-15 15:08:51','2023-01-09 11:59:32');
 INSERT INTO `menu` VALUES (20,'图像识别','picrecognize','',0,-1,1,'2023-04-09 22:19:08','2023-04-11 13:10:29');
 INSERT INTO `menu` VALUES (22,'图像识别记录','picrecognize','/picrecognize/index',0,20,1,'2023-04-09 22:20:00','2023-04-11 13:07:41');
+INSERT INTO `menu` VALUES (23,'图像特征匹配','','/picrecognize/feature',0,20,1,'2023-04-12 10:39:38','2023-04-12 10:39:38');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pic_recognize_feature_char` (
@@ -71,8 +72,9 @@ CREATE TABLE `pic_recognize_feature_char` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `pic_recognize_feature_char_un` (`feature`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图片识别，特征点与字符对应';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='图片识别，特征点与字符对应';
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `pic_recognize_feature_char` VALUES (1,'000000000000000000000000000000000000000000000000000011100000111100000000000000000011110000011110000000000000000011111000011110000000000000000011111100011110000000000000000011111100011110000000000000000011111110011110000000000000000011111110011110000001100000000000111111011110000001110000000000011111011110000011110000000000001111011110000111111000000000001111011110000111111000000000001111011110001111111000000000001111011110011111111000000000001111011110011111111000000000001111011110111111111000000000001111011111111111111000000000001111011111111111111000000000001111011111111111111100000000001111011111111100111100000000011111011111111100111110000000111111011111111000111111000011111111011111110000111111111111111110011111110000011111111111111110011111100000011111111111111110011111000000001111111111111100011111000000001111111111111000011110000000000111111111110000011100000000000011111111100000','3',810000,'2023-04-12 11:33:08','2023-04-12 11:33:08');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pic_recognize_feature_log` (
@@ -83,10 +85,8 @@ CREATE TABLE `pic_recognize_feature_log` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `pic_recognize_feature_char_un` (`feature`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图片识别，特征点与字符对应';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图片识别，特征点与字符对应';
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `pic_recognize_feature_log` VALUES (1,'000000000000000000000000000000100000000000000000000000000000100000011001111111100111000000100011111001100011000001110000100000011001100011001110000000100000000000000000000000000000100001111111111111111111111000101100000000000000000000111010100000000000000000000000111000100000000000000000000000000000100001110000000000000000000000100001110000000000000000000000100001110001111111111111111000100001111110000000000000000000100001111111111000001111000000100001110000011110000000111000100001110000011100000001111000100001110000000011111111000000100001111111111100001111000000100001110000011100000000111000100001110000011100000001111000100000110000000011111110000000100000000000001111111111000000100100001111100110000000111100100001110000000111000001110000100000000000000000011110000000100001110000000000001111100000100001110001111100000000111000100001111111011110000011111000100000000000000000111000000000',30,'2023-04-11 17:33:35','2023-04-11 17:33:35');
-INSERT INTO `pic_recognize_feature_log` VALUES (3,'000000000000000000000000000000000000000000000000000011100000111100000000000000000011110000011110000000000000000011111000011110000000000000000011111100011110000000000000000011111100011110000000000000000011111110011110000000000000000011111110011110000001100000000000111111011110000001110000000000011111011110000011110000000000001111011110000111111000000000001111011110000111111000000000001111011110001111111000000000001111011110011111111000000000001111011110011111111000000000001111011110111111111000000000001111011111111111111000000000001111011111111111111000000000001111011111111111111100000000001111011111111100111100000000011111011111111100111110000000111111011111111000111111000011111111011111110000111111111111111110011111110000011111111111111110011111100000011111111111111110011111000000001111111111111100011111000000001111111111111000011110000000000111111111110000011100000000000011111111100000',30,'2023-04-11 18:38:47','2023-04-11 18:38:47');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pic_recognize_log` (
@@ -97,9 +97,11 @@ CREATE TABLE `pic_recognize_log` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='图片识别记录';
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='图片识别记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `pic_recognize_log` VALUES (23,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/source/识别.jpg','识别.jpg',0,'2023-04-11 18:40:37','2023-04-11 18:40:37');
+INSERT INTO `pic_recognize_log` VALUES (29,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/source/切割.jpg','切割.jpg',0,'2023-04-12 11:55:38','2023-04-12 11:55:38');
+INSERT INTO `pic_recognize_log` VALUES (30,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/source/切割.jpg','切割.jpg',0,'2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_log` VALUES (31,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/source/切割.jpg','切割.jpg',0,'2023-04-12 12:05:18','2023-04-12 12:05:18');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pic_recognize_step` (
@@ -109,14 +111,26 @@ CREATE TABLE `pic_recognize_step` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `pic_recognize_step` VALUES (69,23,'灰度','2023-04-11 18:40:37','2023-04-11 18:40:37');
-INSERT INTO `pic_recognize_step` VALUES (70,23,'去噪','2023-04-11 18:40:38','2023-04-11 18:40:38');
-INSERT INTO `pic_recognize_step` VALUES (71,23,'二值化','2023-04-11 18:40:38','2023-04-11 18:40:38');
-INSERT INTO `pic_recognize_step` VALUES (72,23,'取盘','2023-04-11 18:40:46','2023-04-11 18:40:46');
-INSERT INTO `pic_recognize_step` VALUES (73,23,'切割','2023-04-11 18:40:46','2023-04-11 18:40:46');
-INSERT INTO `pic_recognize_step` VALUES (74,23,'缩放','2023-04-11 18:40:46','2023-04-11 18:40:46');
+INSERT INTO `pic_recognize_step` VALUES (105,29,'灰度','2023-04-12 11:55:38','2023-04-12 11:55:38');
+INSERT INTO `pic_recognize_step` VALUES (106,29,'去噪','2023-04-12 11:55:39','2023-04-12 11:55:39');
+INSERT INTO `pic_recognize_step` VALUES (107,29,'二值化','2023-04-12 11:55:39','2023-04-12 11:55:39');
+INSERT INTO `pic_recognize_step` VALUES (108,29,'取盘','2023-04-12 11:56:32','2023-04-12 11:56:32');
+INSERT INTO `pic_recognize_step` VALUES (109,29,'切割','2023-04-12 11:56:37','2023-04-12 11:56:37');
+INSERT INTO `pic_recognize_step` VALUES (110,29,'缩放','2023-04-12 11:56:37','2023-04-12 11:56:37');
+INSERT INTO `pic_recognize_step` VALUES (111,30,'灰度','2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_step` VALUES (112,30,'去噪','2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_step` VALUES (113,30,'二值化','2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_step` VALUES (114,30,'取盘','2023-04-12 12:02:02','2023-04-12 12:02:02');
+INSERT INTO `pic_recognize_step` VALUES (115,30,'切割','2023-04-12 12:02:02','2023-04-12 12:02:02');
+INSERT INTO `pic_recognize_step` VALUES (116,30,'缩放','2023-04-12 12:02:29','2023-04-12 12:02:29');
+INSERT INTO `pic_recognize_step` VALUES (117,31,'灰度','2023-04-12 12:05:18','2023-04-12 12:05:18');
+INSERT INTO `pic_recognize_step` VALUES (118,31,'去噪','2023-04-12 12:05:22','2023-04-12 12:05:22');
+INSERT INTO `pic_recognize_step` VALUES (119,31,'二值化','2023-04-12 12:05:22','2023-04-12 12:05:22');
+INSERT INTO `pic_recognize_step` VALUES (120,31,'取盘','2023-04-12 12:05:50','2023-04-12 12:05:50');
+INSERT INTO `pic_recognize_step` VALUES (121,31,'切割','2023-04-12 12:05:50','2023-04-12 12:05:50');
+INSERT INTO `pic_recognize_step` VALUES (122,31,'缩放','2023-04-12 12:06:35','2023-04-12 12:06:35');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pic_recognize_step_pic` (
@@ -128,14 +142,26 @@ CREATE TABLE `pic_recognize_step_pic` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `pic_recognize_step_pic` VALUES (67,69,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/gray/识别0.jpg',0,NULL,'2023-04-11 18:40:37','2023-04-11 18:40:37');
-INSERT INTO `pic_recognize_step_pic` VALUES (68,70,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/disnoize/识别0.jpg',0,NULL,'2023-04-11 18:40:38','2023-04-11 18:40:38');
-INSERT INTO `pic_recognize_step_pic` VALUES (69,71,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/BW/识别0.jpg',0,NULL,'2023-04-11 18:40:38','2023-04-11 18:40:38');
-INSERT INTO `pic_recognize_step_pic` VALUES (70,72,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/deal/识别0.jpg',0,NULL,'2023-04-11 18:40:46','2023-04-11 18:40:46');
-INSERT INTO `pic_recognize_step_pic` VALUES (71,73,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/cut/识别0.jpg',0,NULL,'2023-04-11 18:40:46','2023-04-11 18:40:46');
-INSERT INTO `pic_recognize_step_pic` VALUES (72,74,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/zoom/识别0.jpg',0,NULL,'2023-04-11 18:40:46','2023-04-11 18:40:46');
+INSERT INTO `pic_recognize_step_pic` VALUES (103,105,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/gray/切割0.jpg',0,NULL,'2023-04-12 11:55:38','2023-04-12 11:55:38');
+INSERT INTO `pic_recognize_step_pic` VALUES (104,106,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/disnoize/切割0.jpg',0,NULL,'2023-04-12 11:55:39','2023-04-12 11:55:39');
+INSERT INTO `pic_recognize_step_pic` VALUES (105,107,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/BW/切割0.jpg',0,NULL,'2023-04-12 11:55:39','2023-04-12 11:55:39');
+INSERT INTO `pic_recognize_step_pic` VALUES (106,108,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/deal/切割0.jpg',0,NULL,'2023-04-12 11:56:32','2023-04-12 11:56:32');
+INSERT INTO `pic_recognize_step_pic` VALUES (107,109,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/cut/切割0.jpg',0,NULL,'2023-04-12 11:56:37','2023-04-12 11:56:37');
+INSERT INTO `pic_recognize_step_pic` VALUES (108,110,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/zoom/切割0.jpg',0,NULL,'2023-04-12 11:56:38','2023-04-12 11:56:38');
+INSERT INTO `pic_recognize_step_pic` VALUES (109,111,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/gray/切割0.jpg',0,NULL,'2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_step_pic` VALUES (110,112,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/disnoize/切割0.jpg',0,NULL,'2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_step_pic` VALUES (111,113,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/BW/切割0.jpg',0,NULL,'2023-04-12 12:01:32','2023-04-12 12:01:32');
+INSERT INTO `pic_recognize_step_pic` VALUES (112,114,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/deal/切割0.jpg',0,NULL,'2023-04-12 12:02:02','2023-04-12 12:02:02');
+INSERT INTO `pic_recognize_step_pic` VALUES (113,115,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/cut/切割0.jpg',0,NULL,'2023-04-12 12:02:02','2023-04-12 12:02:02');
+INSERT INTO `pic_recognize_step_pic` VALUES (114,116,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/zoom/切割0.jpg',0,NULL,'2023-04-12 12:03:27','2023-04-12 12:03:27');
+INSERT INTO `pic_recognize_step_pic` VALUES (115,117,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/gray/切割0.jpg',0,NULL,'2023-04-12 12:05:22','2023-04-12 12:05:22');
+INSERT INTO `pic_recognize_step_pic` VALUES (116,118,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/disnoize/切割0.jpg',0,NULL,'2023-04-12 12:05:22','2023-04-12 12:05:22');
+INSERT INTO `pic_recognize_step_pic` VALUES (117,119,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/BW/切割0.jpg',0,NULL,'2023-04-12 12:05:22','2023-04-12 12:05:22');
+INSERT INTO `pic_recognize_step_pic` VALUES (118,120,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/deal/切割0.jpg',0,NULL,'2023-04-12 12:05:50','2023-04-12 12:05:50');
+INSERT INTO `pic_recognize_step_pic` VALUES (119,121,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/cut/切割0.jpg',0,NULL,'2023-04-12 12:05:50','2023-04-12 12:05:50');
+INSERT INTO `pic_recognize_step_pic` VALUES (120,122,'D:/workspaces/workspace_spring/develop_helper/helper/src/main/resources/static/picrecognize/zoom/切割0.jpg',0,NULL,'2023-04-12 12:06:35','2023-04-12 12:06:35');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `project` (
