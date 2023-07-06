@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daydayup.mapper.StudentMapper">
+
+    <resultMap id="RESULTMAP_BASE" type="com.daydayup.entity.Student">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="no" property="no" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="COLUMNS_BASE">id,name,sex,no,status,create_time</sql>
+
+    <select id="list" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from student
+        <where>
+            <if test="null != id">
+            and id = #{id: INTEGER}
+            </if>
+            <if test="null != name and '' != name">
+            and name = #{name: VARCHAR}
+            </if>
+            <if test="null != sex and '' != sex">
+            and sex = #{sex: VARCHAR}
+            </if>
+            <if test="null != no and '' != no">
+            and no = #{no: VARCHAR}
+            </if>
+            <if test="null != status and '' != status">
+            and status = #{status: VARCHAR}
+            </if>
+            <if test="null != createTime">
+            and create_time = #{createTime: TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into student (
+        <trim suffixOverrides=",">
+            <if test="null != name and '' != name">
+                name,
+            </if>
+            <if test="null != sex and '' != sex">
+                sex,
+            </if>
+            <if test="null != no and '' != no">
+                no,
+            </if>
+            <if test="null != status and '' != status">
+                status,
+            </if>
+            <if test="null != createTime">
+                create_time
+            </if>
+        </trim>
+        )values (
+        <trim suffixOverrides=",">
+            <if test="null != name and '' != name">
+                #{name: VARCHAR},
+            </if>
+            <if test="null != sex and '' != sex">
+                #{sex: VARCHAR},
+            </if>
+            <if test="null != no and '' != no">
+                #{no: VARCHAR},
+            </if>
+            <if test="null != status and '' != status">
+                #{status: VARCHAR},
+            </if>
+            <if test="null != createTime">
+                #{createTime: TIMESTAMP}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateById">
+        update student
+        set
+        <if test="null != name and '' != name">
+            name = #{name: VARCHAR},
+        </if>
+        <if test="null != sex and '' != sex">
+            sex = #{sex: VARCHAR},
+        </if>
+        <if test="null != no and '' != no">
+            no = #{no: VARCHAR},
+        </if>
+        <if test="null != status and '' != status">
+            status = #{status: VARCHAR},
+        </if>
+        <if test="null != createTime">
+            create_time = #{createTime: TIMESTAMP},
+        </if>
+        where id = #{id: INTEGER}
+    </update>
+
+    <select id="selectById" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from student
+        where id = #{id: INTEGER}
+    </select>
+
+    <delete id="delById">
+        delete from student
+        where id = #{id: INTEGER}
+    </delete>
+
+</mapper>

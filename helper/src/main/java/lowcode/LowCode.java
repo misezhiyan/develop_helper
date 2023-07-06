@@ -18,7 +18,8 @@ import java.util.List;
  */
 public class LowCode {
 
-    static String url = "jdbc:mysql://localhost:3306/lowcode?serverTimezone=GMT%2B8";
+    // static String url = "jdbc:mysql://localhost:3306/lowcode?serverTimezone=GMT%2B8";
+    static String url = "jdbc:mysql://localhost:3306/daydayup?serverTimezone=GMT%2B8";
     static String driver = "com.mysql.cj.jdbc.Driver";
     static String username = "root";
     static String password = "root";
@@ -36,7 +37,7 @@ public class LowCode {
         }
 
         List<String> tableNameList = new ArrayList<>();
-        tableNameList.add("pic_recognize_feature_log");
+        tableNameList.add("student");
         // tableNameList.add("pic_recognize_feature_char");
 
         // 抽取表结构

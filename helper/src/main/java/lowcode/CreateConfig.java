@@ -11,16 +11,23 @@ public class CreateConfig {
 
     private static final  String author = "kimmy";
 
-    private static final  String projBaseDir = "D:\\workspaces\\workspace_spring\\develop_helper\\helper";
+    // private static final  String projBaseDir = "D:\\workspaces\\workspace_spring\\develop_helper\\helper";
+    private static final  String projBaseDir = "D:\\workspaces\\workspace_spring\\develop_helper\\daydayup";
     private static final  String javaDir = "src.main.java";
     private static final  String resourcesDir = "src.main.resources";
 
-    private static final  String entityDir = "media.pic.recognize.train.entity";
-    private static final  String mapperDir = "media.pic.recognize.train.mapper";
-    private static final  String mapperxmlDir = "mapper.recognize";
-    private static final  String serviceDir = "media.pic.recognize.train.service";
-    private static final  String serviceimplDir = "media.pic.recognize.train.service.impl";
-    private static final  String controllerDir = "media.pic.recognize.train.controller";
+    // private static final  String entityDir = "media.pic.recognize.train.entity";
+    // private static final  String mapperDir = "media.pic.recognize.train.mapper";
+    // private static final  String mapperxmlDir = "mapper.recognize";
+    // private static final  String serviceDir = "media.pic.recognize.train.service";
+    // private static final  String serviceimplDir = "media.pic.recognize.train.service.impl";
+    // private static final  String controllerDir = "media.pic.recognize.train.controller";
+    private static final  String entityDir = "com.kimmy.learn.dadayup.entity";
+    private static final  String mapperDir = "com.kimmy.learn.dadayup.mapper";
+    private static final  String mapperxmlDir = "mapper.dadayup";
+    private static final  String serviceDir = "com.kimmy.learn.dadayup.service";
+    private static final  String serviceimplDir = "com.kimmy.learn.dadayup.service.impl";
+    private static final  String controllerDir = "com.kimmy.learn.dadayup.controller";
 
     private static final  String entityFullDir = PathUtil.combineLinePath(projBaseDir, javaDir, entityDir);
     private static final  String mapperFullDir = PathUtil.combineLinePath(projBaseDir, javaDir, mapperDir);
