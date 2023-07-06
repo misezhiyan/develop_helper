@@ -12,6 +12,7 @@
         <module>helper</module>
         <module>Template</module>
         <module>onlineDeal</module>
+        <module>daydayup</module>
     </modules>
     <name>develop_helper</name>
     <description>开发者辅助工具</description>

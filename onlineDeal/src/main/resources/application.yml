@@ -4,6 +4,8 @@ spring:
     username: app
     password: cde3rfv_app123
     driver-class-name: oracle.jdbc.OracleDriver
+    default-read-only: true
+
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -12,8 +12,8 @@ public class ImgToPdf {
 
     public static void main(String[] args) {
 
-        String source = "C:\\Users\\kimmy\\Desktop\\报销\\吕因子\\1685601186077.png";
-        String target = "C:\\Users\\kimmy\\Desktop\\报销\\吕因子\\1685601186077.pdf";
+        String source = "C:\\Users\\kimmy\\Desktop\\报销\\吕因子\\06261.png";
+        String target = "C:\\Users\\kimmy\\Desktop\\报销\\吕因子\\06261.pdf";
 
         convert(source, target);
     }

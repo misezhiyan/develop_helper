@@ -4,8 +4,8 @@ import axios from "axios";
 const develophelperInstance = axios.create({
     // baseURL: process.env.VUE_APP_BASE_API, // 请求前置
     // baseURL: 'http://192.168.3.248:8072', // 正式
-    baseURL: 'http://192.168.3.123:8071', // 正式
-    // baseURL: '/api/', // 请求前置
+    // baseURL: 'https://192.168.3.248:8072', // 正式
+    baseURL: '/api/', // 请求前置
     // timeout: 60000, // 超时
     // headers: {
     //     // 'Content-type': 'application/json'
