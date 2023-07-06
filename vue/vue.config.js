@@ -11,26 +11,25 @@ module.exports = defineConfig({
         port: 8070,
         open: true,
         proxy: {
-            '/api': {
+            '/webapi': {
                 target: 'http://localhost:8071',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
-                    // '^/': '/'
+                    '^/webapi': ''
                 }
             },
-            '/apipicrecognize/': {
-                target: 'http://localhost:108',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/apipicrecognize/': '/train/'
-                }
-            },
-            '/daydayup/': {
+            '/daydayupapi': {
                 target: 'http://localhost:8088',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/daydayup/': '/daydayup/'
+                    '^/daydayupapi': 'daydayup'
+                }
+            },
+            '/apipicrecognize': {
+                target: 'http://localhost:108',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/apipicrecognize': '/train'
                 }
             },
             // [process.env.VUE_APP_BASE_API]: {

@@ -2,6 +2,7 @@ package com.daydayup.service.impl;
 
 import com.daydayup.entity.Student;
 import com.daydayup.mapper.StudentMapper;
+import com.daydayup.vo.response.StudentAddResponse;
 import com.daydayup.vo.response.StudentListResponse;
 import com.daydayup.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class StudentServiceImpl implements StudentService {
     public StudentListResponse list(Student student) {
         List<Student> list = studentMapper.list(student);
         return StudentListResponse.success(list);
+    }
+
+    @Override
+    public StudentAddResponse add(Student student) {
+        studentMapper.insert(student);
+        return StudentAddResponse.success();
     }
 }

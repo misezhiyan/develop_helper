@@ -1,6 +1,8 @@
 package com.daydayup.controller;
 
+import com.daydayup.vo.request.StudentAddRequest;
 import com.daydayup.vo.request.StudentListRequest;
+import com.daydayup.vo.response.StudentAddResponse;
 import com.daydayup.vo.response.StudentListResponse;
 import com.daydayup.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,16 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+
+    @RequestMapping("/add")
+    public StudentAddResponse add(@RequestBody StudentAddRequest request){
+
+        return studentService.add(request);
+    }
+
     @RequestMapping("/list")
     public StudentListResponse list(@RequestBody StudentListRequest request){
 
         return studentService.list(request);
     }
-
 }

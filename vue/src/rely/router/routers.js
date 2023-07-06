@@ -59,9 +59,17 @@ const routes = [{
         component: () => import('@/components/picrecognize/feature')
     }]
 }, {
+    name: '天天向上',
+    path: '/daydayup',
+    children: [{
+        name: '生源信息',
+        path: 'index',
+        component: () => import('@/components/daydayup/student/index')
+    }]
+}, {
     name: '404',
     path: '/',
-    redirect: '/project/index',
+    redirect: '/daydayup/index',
 }]
 
 export default routes
