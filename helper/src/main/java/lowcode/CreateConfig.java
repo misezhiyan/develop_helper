@@ -22,12 +22,12 @@ public class CreateConfig {
     // private static final  String serviceDir = "media.pic.recognize.train.service";
     // private static final  String serviceimplDir = "media.pic.recognize.train.service.impl";
     // private static final  String controllerDir = "media.pic.recognize.train.controller";
-    private static final  String entityDir = "com.kimmy.learn.dadayup.entity";
-    private static final  String mapperDir = "com.kimmy.learn.dadayup.mapper";
-    private static final  String mapperxmlDir = "mapper.dadayup";
-    private static final  String serviceDir = "com.kimmy.learn.dadayup.service";
-    private static final  String serviceimplDir = "com.kimmy.learn.dadayup.service.impl";
-    private static final  String controllerDir = "com.kimmy.learn.dadayup.controller";
+    private static final  String entityDir = "com.daydayup.entity";
+    private static final  String mapperDir = "com.daydayup.mapper";
+    private static final  String mapperxmlDir = "com.daydayup.mapper";
+    private static final  String serviceDir = "com.daydayup.service";
+    private static final  String serviceimplDir = "com.daydayup.service.impl";
+    private static final  String controllerDir = "com.daydayup.controller";
 
     private static final  String entityFullDir = PathUtil.combineLinePath(projBaseDir, javaDir, entityDir);
     private static final  String mapperFullDir = PathUtil.combineLinePath(projBaseDir, javaDir, mapperDir);

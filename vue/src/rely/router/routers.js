@@ -3,17 +3,17 @@ const routes = [{
     path: '/tabletojava/index',
     component: () => import('@/components/tabletojava/index')
 }, {
-    name:'项目管理',
+    name: '项目管理',
     path: '/project',
     children: [{
         name: '项目配置',
         path: 'index',
         component: () => import('@/components/project/index')
-    },{
+    }, {
         name: '数据库代码生成',
         path: 'dbcreate',
         component: () => import('@/components/project/create/dbcreate')
-    },{
+    }, {
         name: '数据库代码生成策略',
         path: 'dbcreatestrategy',
         component: () => import('@/components/project/create/dbcreatestrategy')
@@ -63,13 +63,17 @@ const routes = [{
     path: '/daydayup',
     children: [{
         name: '生源信息',
-        path: 'index',
+        path: 'student',
         component: () => import('@/components/daydayup/student/index')
+    }, {
+        name: '师资信息',
+        path: 'teacher',
+        component: () => import('@/components/daydayup/teacher/index')
     }]
 }, {
     name: '404',
     path: '/',
-    redirect: '/daydayup/index',
+    redirect: '/daydayup/teacher',
 }]
 
 export default routes
