@@ -37,7 +37,10 @@ public class LowCode {
         }
 
         List<String> tableNameList = new ArrayList<>();
-        tableNameList.add("teacher");
+        // tableNameList.add("teacher");
+        tableNameList.add("student");
+        tableNameList.add("schedule");
+
         // tableNameList.add("pic_recognize_feature_char");
 
         // 抽取表结构

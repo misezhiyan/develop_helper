@@ -29,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherListResponse list(Teacher teacher) {
-        ;
+
         return TeacherListResponse.success(teacherMapper.list(teacher));
     }
 }

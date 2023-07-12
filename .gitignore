@@ -2,3 +2,4 @@
 *.iml
 */target/
 /vue/node_modules
+/vue/dist

@@ -47,12 +47,12 @@
 
 <script>
 export default {
-  name: "DaydayupDatetime",
-  props:{
-  fatherMethod: {
-    type: Function,
-    default: null
-  }
+  name: "DaydayupDate",
+  props: {
+    fatherMethod: {
+      type: Function,
+      default: null
+    }
   },
   created() {
     this.init();

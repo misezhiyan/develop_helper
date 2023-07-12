@@ -1,0 +1,14 @@
+package ${proj.requestDir};
+
+import ${proj.entityDir}.${table.className};
+import org.springframework.stereotype.Component;
+
+/**
+* @discription ${table.TABLE_COMMENT}
+* @author ${proj.author}
+* @date ${date}
+*/
+@Component
+public class ${table.className}${optType}Request extends ${table.className} {
+
+}

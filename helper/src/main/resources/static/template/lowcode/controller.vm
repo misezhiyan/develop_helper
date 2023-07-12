@@ -1,7 +1,14 @@
 package ${proj.controllerDir};
 
 import ${proj.serviceDir}.${table.className}Service;
+import ${proj.requestDir}.${table.className}AddRequest;
+import ${proj.responseDir}.${table.className}AddResponse;
+import ${proj.requestDir}.${table.className}ListRequest;
+import ${proj.responseDir}.${table.className}ListResponse;
+import ${proj.requestDir}.${table.className}DelRequest;
+import ${proj.responseDir}.${table.className}DelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,5 +23,24 @@ public class ${table.className}Controller {
 
     @Autowired
     ${table.className}Service ${table.className.substring(0,1).toLowerCase()}${table.className.substring(1)}Service;
+
+    @RequestMapping("/add")
+    public ${table.className}AddResponse add(@RequestBody ${table.className}AddRequest request){
+
+        return ${table.className.substring(0,1).toLowerCase()}${table.className.substring(1)}Service.add(request);
+    }
+
+
+    @RequestMapping("/list")
+    public ${table.className}ListResponse list(@RequestBody ${table.className}ListRequest request){
+
+        return ${table.className.substring(0,1).toLowerCase()}${table.className.substring(1)}Service.list(request);
+    }
+
+    @RequestMapping("/del")
+    public ${table.className}DelResponse del(@RequestBody ${table.className}DelRequest request) {
+
+        return  ${table.className.substring(0,1).toLowerCase()}${table.className.substring(1)}Service.del(request);
+    }
 
 }

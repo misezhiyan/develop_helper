@@ -12,6 +12,7 @@ public enum JDBCTypeEnum {
 
     MYSQL_INT("MYSQL", "INT", "INTEGER","Integer","java.lang.Integer"),
     MYSQL_INTEGER("MYSQL", "INTEGER", "INTEGER","Integer","java.lang.Integer"),
+    MYSQL_DATE("MYSQL", "DATE", "TIMESTAMP","Date","java.util.Date"),
     MYSQL_DATETIME("MYSQL", "DATETIME", "TIMESTAMP","Date","java.util.Date"),
     MYSQL_TIMESTAMP("MYSQL", "TIMESTAMP", "TIMESTAMP","Date","java.util.Date"),
     MYSQL_VARCHAR("MYSQL", "VARCHAR", "VARCHAR","String","java.lang.String"),

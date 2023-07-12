@@ -17,14 +17,33 @@ import java.util.Map;
 public class ControllerCreateManager {
 
     private static String controllerVmPath = "static/template/lowcode/controller.vm";
+    private static String requestVmPath = "static/template/lowcode/request.vm";
+    private static String responseVmPath = "static/template/lowcode/response.vm";
 
     public static void createFile(Table table) throws Exception {
 
         Map<String, Object> map = new HashMap<>();
         map.put("table", table);
         map.put("proj", new CreateConfig());
-        String result = TemplateMatchRunner.matchTemplate(controllerVmPath, map);
+        String controller = TemplateMatchRunner.matchTemplate(controllerVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + "Controller.java", CreateConfig.getControllerFullDir()), controller);
 
-        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + "Controller.java", CreateConfig.getControllerFullDir()), result);
+        map.put("optType", "Add");
+        String addRequest = TemplateMatchRunner.matchTemplate(requestVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + map.get("optType") + "Request.java", CreateConfig.getRequestFullDir()), addRequest);
+        String addResponse = TemplateMatchRunner.matchTemplate(responseVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + map.get("optType") + "Response.java", CreateConfig.getResponseFullDir()), addResponse);
+
+        map.put("optType", "List");
+        String listRequest = TemplateMatchRunner.matchTemplate(requestVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + map.get("optType") + "Request.java", CreateConfig.getRequestFullDir()), listRequest);
+        String listResponse = TemplateMatchRunner.matchTemplate(responseVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + map.get("optType") + "Response.java", CreateConfig.getResponseFullDir()), listResponse);
+
+        map.put("optType", "Del");
+        String delRequest = TemplateMatchRunner.matchTemplate(requestVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + map.get("optType") + "Request.java", CreateConfig.getRequestFullDir()), delRequest);
+        String delResponse = TemplateMatchRunner.matchTemplate(responseVmPath, map);
+        FileUtil.writeIntoFileWithDirNoCover(PathUtil.filePath(table.getClassName() + map.get("optType") + "Response.java", CreateConfig.getResponseFullDir()), delResponse);
     }
 }

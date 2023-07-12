@@ -2,7 +2,7 @@ const {defineConfig} = require('@vue/cli-service')
 module.exports = defineConfig({
 
     lintOnSave: false,
-    outputDir: 'web',
+    outputDir: 'dist',
     transpileDependencies: true,
 
     devServer: {

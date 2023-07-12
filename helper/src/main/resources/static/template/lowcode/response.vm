@@ -1,0 +1,31 @@
+package ${proj.responseDir};
+
+import com.daydayup.enums.ResMsg;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
+/**
+* @discription ${table.TABLE_COMMENT}
+* @author ${proj.author}
+* @date ${date}
+*/
+@Component
+@Data
+public class ${table.className}${optType}Response extends BaseResponse {
+
+    public static ${table.className}${optType}Response success() {
+        ${table.className}${optType}Response response = response(ResMsg.SUCCESS);
+        return response;
+    }
+
+    public static ${table.className}${optType}Response fail() {
+        return response(ResMsg.FAIL);
+    }
+
+    public static ${table.className}${optType}Response response(ResMsg resMsg) {
+        ${table.className}${optType}Response response = new ${table.className}${optType}Response();
+        response.setResCode(resMsg.getCode());
+        response.setResMsg(resMsg.getMessage());
+        return response;
+    }
+}

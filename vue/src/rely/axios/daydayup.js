@@ -27,3 +27,17 @@ export function teacherList(data) {
         data: data
     })
 }
+
+export function saveSchedule(data) {
+    return  daydayupInstanceApi({
+        url: "/schedule/add",
+        data: data
+    })
+}
+
+export function scheduleList(data) {
+    return daydayupInstanceApi({
+        url: "/schedule/list",
+        data: data
+    })
+}
