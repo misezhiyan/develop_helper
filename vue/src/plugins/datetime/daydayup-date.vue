@@ -128,8 +128,11 @@ export default {
     },
     dealFatherFunc: function (date) {
       if (this.fatherMethod) {
-        this.fatherMethod(this.year, this.month, date);
+        this.fatherMethod(this.year, this.formmat(this.month), this.formmat(date));
       }
+    },
+    formmat: function (dd) {
+      return dd < 10 ? '0' + dd : '' + dd;
     }
   }
 }

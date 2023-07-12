@@ -25,14 +25,13 @@ public class ScheduleController {
     ScheduleService scheduleService;
 
     @RequestMapping("/add")
-    public ScheduleAddResponse add(@RequestBody ScheduleAddRequest request){
+    public ScheduleAddResponse add(@RequestBody ScheduleAddRequest request) {
 
         return scheduleService.add(request);
     }
 
-
     @RequestMapping("/list")
-    public ScheduleListResponse list(@RequestBody ScheduleListRequest request){
+    public ScheduleListResponse list(@RequestBody ScheduleListRequest request) {
 
         return scheduleService.list(request);
     }
@@ -40,7 +39,7 @@ public class ScheduleController {
     @RequestMapping("/del")
     public ScheduleDelResponse del(@RequestBody ScheduleDelRequest request) {
 
-        return  scheduleService.del(request);
+        return scheduleService.del(request);
     }
 
 }

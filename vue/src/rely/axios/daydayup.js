@@ -41,3 +41,10 @@ export function scheduleList(data) {
         data: data
     })
 }
+
+export function delSchedule(data) {
+    return daydayupInstanceApi({
+        url: "/schedule/del",
+        data: data
+    })
+}

@@ -30,8 +30,8 @@
       <DaydayupDate :father-method="chooseDate"/>
     </el-dialog>
 
-    <el-dialog v-model="sceduleFormModel" v-on:close="clearSceduleForm" :title="sceduleForm.sceduleDate + '课程表单'" width="60%" align-center append-to-body>
-      <DaydayupTimePeriodchooser :time-period-list="sceduleList" :father-add="addScedule"/>
+    <el-dialog v-model="sceduleFormModel" v-on:close="clearSceduleForm" :title="sceduleForm.scheduleDate + '课程表单'" width="60%" align-center append-to-body>
+      <DaydayupTimePeriodchooser :time-period-list="sceduleList" :start="sceduleForm.start" :end="sceduleForm.end" :father-add="addScedule" :period-del="delScedule"/>
     </el-dialog>
   </div>
 
@@ -65,13 +65,12 @@ export default {
       coursesFormModel: false,
       sceduleForm: {
         teacherId: '',
-        sceduleDate: '',
+        scheduleDate: '',
         start: '',
         end: '',
       },
       sceduleFormModel: false,
       sceduleList: [],
-      saveResult: '',
     }
   },
   methods: {
@@ -112,11 +111,12 @@ export default {
       this.coursesFormModel = true
     },
     clearCoursesForm: function () {
-      this.sceduleForm.sceduleDate = ''
+      this.sceduleForm.scheduleDate = ''
     },
     chooseDate: function (year, month, date) {
-      this.sceduleForm.sceduleDate = year + month + date
+      this.sceduleForm.scheduleDate =  year + month + date
       this.sceduleFormModel = true
+      this.getScheduleList();
     },
     clearSceduleForm: function () {
       this.sceduleForm.start = ''
@@ -125,25 +125,36 @@ export default {
     addScedule: function (sceduleForm) {
       this.sceduleForm.start = sceduleForm.start
       this.sceduleForm.end = sceduleForm.end
-      this.saveSchedule();
-      console.log(3)
-      return this.saveResult;
-    },
-    saveSchedule: async function () {
-      console.log(1)
-      await this.daydayupInstanceApi.saveSchedule(this.sceduleForm).then((response) => {
-        console.log(2)
+      console.log('addScedule')
+      console.log(this.sceduleForm)
+      this.daydayupInstanceApi.saveSchedule(this.sceduleForm).then((response) => {
         if (response.resCode == '0000') {
-          // this.studentFormModel = false
-          // this.getStudentList();
-          // return true
-          this.saveResult = false
+          this.sceduleForm.start = ''
+          this.sceduleForm.end = ''
+          this.getScheduleList();
         } else {
           this.$message.error(response.resMsg);
-          this.saveResult = false
         }
       });
-    }
+    },
+    getScheduleList: function () {
+      this.daydayupInstanceApi.scheduleList(this.sceduleForm).then((response) => {
+        if (response.resCode == '0000') {
+          this.sceduleList = response.list;
+        } else {
+          this.$message.error(response.resMsg);
+        }
+      });
+    },
+    delScedule: function (sceduleRow) {
+      this.daydayupInstanceApi.delSchedule(sceduleRow).then((response) => {
+        if (response.resCode == '0000') {
+          this.getScheduleList();
+        } else {
+          this.$message.error(response.resMsg);
+        }
+      });
+    },
   }
 }
 </script>

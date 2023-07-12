@@ -11,10 +11,10 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-form :model="timePeriodForm" label-width="120px">
+    <el-form label-width="120px">
       <el-form-item label="开始时间">
         <el-time-picker
-            v-model="timePeriodForm.start"
+            v-model="start"
             placeholder="开始时间"
             :value-format="pickerFormat"
             :format="pickerFormat"
@@ -27,7 +27,7 @@
       </el-form-item>
       <el-form-item label="结束时间">
         <el-time-picker
-            v-model="timePeriodForm.end"
+            v-model="end"
             placeholder="开始时间"
             :value-format="pickerFormat"
             :format="pickerFormat"
@@ -49,6 +49,12 @@
 export default {
   name: "DaydayupTimePeriodchooser",
   props: {
+    start: {
+      type: String
+    },
+    end: {
+      type: String
+    },
     timePeriodList: {
       type: Array,
       default: []
@@ -60,29 +66,26 @@ export default {
     fatherAdd: {
       type: Function,
       default: null
+    },
+    periodDel: {
+      type: Function,
+      default: null
     }
   },
   components: {},
   data() {
     return {
       pickerFormat: 'HH:mm',
-      timePeriodForm: {start: '', end: ''},
-      // timePeriodList: []
     }
   },
   methods: {
     init: function () {
-      // let date = new Date();
-      // this.year = date.getFullYear()
-      // this.month = date.getMonth() + 1
-      // date.setDate(1)
-      // let lastDate = this.getMonthLastDay(date.getFullYear(), date.getMonth() + 1);
     },
     addPeriod: function () {
       if (!this.checkTime()) {
         return;
       }
-      if (!this.timePeriodForm.start || !this.timePeriodForm.end) {
+      if (!this.start || !this.end) {
         this.$message.error("选择时间段不能为空");
         return
       }
@@ -93,27 +96,16 @@ export default {
         }
       }
       if (this.fatherAdd) {
-        console.log(0)
-        let success = this.fatherAdd(this.timePeriodForm);
-        console.log(4)
-        console.log('addPeriod-result:')
-        console.log(success)
-        if (success) {
-          this.timePeriodList.push(this.timePeriodForm)
-          this.timePeriodForm = {start: '', end: ''}
-        }
-      } else {
-        this.timePeriodList.push(this.timePeriodForm)
-        this.timePeriodForm = {start: '', end: ''}
+        this.fatherAdd({start: this.start, end: this.end});
       }
     },
     hasRepeatTime: function () {
       let isRepeat = false;
       for (let i = 0; i < this.timePeriodList.length; i++) {
         this.timePeriodList[i].className = 'repeat';
-        if (this.timePeriodForm.start <= this.timePeriodList[i].start && this.timePeriodForm.end > this.timePeriodList[i].start) {
+        if (this.start <= this.timePeriodList[i].start && this.end > this.timePeriodList[i].start) {
           isRepeat = true;
-        } else if (this.timePeriodForm.start > this.timePeriodList[i].start && this.timePeriodForm.start < this.timePeriodList[i].end) {
+        } else if (this.start > this.timePeriodList[i].start && this.start < this.timePeriodList[i].end) {
           isRepeat = true;
         }
         if (isRepeat) {
@@ -125,17 +117,20 @@ export default {
       return isRepeat;
     },
     delPeriod: function (row) {
-      let index = this.timePeriodList.indexOf(row);
-      if (index != -1) {
-        this.timePeriodList.splice(index, 1)
+      if (this.periodDel) {
+        this.periodDel(row);
       }
+      // let index = this.timePeriodList.indexOf(row);
+      // if (index != -1) {
+      //   this.timePeriodList.splice(index, 1)
+      // }
     },
     matchRowClass: function (row, rowIndex) {
       console.log('matchRowClass')
       return 'repeat'
     },
     checkTime: function () {
-      if (this.timePeriodForm.start && this.timePeriodForm.start && this.timePeriodForm.end <= this.timePeriodForm.start) {
+      if (this.start && this.start && this.end <= this.start) {
         this.$message.error("结束时间必须大于开始时间");
         return false
       }

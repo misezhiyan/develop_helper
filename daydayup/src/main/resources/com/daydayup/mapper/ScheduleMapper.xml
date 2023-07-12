@@ -5,7 +5,7 @@
     <resultMap id="RESULTMAP_BASE" type="com.daydayup.entity.Schedule">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="teacher_id" property="teacherId" jdbcType="INTEGER"/>
-        <result column="schedule_date" property="scheduleDate" jdbcType="TIMESTAMP"/>
+        <result column="schedule_date" property="scheduleDate" jdbcType="DATE"/>
         <result column="start" property="start" jdbcType="VARCHAR"/>
         <result column="end" property="end" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="VARCHAR"/>
@@ -17,26 +17,11 @@
         select <include refid="COLUMNS_BASE"/>
         from schedule
         <where>
-            <if test="null != id">
-            and id = #{id: INTEGER}
-            </if>
             <if test="null != teacherId">
             and teacher_id = #{teacherId: INTEGER}
             </if>
             <if test="null != scheduleDate">
-            and schedule_date = #{scheduleDate: TIMESTAMP}
-            </if>
-            <if test="null != start and '' != start">
-            and start = #{start: VARCHAR}
-            </if>
-            <if test="null != end and '' != end">
-            and end = #{end: VARCHAR}
-            </if>
-            <if test="null != status and '' != status">
-            and status = #{status: VARCHAR}
-            </if>
-            <if test="null != createTime">
-            and create_time = #{createTime: TIMESTAMP}
+            and schedule_date = #{scheduleDate: DATE}
             </if>
         </where>
     </select>
@@ -69,7 +54,7 @@
                 #{teacherId: INTEGER},
             </if>
             <if test="null != scheduleDate">
-                #{scheduleDate: TIMESTAMP},
+                #{scheduleDate: DATE},
             </if>
             <if test="null != start and '' != start">
                 #{start: VARCHAR},
@@ -94,7 +79,7 @@
             teacher_id = #{teacherId: INTEGER},
         </if>
         <if test="null != scheduleDate">
-            schedule_date = #{scheduleDate: TIMESTAMP},
+            schedule_date = #{scheduleDate: DATE},
         </if>
         <if test="null != start and '' != start">
             start = #{start: VARCHAR},
