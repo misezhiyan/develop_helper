@@ -1,6 +1,3 @@
-
-
-
 menuList:[{
-    url:'menuIndex',
+    url: 'menuIndex',
 }]

@@ -29,7 +29,7 @@ export function teacherList(data) {
 }
 
 export function saveSchedule(data) {
-    return  daydayupInstanceApi({
+    return daydayupInstanceApi({
         url: "/schedule/add",
         data: data
     })
@@ -45,6 +45,27 @@ export function scheduleList(data) {
 export function delSchedule(data) {
     return daydayupInstanceApi({
         url: "/schedule/del",
+        data: data
+    })
+}
+
+export function scheduleInfoList(data) {
+    return daydayupInstanceApi({
+        url: "/schedule/infoList",
+        data: data
+    })
+}
+
+export function scheduleOccupyList(data) {
+    return daydayupInstanceApi({
+        url: "/schedule/occupyList",
+        data: data
+    })
+}
+
+export function scheduleOccupy(data) {
+    return daydayupInstanceApi({
+        url: "/schedule/occupy",
         data: data
     })
 }

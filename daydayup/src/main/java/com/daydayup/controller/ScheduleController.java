@@ -1,12 +1,8 @@
 package com.daydayup.controller;
 
 import com.daydayup.service.ScheduleService;
-import com.daydayup.vo.request.ScheduleAddRequest;
-import com.daydayup.vo.response.ScheduleAddResponse;
-import com.daydayup.vo.request.ScheduleListRequest;
-import com.daydayup.vo.response.ScheduleListResponse;
-import com.daydayup.vo.request.ScheduleDelRequest;
-import com.daydayup.vo.response.ScheduleDelResponse;
+import com.daydayup.vo.request.*;
+import com.daydayup.vo.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,5 +37,24 @@ public class ScheduleController {
 
         return scheduleService.del(request);
     }
+
+    @RequestMapping("/infoList")
+    public ScheduleInfoListResponse infoList(@RequestBody ScheduleInfoListRequest request) {
+
+        return scheduleService.infoList(request);
+    }
+
+    @RequestMapping("/occupyList")
+    public ScheduleOccupyListResponse occupyList(@RequestBody ScheduleOccupyListRequest request) {
+
+        return scheduleService.occupyList(request);
+    }
+
+    @RequestMapping("/occupy")
+    public ScheduleOccupyResponse occupy(@RequestBody ScheduleOccupyRequest request) {
+
+        return scheduleService.occupy(request);
+    }
+
 
 }

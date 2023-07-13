@@ -31,7 +31,7 @@
     </el-dialog>
 
     <el-dialog v-model="sceduleFormModel" v-on:close="clearSceduleForm" :title="sceduleForm.scheduleDate + '课程表单'" width="60%" align-center append-to-body>
-      <DaydayupTimePeriodchooser :time-period-list="sceduleList" :start="sceduleForm.start" :end="sceduleForm.end" :father-add="addScedule" :period-del="delScedule"/>
+      <DaydayupTimePeriodchooser :time-period-list="sceduleList" :loading="scheduleLoading" :start="sceduleForm.start" :end="sceduleForm.end" :father-add="addScedule" :period-del="delScedule"/>
     </el-dialog>
   </div>
 
@@ -71,6 +71,7 @@ export default {
       },
       sceduleFormModel: false,
       sceduleList: [],
+      scheduleLoading: false,
     }
   },
   methods: {
@@ -114,13 +115,14 @@ export default {
       this.sceduleForm.scheduleDate = ''
     },
     chooseDate: function (year, month, date) {
-      this.sceduleForm.scheduleDate =  year + month + date
+      this.sceduleForm.scheduleDate = year + month + date
       this.sceduleFormModel = true
       this.getScheduleList();
     },
     clearSceduleForm: function () {
       this.sceduleForm.start = ''
       this.sceduleForm.end = ''
+      this.sceduleList = []
     },
     addScedule: function (sceduleForm) {
       this.sceduleForm.start = sceduleForm.start
@@ -138,11 +140,14 @@ export default {
       });
     },
     getScheduleList: function () {
+      this.scheduleLoading = true
       this.daydayupInstanceApi.scheduleList(this.sceduleForm).then((response) => {
         if (response.resCode == '0000') {
           this.sceduleList = response.list;
+          this.scheduleLoading = false
         } else {
           this.$message.error(response.resMsg);
+          this.scheduleLoading = false
         }
       });
     },

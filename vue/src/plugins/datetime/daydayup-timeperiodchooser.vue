@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading">
     时间段选择插件
     <el-table :data="timePeriodList" :row-class-name="matchRowClass">
       <!--    <el-table :data="timePeriodList" >-->
@@ -58,6 +58,10 @@ export default {
     timePeriodList: {
       type: Array,
       default: []
+    },
+    loading: {
+      type: Boolean,
+      default: false
     },
     norepeat: {
       type: Boolean,

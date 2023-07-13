@@ -69,11 +69,15 @@ const routes = [{
         name: '师资信息',
         path: 'teacher',
         component: () => import('@/components/daydayup/teacher/index')
+    }, {
+        name: '客户',
+        path: 'schedule',
+        component: () => import('@/components/daydayup/schedule/index')
     }]
 }, {
     name: '404',
     path: '/',
-    redirect: '/daydayup/teacher',
+    redirect: '/daydayup/student',
 }]
 
 export default routes

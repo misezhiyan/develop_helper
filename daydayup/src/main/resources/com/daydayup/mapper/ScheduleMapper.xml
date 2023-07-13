@@ -107,4 +107,63 @@
         where id = #{id: INTEGER}
     </delete>
 
+    <resultMap id="ReusltMap_info" type="com.daydayup.vo.response.ScheduleInfo" extends="RESULTMAP_BASE">
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="infoList" resultMap="ReusltMap_info">
+        SELECT
+            s.id ,
+            s.teacher_id ,
+            s.schedule_date ,
+            s.`start` ,
+            s.`end` ,
+            t.name
+        FROM
+            schedule s
+                LEFT JOIN teacher t ON
+                s.teacher_id = t.id
+        ORDER BY
+            s.create_time DESC
+    </select>
+
+    <resultMap id="ReusltMap_Occupy" type="com.daydayup.vo.response.ScheduleOccupy" extends="ReusltMap_info">
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="occupyList" resultMap="ReusltMap_Occupy">
+        SELECT
+            name, id, teacher_id, schedule_date, `start`, `end`, create_time, (CASE WHEN couself = 1 THEN 1 WHEN cou != 0 THEN 2 ELSE 0 END) status
+        FROM
+            (
+                SELECT
+                    t.name ,
+                    s.id ,
+                    s.teacher_id ,
+                    s.schedule_date ,
+                    s.`start` ,
+                    s.`end` ,
+                    s.create_time,
+                    (
+                        SELECT
+                            count(*)
+                        FROM
+                            schedule_order so
+                        WHERE
+                            so.schedule_id = s.id) cou,
+                    (
+                        SELECT
+                            count(*)
+                        FROM
+                            schedule_order so
+                        WHERE
+                            so.schedule_id = s.id
+                          AND so.student_id = #{studentId: INTEGER}) couself
+                FROM
+                    schedule s
+                        LEFT JOIN teacher t ON
+                        s.teacher_id = t.id
+            ) tmp
+        ORDER BY
+            tmp.create_time DESC
+    </select>
+
 </mapper>
