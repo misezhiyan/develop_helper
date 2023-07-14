@@ -27,7 +27,7 @@ public class TableTransferServiceImpl implements TableTransferService {
 
         File sqlPackage = new File("helper/src/main/java/lowcode/service/impl/tabletransfer/createsql");
         if (sqlPackage.list().length > 0) {
-            Arrays.stream(sqlPackage.listFiles()).forEach(subFile -> subFile.delete());
+            // Arrays.stream(sqlPackage.listFiles()).forEach(subFile -> subFile.delete());
         }
 
         String tableTransferSqlCommand = "mysqldump --add-drop-table --compact --extended-insert=false --default-character-set=utf8 -u" + username + " -p" + password + " " + schema + ">" + PathUtil.matchLinePath(sqlPackage.getAbsolutePath()) + "/" + schema + ".sql";
