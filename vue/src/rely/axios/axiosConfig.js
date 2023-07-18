@@ -3,9 +3,9 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/json'
 const develophelperInstance = axios.create({
     // baseURL: process.env.VUE_APP_BASE_API, // 请求前置
-    // baseURL: 'http://192.168.3.248:8072', // 正式
+    baseURL: 'http://localhost:8071', // 正式
     // baseURL: 'https://192.168.3.248:8072', // 正式
-    baseURL: '/webapi/', // 请求前置
+    // baseURL: '/webapi/', // 请求前置
     // timeout: 60000, // 超时
     // headers: {
     //     // 'Content-type': 'application/json'
@@ -100,8 +100,9 @@ export function picrecognizeApi({url, data = {}, method = 'post', headers = {}})
 
 // 天天向上
 const daydayupInstance = axios.create({
+    baseURL: 'http://localhost:8088', // 正式
     // baseURL: 'https://192.168.3.248:8072', // 正式
-    baseURL: '/daydayupapi/', // 请求前置
+    // baseURL: '/daydayupapi/', // 请求前置
     // timeout: 60000, // 超时
     headers: {
         // 'Content-type': 'application/json'
