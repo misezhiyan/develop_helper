@@ -13,7 +13,8 @@ public class PdfToOffice {
 
     public static void main(String[] args) {
         // pdf2ppt("C:\\Users\\kimmy\\Desktop\\pdf转换\\拼钢网系统架构方案2022.7.25.pdf");
-        pdf2image("C:\\Users\\kimmy\\Desktop\\pdf\\海康p1.86.pdf");
+        // pdf2image("C:\\Users\\kimmy\\Desktop\\pdf\\海康p1.86.pdf");
+        pdf2word("C:\\Users\\kimmy\\Desktop\\邮件\\李玉清简历.pdf");
     }
 
     // 转word
