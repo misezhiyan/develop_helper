@@ -2,11 +2,20 @@ server:
   port: 8999
 
 spring:
+  application:
+    name: kimmy-gateway
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
       discovery:
         locator:
           enabled: true
@@ -15,3 +24,7 @@ spring:
           uri: http://localhost:8088/daydayup
           predicates:
             - Path=/daydayup/**
+        - id: web
+          uri: http://localhost:8071/web
+          predicates:
+            - Path=/web/**
