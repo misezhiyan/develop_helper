@@ -8,7 +8,7 @@ module.exports = defineConfig({
     devServer: {
         // host: 'localhost',
         // https: false,
-        port: 8070,
+        port: 8072,
         open: true,
         proxy: {
             '/webapi': {

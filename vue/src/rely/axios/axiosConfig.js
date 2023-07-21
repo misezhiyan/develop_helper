@@ -3,7 +3,7 @@ import axios from "axios";
 // web
 const develophelperInstance = axios.create({
     // baseURL: process.env.VUE_APP_BASE_API, // 请求前置
-    baseURL: 'http://localhost:8071', // 正式
+    baseURL: 'http://localhost:8072/gateway/web', // 正式
     // baseURL: 'https://192.168.3.248:8072', // 正式
     // baseURL: '/webapi/', // 请求前置
     withCredentials: true// 异步请求携带cookie
@@ -46,16 +46,16 @@ export function develophelperApi({url, data = {}, method = 'post', headers = {'A
 
 // 天天向上
 const daydayupInstance = axios.create({
-    baseURL: 'http://localhost:8088', // 正式
+    baseURL: 'http://localhost:8072/gateway/daydayup', // 正式
     // baseURL: 'https://192.168.3.248:8072', // 正式
     // baseURL: '/daydayupapi/', // 请求前置
     // timeout: 60000, // 超时
-    headers: {
-        // 'Content-type': 'application/json'
-        // 'token': 'testToken',
-        // 'X-Requested-With': 'XMLHttpRequest'
-        'Access-Control-Allow-Origin': '*'
-    },
+    // headers: {
+    //     'Content-type': 'application/json',
+    //     // 'token': 'testToken',
+    //     // 'X-Requested-With': 'XMLHttpRequest'
+    //     'Access-Control-Allow-Origin': '*'
+    // },
     withCredentials: true// 异步请求携带cookie
 })
 
@@ -70,7 +70,7 @@ daydayupInstance.interceptors.request.use(
 )
 
 // 天天向上Api
-export function daydayupInstanceApi({url, data = {}, method = 'post', headers = {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/x-www-form-urlencoded'}}) {
+export function daydayupInstanceApi({url, data = {}, method = 'post', headers = {'Access-Control-Allow-Origin': '*'}}) {
     return new Promise((resolve, reject) => {
         daydayupInstance.request({method, data, headers, url}).then((response) => {
             resolve(response.data);
