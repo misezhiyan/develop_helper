@@ -8,6 +8,7 @@ import com.daydayup.vo.response.StudentListResponse;
 import com.daydayup.vo.request.StudentDelRequest;
 import com.daydayup.vo.response.StudentDelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author kimmy
  * @date ${date}
  */
+@CrossOrigin
 @RequestMapping("/student")
 @RestController
 public class StudentController {

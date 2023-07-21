@@ -1,4 +1,4 @@
-package com.kimmy.learn.web.conf;
+package com.daydayup.conf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +23,10 @@ public class GlobalCorsConf {
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addExposedHeader("*");
+
         UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
         corsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+
         return new CorsFilter(corsConfigurationSource);
     }
 
