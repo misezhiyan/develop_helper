@@ -1,5 +1,5 @@
 server:
-  port: 8999
+  port: 36501
 
 spring:
   application:
@@ -21,10 +21,10 @@ spring:
           enabled: true
       routes:
         - id: daydayup
-          uri: http://localhost:8088/daydayup
+          uri: http://localhost:36503/daydayup
           predicates:
             - Path=/daydayup/**
         - id: web
-          uri: http://localhost:8071/web
+          uri: http://localhost:36502/web
           predicates:
             - Path=/web/**

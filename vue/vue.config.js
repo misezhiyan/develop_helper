@@ -12,17 +12,17 @@ module.exports = defineConfig({
         open: true,
         proxy: {
             '/webapi': {
-                target: 'http://localhost:8071',
+                target: 'http://localhost:36500/gateway/web',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/webapi': ''
                 }
             },
             '/daydayupapi': {
-                target: 'http://localhost:8088',
+                target: 'http://localhost:36500/gateway/daydayup',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/daydayupapi': 'daydayup'
+                    '^/daydayupapi': ''
                 }
             },
             '/apipicrecognize': {

@@ -38,9 +38,6 @@ public class LowCode {
 
         List<String> tableNameList = new ArrayList<>();
         // tableNameList.add("teacher");
-        // tableNameList.add("student");
-        // tableNameList.add("schedule");
-        tableNameList.add("schedule_order");
 
         // tableNameList.add("pic_recognize_feature_char");
 
