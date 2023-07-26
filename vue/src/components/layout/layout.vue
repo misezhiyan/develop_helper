@@ -63,7 +63,7 @@ export default {
       console.log(1)
     },
     hideAside() {
-      this.asideLength = '10px'
+      this.asideLength = '50px'
     },
     showAside() {
       this.asideLength = '300px'

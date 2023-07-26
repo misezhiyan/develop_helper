@@ -1,8 +1,11 @@
 <template>
-  <el-menu style="background-color: #4cd213" router  v-for="menuDetail in menuList" :key="menuDetail.id">
+  <el-menu style="background-color: #4cd213" router v-for="menuDetail in menuList" :key="menuDetail.id">
     <!--    <template v-for="menuDetail in menuList" :key="menuDetail.id" >-->
     <el-menu-item :index="menuDetail.path" v-if="menuDetail.children.length < 1">
-      <span> {{ menuDetail.menuName }} </span>
+      <span>
+        <el-icon :size="20" color="#409EFC"><Edit/></el-icon>
+      </span>
+      {{ menuDetail.menuName }}
     </el-menu-item>
 
     <!--      <sub-menu :subMenuList="menuDetail.children" v-if="menuDetail.children.length > 0"/>-->
