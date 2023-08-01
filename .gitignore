@@ -3,3 +3,27 @@
 */target/
 /vue/node_modules
 /vue/dist
+
+/daydayup-pc/logs
+/daydayup-pc/*.log
+/daydayup-pc/npm-debug.log*
+/daydayup-pc/yarn-debug.log*
+/daydayup-pc/yarn-error.log*
+/daydayup-pc/pnpm-debug.log*
+/daydayup-pc/lerna-debug.log*
+
+/daydayup-pc/node_modules
+/daydayup-pc/dist
+/daydayup-pc/dist-ssr
+/daydayup-pc/*.local
+
+# Editor directories and files
+/daydayup-pc/.vscode/*
+/daydayup-pc/!.vscode/extensions.json
+.idea
+/daydayup-pc/.DS_Store
+/daydayup-pc/*.suo
+/daydayup-pc/*.ntvs*
+/daydayup-pc/*.njsproj
+/daydayup-pc/*.sln
+/daydayup-pc/*.sw?

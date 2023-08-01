@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: kimmy-gateway
+    name: gateway
   cloud:
     nacos:
       discovery:
