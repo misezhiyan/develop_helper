@@ -39,10 +39,10 @@ public class TableStructImpl implements TableStruct {
     @Override
     public void projCreate(Table table) throws Exception {
 
-        EntityCreateManager.createFile(table);
-        MapperCreateManager.createFile(table);
-        MapperXmlCreateManager.createFile(table);
-        // ServiceCreateManager.createFile(table);
-        // ControllerCreateManager.createFile(table);
+        // EntityCreateManager.createFile(table);
+        // MapperCreateManager.createFile(table);
+        // MapperXmlCreateManager.createFile(table);
+        ServiceCreateManager.createFile(table);
+        ControllerCreateManager.createFile(table);
     }
 }

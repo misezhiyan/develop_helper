@@ -1,5 +1,7 @@
 package lowcode.entity.table;
 
+import lowcode.CreateConfig;
+import org.apache.commons.lang3.StringUtils;
 import util.StringUtil;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class Table {
 
     public String getParamName() {
 
-        String className = TABLE_NAME;
+        String className = getClassName();
         while (className.indexOf("_") > 0) {
             int index = className.indexOf("_");
             className = className.substring(0, index) + StringUtil.headUppercase(className.substring(index + 1));
@@ -69,6 +71,12 @@ public class Table {
     public String getClassName() {
 
         String className = TABLE_NAME;
+        if (!StringUtils.isEmpty(CreateConfig.getTablePrefix())) {
+            if (TABLE_NAME.startsWith(CreateConfig.getTablePrefix())) {
+                className = TABLE_NAME.substring(CreateConfig.getTablePrefix().length());
+            }
+        }
+
         while (className.indexOf("_") > 0) {
             int index = className.indexOf("_");
             className = className.substring(0, index) + StringUtil.headUppercase(className.substring(index + 1));

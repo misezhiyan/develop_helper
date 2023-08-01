@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daydayup.mapper.UserMapper">
+
+    <resultMap id="RESULTMAP_BASE" type="com.daydayup.entity.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="wrong_times" property="wrongTimes" jdbcType="INTEGER"/>
+        <result column="wrong_date" property="wrongDate" jdbcType="DATE"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="COLUMNS_BASE">user_id,account,password,wrong_times,wrong_date,status,create_time</sql>
+
+    <select id="list" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from dd_user
+        <where>
+            <if test="null != userId">
+            and user_id = #{userId: INTEGER}
+            </if>
+            <if test="null != account and '' != account">
+            and account = #{account: VARCHAR}
+            </if>
+            <if test="null != password and '' != password">
+            and password = #{password: VARCHAR}
+            </if>
+            <if test="null != wrongTimes">
+            and wrong_times = #{wrongTimes: INTEGER}
+            </if>
+            <if test="null != wrongDate">
+            and wrong_date = #{wrongDate: DATE}
+            </if>
+            <if test="null != status and '' != status">
+            and status = #{status: VARCHAR}
+            </if>
+            <if test="null != createTime">
+            and create_time = #{createTime: TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
+        insert into dd_user (
+        <trim suffixOverrides=",">
+            <if test="null != account and '' != account">
+                account,
+            </if>
+            <if test="null != password and '' != password">
+                password,
+            </if>
+            <if test="null != wrongTimes">
+                wrong_times,
+            </if>
+            <if test="null != wrongDate">
+                wrong_date,
+            </if>
+            <if test="null != status and '' != status">
+                status,
+            </if>
+            <if test="null != createTime">
+                create_time
+            </if>
+        </trim>
+        )values (
+        <trim suffixOverrides=",">
+            <if test="null != account and '' != account">
+                #{account: VARCHAR},
+            </if>
+            <if test="null != password and '' != password">
+                #{password: VARCHAR},
+            </if>
+            <if test="null != wrongTimes">
+                #{wrongTimes: INTEGER},
+            </if>
+            <if test="null != wrongDate">
+                #{wrongDate: DATE},
+            </if>
+            <if test="null != status and '' != status">
+                #{status: VARCHAR},
+            </if>
+            <if test="null != createTime">
+                #{createTime: TIMESTAMP}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateByUserId">
+        update dd_user
+        set
+        <if test="null != account and '' != account">
+            account = #{account: VARCHAR},
+        </if>
+        <if test="null != password and '' != password">
+            password = #{password: VARCHAR},
+        </if>
+        <if test="null != wrongTimes">
+            wrong_times = #{wrongTimes: INTEGER},
+        </if>
+        <if test="null != wrongDate">
+            wrong_date = #{wrongDate: DATE},
+        </if>
+        <if test="null != status and '' != status">
+            status = #{status: VARCHAR},
+        </if>
+        <if test="null != createTime">
+            create_time = #{createTime: TIMESTAMP},
+        </if>
+        where user_id = #{userId: INTEGER}
+    </update>
+
+    <select id="selectByUserId" resultMap="RESULTMAP_BASE">
+        select <include refid="COLUMNS_BASE"/>
+        from dd_user
+        where user_id = #{userId: INTEGER}
+    </select>
+
+    <delete id="delByUserId">
+        delete from dd_user
+        where user_id = #{userId: INTEGER}
+    </delete>
+
+</mapper>

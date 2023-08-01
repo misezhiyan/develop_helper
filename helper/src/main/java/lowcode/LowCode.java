@@ -37,7 +37,20 @@ public class LowCode {
         }
 
         List<String> tableNameList = new ArrayList<>();
-        // tableNameList.add("teacher");
+        tableNameList.add("dd_user");
+        // tableNameList.add("dd_charge_log");
+        // tableNameList.add("dd_course");
+        // tableNameList.add("dd_course_schedule");
+        // tableNameList.add("dd_course_type");
+        // tableNameList.add("dd_student");
+        // tableNameList.add("dd_teacher");
+        // tableNameList.add("dd_teacher_ability");
+        // tableNameList.add("dd_dict_type");
+        // tableNameList.add("dd_dict_data");
+
+
+
+
 
         // tableNameList.add("pic_recognize_feature_char");
 

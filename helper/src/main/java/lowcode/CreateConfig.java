@@ -10,6 +10,7 @@ import util.PathUtil;
 public class CreateConfig {
 
     private static final String author = "kimmy";
+    private static final String tablePrefix = "dd_";
 
     // private static final  String projBaseDir = "D:\\workspaces\\workspace_spring\\develop_helper\\helper";
     private static final String projBaseDir = "D:\\workspaces\\workspace_spring\\develop_helper\\daydayup";
@@ -123,5 +124,9 @@ public class CreateConfig {
 
     public static String getResponseFullDir() {
         return responseFullDir;
+    }
+
+    public static String getTablePrefix() {
+        return tablePrefix;
     }
 }

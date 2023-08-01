@@ -5,25 +5,25 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 /**
-* @discription 排课表
+* @discription 用户信息表
 * @author kimmy
 * @date ${date}
 */
 @Component
 @Data
-public class ScheduleAddResponse extends BaseResponse {
+public class UserDelResponse extends BaseResponse {
 
-    public static ScheduleAddResponse success() {
-        ScheduleAddResponse response = response(ResMsg.SUCCESS);
+    public static UserDelResponse success() {
+        UserDelResponse response = response(ResMsg.SUCCESS);
         return response;
     }
 
-    public static ScheduleAddResponse fail() {
+    public static UserDelResponse fail() {
         return response(ResMsg.FAIL);
     }
 
-    public static ScheduleAddResponse response(ResMsg resMsg) {
-        ScheduleAddResponse response = new ScheduleAddResponse();
+    public static UserDelResponse response(ResMsg resMsg) {
+        UserDelResponse response = new UserDelResponse();
         response.setResCode(resMsg.getCode());
         response.setResMsg(resMsg.getMessage());
         return response;
